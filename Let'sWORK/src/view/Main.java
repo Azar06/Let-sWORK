@@ -1,7 +1,6 @@
 package view;
 
 import controller.*;
-import UI.LoginView;
 
 public class Main {
 
