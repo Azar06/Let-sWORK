@@ -83,8 +83,8 @@ public class LoginView extends JFrame implements ActionListener {
 
 		JButton btnEnter = new JButton("Enter");
 		sl_container.putConstraint(SpringLayout.NORTH, btnEnter, 37, SpringLayout.SOUTH, passwordField);
-		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 360, SpringLayout.WEST, container);
-		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -349, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, container);
+		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, container);
 		btnEnter.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEnter.addActionListener(this);
 		btnEnter.setActionCommand("enter");
