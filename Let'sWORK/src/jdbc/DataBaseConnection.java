@@ -1,22 +1,22 @@
-package controller;
+package jdbc;
 
 import java.sql.*;
 
-public class DataBaseController {
+public class DataBaseConnection {
 	
 	
 	
-	private static DataBaseController db = new DataBaseController();
+	private static DataBaseConnection db = new DataBaseConnection();
 	
-	public static DataBaseController getConnection() {
-		return DataBaseController.db;
+	public static DataBaseConnection getConnection() {
+		return DataBaseConnection.db;
 	}
 	
 	
 	
 	private Connection conn;
 	
-	private DataBaseController() {
+	private DataBaseConnection() {
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.out.println("Driver O.K.");
