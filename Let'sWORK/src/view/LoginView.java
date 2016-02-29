@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -24,6 +25,7 @@ public class LoginView extends JFrame implements ActionListener {
 	private int height = 600;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private UserFacade facade;
 
 	public LoginView(){
 		//Definit un titre pour notre fenetre
@@ -115,14 +117,28 @@ public class LoginView extends JFrame implements ActionListener {
 		String cmd = arg0.getActionCommand();
 		if(cmd.equals("enter"))
 		{
-			if((!getLoginText().equals("")) && (!getPasswdText().equals("")))
+			String id = getLoginText();
+			String pass = getPasswdText();
+			if((!id.equals("")) && (!pass.equals("")))
 			{
-				System.out.println("ok!");
+				if (login(id,pass)) {
+					String message = "Welcome "+ id+".";
+					JOptionPane.showMessageDialog(null, message, "Connection established", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					String message = "Invalid user name password combination.";
+					JOptionPane.showMessageDialog(null, message, "Invalid combination", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			else
 			{
-				System.out.println("not ok!");
+				String message = "All fields must be filled in.";
+				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
 		}		
+	}
+	
+	public boolean login(String id, String pass) {
+		return this.facade.login(id,pass);
 	}
 }
