@@ -4,9 +4,19 @@ import java.sql.*;
 
 public class DataBaseController {
 	
+	
+	
+	private static DataBaseController db = new DataBaseController();
+	
+	public static DataBaseController getConnection() {
+		return DataBaseController.db;
+	}
+	
+	
+	
 	private Connection conn;
 	
-	public DataBaseController() {
+	private DataBaseController() {
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.out.println("Driver O.K.");
@@ -17,6 +27,7 @@ public class DataBaseController {
 			System.out.println("Connexion effective !");
 		} catch (Exception e) {
 			this.conn = null;
+			System.out.println("Connexion failed !");
 		}     
 	}
 	
