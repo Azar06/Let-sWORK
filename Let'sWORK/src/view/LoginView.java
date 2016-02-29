@@ -18,6 +18,8 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import business.facade.UserFacade;
+
 public class LoginView extends JFrame implements ActionListener {
 
 	private JPanel container = new JPanel();
@@ -92,10 +94,6 @@ public class LoginView extends JFrame implements ActionListener {
 		btnEnter.setActionCommand("enter");
 		container.add(btnEnter);
 
-		JLabel label = new JLabel("");
-		sl_container.putConstraint(SpringLayout.NORTH, label, 66, SpringLayout.NORTH, container);
-		sl_container.putConstraint(SpringLayout.WEST, label, 80, SpringLayout.WEST, container);
-		container.add(label);
 		//On rend la fenetre visible    
 		this.setVisible(true);
 
