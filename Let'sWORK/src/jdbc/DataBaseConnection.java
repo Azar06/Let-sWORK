@@ -4,39 +4,24 @@ import java.sql.*;
 
 public class DataBaseConnection {
 	
-	
-	
-	private static DataBaseConnection db = new DataBaseConnection();
-	
-	public static DataBaseConnection getConnection() {
-		return DataBaseConnection.db;
+	public static Connection getConnection() {
+		return DataBaseConnection.connection;
 	}
 	
+	private static Connection connection;
 	
-	
-	private Connection conn;
-	
-	private DataBaseConnection() {
+	static {
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.out.println("Driver O.K.");
 			String url = "jdbc:postgresql://localhost:5432/LetsWorkDB";
 			String user = "LetsWorkAdmin";
 			String passwd = "LetsWorkPassword";
-			this.conn = DriverManager.getConnection(url, user, passwd);
+			DataBaseConnection.connection = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 		} catch (Exception e) {
-			this.conn = null;
+			DataBaseConnection.connection = null;
 			System.out.println("Connexion failed !");
 		}     
-	}
-	
-	public void close() {
-		try {
-			if(this.conn != null && !this.conn.isClosed()) {
-				this.conn.close();
-			}
-		} catch (SQLException e) {
-		}
 	}
 }
