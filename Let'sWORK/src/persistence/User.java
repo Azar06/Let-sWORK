@@ -2,34 +2,42 @@ package persistence;
 
 import java.util.*;
 
-public class User {
+public abstract class User {
 
-	private String id;
+	private String username;
 	private String password;
 	private List<UserRole> roles;
 	
-	public User(String id, String password) {
-		this.id=id;
-		this.password=password;
-		this.roles= new ArrayList<UserRole>();
+	// Abstract
+	public abstract void load(String username);
+	
+	// Constructor
+	public User(String username, String password, List<UserRole> roles) {
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
 	
-	public User(String id, String password, List<UserRole> rList) {
-		this.id=id;
-		this.password=password;
-		this.roles=rList;
+	public User(String username, String password) {
+		this(username, password, new ArrayList<UserRole>());
 	}
 	
-	public void setId(String id) {
-		this.id=id;
+	public User() {
+		this(null, null);
 	}
 	
-	public String getId() {
-		return this.id;
+	
+	// GETTER / SETTER
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getUsername() {
+		return this.username;
 	}
 	
 	public void setPassword(String pass) {
-		this.password=pass;
+		this.password = pass;
 	}
 	
 	public String getPassword() {
@@ -46,7 +54,7 @@ public class User {
 		}
 	}
 	
-	public void delRole(UserRole r) {
+	public void remRole(UserRole r) {
 		if (this.hasRole(r)) {
 			this.roles.remove(r);
 		}
