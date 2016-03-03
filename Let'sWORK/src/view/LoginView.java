@@ -30,6 +30,7 @@ public class LoginView extends JFrame implements ActionListener {
 	private UserFacade facade;
 
 	public LoginView(){
+		this.facade = new UserFacade();
 		//Definit un titre pour notre fenetre
 		this.setTitle("Login - Let's WORK!");
 		//Definit sa taille : 800 pixels de large et 600 pixels de haut
@@ -53,11 +54,10 @@ public class LoginView extends JFrame implements ActionListener {
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		container.add(lblWelcome);
 
-		JLabel lblLogin = new JLabel("Login");
+		JLabel lblLogin = new JLabel("Username");
 		sl_container.putConstraint(SpringLayout.SOUTH, lblWelcome, -50, SpringLayout.NORTH, lblLogin);
-		sl_container.putConstraint(SpringLayout.EAST, lblLogin, -367, SpringLayout.EAST, container);
-		sl_container.putConstraint(SpringLayout.NORTH, lblLogin, 184, SpringLayout.NORTH, container);
-		sl_container.putConstraint(SpringLayout.WEST, lblLogin, 367, SpringLayout.WEST, container);
+		sl_container.putConstraint(SpringLayout.WEST, lblLogin, 324, SpringLayout.WEST, container);
+		sl_container.putConstraint(SpringLayout.EAST, lblLogin, -43, SpringLayout.EAST, lblWelcome);
 		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		container.add(lblLogin);
@@ -70,7 +70,8 @@ public class LoginView extends JFrame implements ActionListener {
 		container.add(lblPassword);
 
 		textField = new JTextField();
-		sl_container.putConstraint(SpringLayout.NORTH, textField, 17, SpringLayout.SOUTH, lblLogin);
+		sl_container.putConstraint(SpringLayout.NORTH, textField, 226, SpringLayout.NORTH, container);
+		sl_container.putConstraint(SpringLayout.SOUTH, lblLogin, -17, SpringLayout.NORTH, textField);
 		sl_container.putConstraint(SpringLayout.WEST, textField, 296, SpringLayout.WEST, container);
 		sl_container.putConstraint(SpringLayout.EAST, textField, -297, SpringLayout.EAST, container);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -85,7 +86,7 @@ public class LoginView extends JFrame implements ActionListener {
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		container.add(passwordField);
 
-		JButton btnEnter = new JButton("Enter");
+		JButton btnEnter = new JButton("Login");
 		sl_container.putConstraint(SpringLayout.NORTH, btnEnter, 37, SpringLayout.SOUTH, passwordField);
 		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, container);
 		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, container);
