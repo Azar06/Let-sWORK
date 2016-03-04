@@ -2,7 +2,7 @@ package business;
 
 import persistence.*;
 
-public abstract class Factory {
+public interface Factory {
 	
 	public abstract User getUserWithUsername(String id);
 }

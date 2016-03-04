@@ -5,7 +5,7 @@ import jdbc.persistence.UserJDBC;
 import persistence.LoadException;
 import persistence.User;
 
-public class FactoryJDBC extends Factory {
+public class FactoryJDBC implements Factory {
 
 	@Override
 	public User getUserWithUsername(String username) {
