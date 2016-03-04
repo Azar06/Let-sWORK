@@ -9,7 +9,7 @@ public abstract class User {
 	private List<UserRole> roles;
 	
 	// Abstract
-	public abstract void load(String username);
+	public abstract void load(String username) throws LoadException;
 	
 	// Constructor
 	public User(String username, String password, List<UserRole> roles) {

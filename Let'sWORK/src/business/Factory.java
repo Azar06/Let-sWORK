@@ -2,11 +2,7 @@ package business;
 
 import persistence.*;
 
-public class Factory {
-
-	public Factory() {
-	}
+public abstract class Factory {
 	
-	public User getUserWithUsername(String id) {	
-	}
+	public abstract User getUserWithUsername(String id);
 }

@@ -1,6 +1,7 @@
 package business.manager;
 
 import business.Factory;
+import jdbc.FactoryJDBC;
 import persistence.User;
 
 public class UserManager {
