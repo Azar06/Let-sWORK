@@ -29,9 +29,10 @@ public class UserJDBC extends User {
 			if(result.next()) {
 				this.setUsername(result.getString("username"));
 				this.setPassword(result.getString("password"));
+			} else {
+				throw new LoadException("Can't load User with the username : " + username);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new LoadException("Can't load User with the username : " + username);
 		}
 		
