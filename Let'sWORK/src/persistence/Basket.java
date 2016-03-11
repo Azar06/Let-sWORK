@@ -2,7 +2,7 @@ package persistence;
 
 import java.util.*;
 
-public class Basket {
+public abstract class Basket {
 	private List<BasketLine> lines;
 	
 	public Basket() {

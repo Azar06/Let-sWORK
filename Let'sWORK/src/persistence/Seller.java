@@ -1,6 +1,6 @@
 package persistence;
 
-public class Seller extends Person{
+public abstract class Seller extends Person {
 	private String siret;
 	private String url;
 	

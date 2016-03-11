@@ -1,5 +1,5 @@
 package persistence;
 
-public class Offer {
+public abstract class Offer {
 
 }

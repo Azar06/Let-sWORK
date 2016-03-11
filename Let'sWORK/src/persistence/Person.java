@@ -1,6 +1,6 @@
 package persistence;
 
-public class Person extends UserRole{
+public abstract class Person extends UserRole{
 	private String lastName;
 	private String fistName;
 	private String street;

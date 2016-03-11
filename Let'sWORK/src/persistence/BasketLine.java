@@ -1,6 +1,6 @@
 package persistence;
 
-public class BasketLine {
+public abstract class BasketLine {
 	private int amount;
 	private Offer basketOffer;
 	

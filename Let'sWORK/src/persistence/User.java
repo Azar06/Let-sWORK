@@ -23,9 +23,8 @@ public abstract class User {
 	}
 	
 	public User() {
-		this(null, null);
+		this(null, null, null);
 	}
-	
 	
 	// GETTER / SETTER
 	public void setUsername(String username) {
@@ -54,7 +53,7 @@ public abstract class User {
 		}
 	}
 	
-	public void remRole(UserRole r) {
+	public void removeRole(UserRole r) {
 		if (this.hasRole(r)) {
 			this.roles.remove(r);
 		}

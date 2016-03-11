@@ -1,5 +1,5 @@
 package persistence;
 
-public class UserRole {
+public abstract class UserRole {
 
 }
