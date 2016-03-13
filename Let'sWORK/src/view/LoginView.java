@@ -30,6 +30,7 @@ public class LoginView extends JFrame implements ActionListener {
 	private UserFacade facade;
 
 	public LoginView(){
+		//Création d'un UserFacade
 		this.facade = new UserFacade();
 		//Definit un titre pour notre fenetre
 		this.setTitle("Login - Let's WORK!");
@@ -100,11 +101,13 @@ public class LoginView extends JFrame implements ActionListener {
 
 	}
 
+	//Récupère le pseudo
 	public String getLoginText()
 	{
 		return this.textField.getText(); 
 	}
 
+	//Récupère le mot de passe
 	public String getPasswdText()
 	{
 		return new String( this.passwordField.getPassword() );
