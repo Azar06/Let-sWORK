@@ -20,4 +20,9 @@ public class FactoryJDBC implements Factory {
 		}
 		return user;
 	}
+	
+	@Override
+	public User createUser() {
+		return new UserJDBC();
+	}
 }
