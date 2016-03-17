@@ -20,11 +20,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import business.facade.UserFacade;
 
-public class LoginView extends JFrame implements ActionListener {
-
-	private JPanel container = new JPanel();
-	private int width = 800;
-	private int height = 600;
+public class LoginView extends AbstractView implements ActionListener {
+	
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private UserFacade facade;
@@ -32,73 +29,58 @@ public class LoginView extends JFrame implements ActionListener {
 	public LoginView(){
 		//Création d'un UserFacade
 		this.facade = new UserFacade();
-		//Definit un titre pour notre fenetre
-		this.setTitle("Login - Let's WORK!");
-		//Definit sa taille : 800 pixels de large et 600 pixels de haut
-		this.setSize(width, height);
-		//Nous demandons maintenant à notre objet de se positionner au centre
-		this.setLocationRelativeTo(null);
-		//Termine le processus lorsqu on clique sur la croix rouge
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-		//On previent notre JFrame que notre JPanel sera son content pane
-		this.setContentPane(container);  
+		
 		SpringLayout sl_container = new SpringLayout();
-		container.setLayout(sl_container);
+		this.setLayout(sl_container);
 
 		JLabel lblWelcome = new JLabel("Welcome!");
-		sl_container.putConstraint(SpringLayout.NORTH, lblWelcome, 93, SpringLayout.NORTH, container);
-		sl_container.putConstraint(SpringLayout.WEST, lblWelcome, 281, SpringLayout.WEST, container);
-		sl_container.putConstraint(SpringLayout.EAST, lblWelcome, -281, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.NORTH, lblWelcome, 93, SpringLayout.NORTH, this);
+		sl_container.putConstraint(SpringLayout.WEST, lblWelcome, 281, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, lblWelcome, -281, SpringLayout.EAST, this);
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		container.add(lblWelcome);
+		this.add(lblWelcome);
 
 		JLabel lblLogin = new JLabel("Username");
 		sl_container.putConstraint(SpringLayout.SOUTH, lblWelcome, -50, SpringLayout.NORTH, lblLogin);
-		sl_container.putConstraint(SpringLayout.WEST, lblLogin, 324, SpringLayout.WEST, container);
+		sl_container.putConstraint(SpringLayout.WEST, lblLogin, 324, SpringLayout.WEST, this);
 		sl_container.putConstraint(SpringLayout.EAST, lblLogin, -43, SpringLayout.EAST, lblWelcome);
 		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		container.add(lblLogin);
+		this.add(lblLogin);
 
 		JLabel lblPassword = new JLabel("Password");
-		sl_container.putConstraint(SpringLayout.WEST, lblPassword, 355, SpringLayout.WEST, container);
-		sl_container.putConstraint(SpringLayout.EAST, lblPassword, -343, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.WEST, lblPassword, 355, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, lblPassword, -343, SpringLayout.EAST, this);
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		container.add(lblPassword);
+		this.add(lblPassword);
 
 		textField = new JTextField();
-		sl_container.putConstraint(SpringLayout.NORTH, textField, 226, SpringLayout.NORTH, container);
+		sl_container.putConstraint(SpringLayout.NORTH, textField, 226, SpringLayout.NORTH, this);
 		sl_container.putConstraint(SpringLayout.SOUTH, lblLogin, -17, SpringLayout.NORTH, textField);
-		sl_container.putConstraint(SpringLayout.WEST, textField, 296, SpringLayout.WEST, container);
-		sl_container.putConstraint(SpringLayout.EAST, textField, -297, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.WEST, textField, 296, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, textField, -297, SpringLayout.EAST, this);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		container.add(textField);
+		this.add(textField);
 		textField.setColumns(10);
 
 		passwordField = new JPasswordField();
 		sl_container.putConstraint(SpringLayout.SOUTH, lblPassword, -17, SpringLayout.NORTH, passwordField);
-		sl_container.putConstraint(SpringLayout.NORTH, passwordField, 321, SpringLayout.NORTH, container);
+		sl_container.putConstraint(SpringLayout.NORTH, passwordField, 321, SpringLayout.NORTH, this);
 		sl_container.putConstraint(SpringLayout.WEST, passwordField, 0, SpringLayout.WEST, textField);
-		sl_container.putConstraint(SpringLayout.EAST, passwordField, -297, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.EAST, passwordField, -297, SpringLayout.EAST, this);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		container.add(passwordField);
+		this.add(passwordField);
 
 		JButton btnEnter = new JButton("Login");
 		sl_container.putConstraint(SpringLayout.NORTH, btnEnter, 37, SpringLayout.SOUTH, passwordField);
-		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, container);
-		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, container);
+		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, this);
 		btnEnter.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEnter.addActionListener(this);
 		btnEnter.setActionCommand("enter");
-		container.add(btnEnter);
-
-		//On rend la fenetre visible    
-		this.setVisible(true);
-
+		this.add(btnEnter);
 	}
 
 	//Récupère le pseudo
