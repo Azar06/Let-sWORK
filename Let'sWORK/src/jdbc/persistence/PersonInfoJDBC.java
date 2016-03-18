@@ -2,6 +2,7 @@ package jdbc.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
@@ -56,6 +57,36 @@ public class PersonInfoJDBC extends PersonInfo {
 			throw new SaveException("An error");
 		}
 	}
+	
+	@Override
+	public void load(long id) throws LoadException {
+		try {
+			Connection connection = DataBaseConnection.getConnection();
+			// Preparation for the query
+			PreparedStatement prepare = connection.prepareStatement("SELECT firstName, lastName, street, postalCode, city, phone, email FROM public.person WHERE id = ?;");
+			// Indication about the value of the username in the WHERE
+			prepare.setLong(1, id);
+			// Execution of the query
+			ResultSet result = prepare.executeQuery();
+			// we don't use a while here bcs we know username is unique
+			if (result.next()) {
+				// We get the username and the password and the database
+				this.setFistName(result.getString("firstName"));
+				this.setLastName(result.getString("lastName"));
+				this.setStreet(result.getString("street"));
+				this.setPostalCode(result.getString("postalCode"));
+				this.setCity(result.getString("city"));
+				this.setPhone(result.getString("phone"));
+				this.setEmail(result.getString("email"));
+			} else {
+				// If there is no result : Exception
+				throw new LoadException("Can't load Admin with the id : " + id);
+			}
+		}
+		catch (SQLException ex){
+			throw new LoadException("Can't load Admin with the id : " + id);
+		}
+	}
 
 	public UserJDBC getUser() {
 		return user;
@@ -63,5 +94,9 @@ public class PersonInfoJDBC extends PersonInfo {
 
 	public void setUser(UserJDBC user) {
 		this.user = user;
+	}
+	
+	public long getId() {
+		return this.getUser().getId();
 	}
 }

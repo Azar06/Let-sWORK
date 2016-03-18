@@ -29,6 +29,7 @@ public abstract class PersonInfo {
 	
 	// ABSTACT METHODS
 	public abstract void save() throws SaveException;
+	public abstract void load(long id) throws LoadException;
 
 	public String getLastName() {
 		return lastName;

@@ -24,7 +24,6 @@ public class UserJDBC extends User {
 		this.id = -1;
 	}
 
-	@Override
 	public void load(String username) throws LoadException {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
@@ -44,6 +43,40 @@ public class UserJDBC extends User {
 				// If there is no result : Exception
 				throw new LoadException("Can't load User with the username : " + username);
 			}
+
+			// load admin
+			AdminJDBC admin = new AdminJDBC();
+			try {
+				admin.load(this.getId());
+				this.addRole(admin);
+			} catch (LoadException e) {
+			}
+
+			// load person
+			PersonInfoJDBC personInfo = new PersonInfoJDBC();
+			try {
+				personInfo.load(this.getId());
+
+				// load customer
+				CustomerJDBC customer = new CustomerJDBC();
+				try {
+					customer.load(this.getId());
+					this.addRole(customer);
+					customer.setPersonInfo(personInfo);
+				} catch (LoadException e) {
+				}
+
+				// load seller
+				SellerJDBC seller = new SellerJDBC();
+				try {
+					seller.load(this.getId());
+					this.addRole(seller);
+					seller.setPersonInfo(personInfo);
+				} catch (LoadException e) {
+				}
+			} catch (LoadException e) {
+			}
+
 		} catch (SQLException e) {
 			throw new LoadException("Can't load User with the username : " + username);
 		}
@@ -69,26 +102,25 @@ public class UserJDBC extends User {
 				// If there is no result : Exception
 				throw new SaveException("An error");
 			}
-			
-			for(UserRole role : this.getRoles()) {
+
+			for (UserRole role : this.getRoles()) {
 				try {
 					role.save();
 				} catch (SaveException e) {
 					e.printStackTrace();
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof UserJDBC && this.id >= 0){
-			return this.id == ((UserJDBC)o).id;
-		}
-		else {
+		if (o instanceof UserJDBC && this.id >= 0) {
+			return this.id == ((UserJDBC) o).id;
+		} else {
 			return false;
 		}
 	}

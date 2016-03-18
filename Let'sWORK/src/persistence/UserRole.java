@@ -1,12 +1,11 @@
 package persistence;
 
-public abstract class UserRole {
+public abstract class UserRole implements Savable {
 	
 	private User user;
-	
-	// Abstract
-	public abstract void save() throws SaveException;
 
+	public abstract void load(long id) throws LoadException;
+	
 	public User getUser() {
 		return user;
 	}

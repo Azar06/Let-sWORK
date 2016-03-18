@@ -1,5 +1,5 @@
 package persistence;
 
-public abstract class Admin extends UserRole{
-
+public abstract class Admin extends UserRole {
+	
 }

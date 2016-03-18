@@ -6,48 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
-import persistence.Customer;
+import persistence.Admin;
 import persistence.LoadException;
-import persistence.PersonInfo;
 import persistence.SaveException;
-import persistence.UserRole;
 
-public class CustomerJDBC extends Customer {
+public class AdminJDBC extends Admin {
 
 	private long id = -1;
-	
-	public CustomerJDBC(PersonInfo personInfo) {
-		super(personInfo);
-	}
-	
-	public CustomerJDBC() {
-		super(null);
-	}
 
 	@Override
 	public void save() throws SaveException {
-		this.getPersonInfo().save();
-		try {
-			Connection connection = DataBaseConnection.getConnection();
-			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement(
-					"INSERT INTO public.customer (id) VALUES(?);");
-			// Indication about the value of the username in the WHERE
-			prepare.setLong(1, ((UserJDBC)this.getUser()).getId());
-			// Execution of the query
-			prepare.execute();
-			
-		} catch (SQLException e) {
-			throw new SaveException("An error");
-		}
+		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
 	public void load(long id) throws LoadException {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.customer WHERE id = ?;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.admin WHERE id = ?;");
 			// Indication about the value of the username in the WHERE
 			prepare.setLong(1, id);
 			// Execution of the query
@@ -58,11 +35,11 @@ public class CustomerJDBC extends Customer {
 				this.setId(result.getLong("id"));
 			} else {
 				// If there is no result : Exception
-				throw new LoadException("Can't load Customer with the id : " + id);
+				throw new LoadException("Can't load Admin with the id : " + id);
 			}
 		}
 		catch (SQLException ex){
-			throw new LoadException("Can't load Customer with the id : " + id);
+			throw new LoadException("Can't load Admin with the id : " + id);
 		}
 	}
 

@@ -13,10 +13,23 @@ public class UserManager {
 		this.factorio = new FactoryJDBC();
 	}
 
-	public boolean login(String username, String pass) {
+	public User getUserWithUsername(String username) {
 		// We get the id of the user
-		User u = this.factorio.getUserWithUsername(username);
+		User u = this.factorio.createUser();
+		try {
+			// get the username
+			u.load(username);
+		} catch (LoadException e) {
+			u = null;
+		}
+		return u;
+	}
+
+	public boolean login(String username, String pass) {
 		boolean result = false;
+
+		User u = this.getUserWithUsername(username);
+
 		if (u != null) {
 			result = (u.getPassword().equals(pass));
 		}
@@ -25,8 +38,9 @@ public class UserManager {
 		return result;
 	}
 
-	public SignupReturnState signup(String firstName, String lastName, String street, String city, String phone,
-			String email, String username, String password, boolean isCustomer, boolean isSeller, String siret, String url){
+	public SignupReturnState signup(String firstName, String lastName, String street, String city, String postalCode, String phone,
+			String email, String username, String password, boolean isCustomer, boolean isSeller, String siret,
+			String url) {
 		SignupReturnState signupReturnState = new SignupReturnState();
 		//
 		if (firstName == null || firstName.length() == 0) {
@@ -45,6 +59,10 @@ public class UserManager {
 			signupReturnState.setCityState("You need to fill this field.");
 		}
 		//
+		if (postalCode == null || postalCode.length() == 0) {
+			signupReturnState.setPostalCodeState("You need to fill this field.");
+		}
+		//
 		if (phone == null || phone.length() == 0) {
 			signupReturnState.setPhoneNumberState("You need to fill this field.");
 		}
@@ -55,7 +73,7 @@ public class UserManager {
 		//
 		if (username == null || username.length() == 0) {
 			signupReturnState.setUsernameState("You need to fill this field.");
-		} else if (this.factorio.getUserWithUsername(username) != null) {
+		} else if (this.getUserWithUsername(username) != null) {
 			signupReturnState.setUsernameState("This username is already taken.");
 		}
 		//
@@ -88,9 +106,9 @@ public class UserManager {
 			person.setEmail(email);
 			person.setPhone(phone);
 			person.setCity(city);
-			//person.setPostalCode(postalCode);
+			person.setPostalCode(postalCode);
 			person.setStreet(street);
-			
+
 			if (isCustomer) {
 				Customer c = this.factorio.createCustomer();
 				c.setPersonInfo(person);
@@ -103,7 +121,7 @@ public class UserManager {
 				s.setPersonInfo(person);
 				user.addRole(s);
 			}
-			
+
 		}
 		return signupReturnState;
 	}

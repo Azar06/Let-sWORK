@@ -6,6 +6,7 @@ public class SignupReturnState {
 	private String lastNameState = null;
 	private String steetState = null;
 	private String cityState = null;
+	private String postalCode = null;
 	private String phoneNumberState = null;
 	private String emailState = null;
 	private String usernameState = null;
@@ -18,7 +19,7 @@ public class SignupReturnState {
 		return firstNameState == null && lastNameState == null && steetState == null 
 				&& cityState == null && phoneNumberState == null && emailState == null 
 				&& usernameState == null && passwordState == null && rolesState == null
-				&& siretState == null && urlState == null;
+				&& siretState == null && urlState == null && postalCode == null;
 	}
 	
 	// GETTER / SETTER
@@ -46,6 +47,13 @@ public class SignupReturnState {
 	public void setCityState(String cityState) {
 		this.cityState = cityState;
 	}
+	public String getPostalCodeState() {
+		return postalCode;
+	}
+	public void setPostalCodeState(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	
 	public String getPhoneNumberState() {
 		return phoneNumberState;
 	}

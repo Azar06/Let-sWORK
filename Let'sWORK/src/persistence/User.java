@@ -2,7 +2,7 @@ package persistence;
 
 import java.util.*;
 
-public abstract class User {
+public abstract class User implements Savable {
 
 	private String username;
 	private String password;
@@ -10,7 +10,6 @@ public abstract class User {
 	
 	// Abstract
 	public abstract void load(String username) throws LoadException;
-	public abstract void save() throws SaveException;
 	
 	// Constructor
 	public User(String username, String password, List<UserRole> roles) {
@@ -51,12 +50,16 @@ public abstract class User {
 	public void addRole(UserRole r) {
 		if (!(this.hasRole(r))) {
 			this.roles.add(r);
+			r.setUser(this);
 		}
 	}
 	
 	public void removeRole(UserRole r) {
 		if (this.hasRole(r)) {
 			this.roles.remove(r);
+			if(r.getUser() == this){
+				r.setUser(null);
+			}
 		}
 	}
 	
