@@ -11,11 +11,14 @@ public class SignupReturnState {
 	private String usernameState = null;
 	private String passwordState = null;
 	private String rolesState = null;
+	private String siretState = null;
+	private String urlState = null;
 	
 	public boolean isRight() {
 		return firstNameState == null && lastNameState == null && steetState == null 
 				&& cityState == null && phoneNumberState == null && emailState == null 
-				&& usernameState == null && passwordState == null && rolesState == null;
+				&& usernameState == null && passwordState == null && rolesState == null
+				&& siretState == null && urlState == null;
 	}
 	
 	// GETTER / SETTER
@@ -72,5 +75,17 @@ public class SignupReturnState {
 	}
 	public void setRolesState(String rolesState) {
 		this.rolesState = rolesState;
+	}
+	public String getSiretState() {
+		return siretState;
+	}
+	public void setSiretState(String siretState) {
+		this.siretState = siretState;
+	}
+	public String getUrlState() {
+		return urlState;
+	}
+	public void setUrlState(String urlState) {
+		this.urlState = urlState;
 	}
 }

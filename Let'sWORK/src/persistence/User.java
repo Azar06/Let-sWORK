@@ -10,6 +10,7 @@ public abstract class User {
 	
 	// Abstract
 	public abstract void load(String username) throws LoadException;
+	public abstract void save() throws SaveException;
 	
 	// Constructor
 	public User(String username, String password, List<UserRole> roles) {
