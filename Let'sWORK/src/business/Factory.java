@@ -9,4 +9,5 @@ public interface Factory {
 	public PersonInfo createPerson();
 	public Customer createCustomer();
 	public Seller createSeller();
+	public Category createCategory();
 }

@@ -26,4 +26,9 @@ public class FactoryJDBC implements Factory {
 	public Seller createSeller() {
 		return new SellerJDBC();
 	}
+	
+	@Override
+	public Category createCategory() {
+		return new CategoryJDBC();
+	}
 }
