@@ -28,11 +28,11 @@ public class CategoryView extends AbstractView implements ActionListener {
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
+		setLayout(new SpringLayout());
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 	}
-	
 }

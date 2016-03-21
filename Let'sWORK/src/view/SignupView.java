@@ -7,16 +7,17 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class SignupView extends AbstractView {
 	private JTextField firstnameField;
 	private JTextField LastnameField;
 	private JTextField emailField;
 	private JTextField idField;
-	private JTextField passwordField;
 	private JTextField phoneField;
 	private JTextField streetField;
 	private JTextField cityField;
+	private JPasswordField passwordField;
 	public SignupView() {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
@@ -78,20 +79,14 @@ public class SignupView extends AbstractView {
 		
 		JLabel lblPassword = new JLabel("Password");
 		springLayout.putConstraint(SpringLayout.NORTH, lblPassword, 0, SpringLayout.NORTH, lblId);
+		springLayout.putConstraint(SpringLayout.EAST, lblPassword, -159, SpringLayout.EAST, this);
 		add(lblPassword);
-		
-		passwordField = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, lblPassword, -6, SpringLayout.WEST, passwordField);
-		springLayout.putConstraint(SpringLayout.NORTH, passwordField, -3, SpringLayout.NORTH, lblId);
-		add(passwordField);
-		passwordField.setColumns(10);
 		
 		JLabel lblPhone = new JLabel("Phone");
 		springLayout.putConstraint(SpringLayout.NORTH, lblPhone, 3, SpringLayout.NORTH, firstnameField);
 		add(lblPhone);
 		
 		phoneField = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, passwordField, 0, SpringLayout.EAST, phoneField);
 		springLayout.putConstraint(SpringLayout.EAST, lblPhone, -6, SpringLayout.WEST, phoneField);
 		springLayout.putConstraint(SpringLayout.EAST, phoneField, -37, SpringLayout.EAST, this);
 		add(phoneField);
@@ -139,7 +134,6 @@ public class SignupView extends AbstractView {
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSignUp, 6, SpringLayout.SOUTH, cityField);
-		springLayout.putConstraint(SpringLayout.WEST, btnSignUp, 0, SpringLayout.WEST, passwordField);
 		add(btnSignUp);
 		
 		JCheckBox chckbxCustomer = new JCheckBox("Customer");
@@ -148,8 +142,15 @@ public class SignupView extends AbstractView {
 		add(chckbxCustomer);
 		
 		JCheckBox chckbxSeller = new JCheckBox("Seller");
+		springLayout.putConstraint(SpringLayout.WEST, btnSignUp, 50, SpringLayout.EAST, chckbxSeller);
 		springLayout.putConstraint(SpringLayout.NORTH, chckbxSeller, 6, SpringLayout.SOUTH, emailField);
 		springLayout.putConstraint(SpringLayout.WEST, chckbxSeller, 4, SpringLayout.EAST, chckbxCustomer);
 		add(chckbxSeller);
+		
+		passwordField = new JPasswordField();
+		springLayout.putConstraint(SpringLayout.NORTH, passwordField, -3, SpringLayout.NORTH, lblId);
+		springLayout.putConstraint(SpringLayout.WEST, passwordField, 6, SpringLayout.EAST, lblPassword);
+		springLayout.putConstraint(SpringLayout.EAST, passwordField, 0, SpringLayout.EAST, phoneField);
+		add(passwordField);
 	}
 }
