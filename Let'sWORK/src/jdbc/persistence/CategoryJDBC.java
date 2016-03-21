@@ -11,8 +11,8 @@ import persistence.LoadException;
 import persistence.PersonInfo;
 import persistence.SaveException;
 
-public class CategoryJDBC extends Category{
-
+public class CategoryJDBC extends Category {
+	
 	private long id = -1;
 	
 	public CategoryJDBC(String name, String description) {
@@ -45,8 +45,8 @@ public class CategoryJDBC extends Category{
 	
 	
 	
-
-	public void load(long id) throws LoadException {
+/*
+	public void load() throws LoadException {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
@@ -65,6 +65,7 @@ public class CategoryJDBC extends Category{
 			throw new LoadException("Can't load the categories");
 		}
 	}
+	*/
 
 	public long getId() {
 		return id;
