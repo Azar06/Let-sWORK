@@ -42,9 +42,9 @@ public class LoginView extends AbstractView implements ActionListener {
 		this.add(lblWelcome);
 
 		JLabel lblLogin = new JLabel("Username");
-		sl_container.putConstraint(SpringLayout.SOUTH, lblWelcome, -50, SpringLayout.NORTH, lblLogin);
 		sl_container.putConstraint(SpringLayout.WEST, lblLogin, 324, SpringLayout.WEST, this);
-		sl_container.putConstraint(SpringLayout.EAST, lblLogin, -43, SpringLayout.EAST, lblWelcome);
+		sl_container.putConstraint(SpringLayout.EAST, lblLogin, -324, SpringLayout.EAST, this);
+		sl_container.putConstraint(SpringLayout.SOUTH, lblWelcome, -50, SpringLayout.NORTH, lblLogin);
 		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(lblLogin);
