@@ -29,13 +29,26 @@ public class CategoryJDBC extends Category {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement(
-					"INSERT INTO public.category (name, description) VALUES(?, ?);");
-			// Indication about the value of the username in the WHERE
-			prepare.setString(1, this.getName());
-			prepare.setString(2, this.getDescription());
-			// Execution of the query
-			prepare.execute();
+			if (id==-1) {
+				PreparedStatement prepare = connection.prepareStatement(
+						"INSERT INTO public.category (id, name, description) VALUES(DEFAULT, ?, ?) RETURNING id;");
+				// Indication about the value of the username in the WHERE
+				prepare.setString(1, this.getName());
+				prepare.setString(2, this.getDescription());
+				// Execution of the query
+				prepare.execute();
+			} else {
+				PreparedStatement prepare = connection.prepareStatement(
+						"UPDATE public.category SET name=?,  description=? WHERE id=?;");
+				// Indication about the value of the username in the WHERE
+				prepare.setString(1, this.getName());
+				prepare.setString(2, this.getDescription());
+				prepare.setLong(3, this.getId());
+				
+				// Execution of the query
+				prepare.execute();
+			}
+			
 			
 		} catch (SQLException e) {
 			throw new SaveException("An error");
