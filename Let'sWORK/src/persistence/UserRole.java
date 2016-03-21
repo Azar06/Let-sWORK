@@ -1,5 +1,7 @@
 package persistence;
 
+import persistence.exception.LoadException;
+
 public abstract class UserRole implements Savable {
 	
 	private User user;

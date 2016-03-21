@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
 import persistence.Admin;
-import persistence.LoadException;
-import persistence.SaveException;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class AdminJDBC extends Admin {
 

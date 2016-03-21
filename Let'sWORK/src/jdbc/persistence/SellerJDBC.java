@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
-import persistence.LoadException;
 import persistence.PersonInfo;
-import persistence.SaveException;
 import persistence.Seller;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class SellerJDBC extends Seller {
 

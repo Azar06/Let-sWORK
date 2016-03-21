@@ -4,10 +4,11 @@ import java.sql.*;
 import java.util.*;
 
 import jdbc.DataBaseConnection;
-import persistence.LoadException;
-import persistence.SaveException;
+import persistence.Goal;
 import persistence.User;
 import persistence.UserRole;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class UserJDBC extends User {
 
@@ -82,6 +83,11 @@ public class UserJDBC extends User {
 		}
 	}
 
+	@Override
+	public void loadGoals() throws LoadException {
+		this.setGoals(GoalJDBC.loadGoals(this)); 
+	}
+	
 	@Override
 	public void save() throws SaveException {
 		try {

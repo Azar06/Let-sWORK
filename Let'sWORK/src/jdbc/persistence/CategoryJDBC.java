@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
 import persistence.Category;
-import persistence.LoadException;
 import persistence.PersonInfo;
-import persistence.SaveException;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class CategoryJDBC extends Category{
 
