@@ -31,4 +31,9 @@ public class FactoryJDBC implements Factory {
 	public Category createCategory() {
 		return new CategoryJDBC();
 	}
+
+	@Override
+	public Goal createGoal() {
+		return new GoalJDBC();
+	}
 }

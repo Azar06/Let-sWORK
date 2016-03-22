@@ -48,7 +48,11 @@ public class DiaryManager {
 			goal.setName(name);
 			goal.setDescription(description);
 			goal.setDeadline(deadline);
-			goal.save();
+			try {
+				goal.save();
+			} catch (SaveException e) {
+				e.printStackTrace();
+			}
 		}
 		return goalReturnState;
 	}
