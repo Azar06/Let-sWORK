@@ -74,6 +74,7 @@ public class LoginView extends AbstractView implements ActionListener {
 		this.add(passwordField);
 
 		JButton btnEnter = new JButton("Login");
+		sl_container.putConstraint(SpringLayout.NORTH, btnEnter, 41, SpringLayout.SOUTH, passwordField);
 		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, this);
 		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, this);
 		btnEnter.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -82,16 +83,19 @@ public class LoginView extends AbstractView implements ActionListener {
 		this.add(btnEnter);
 		
 		JLabel lblOr = new JLabel("or");
-		sl_container.putConstraint(SpringLayout.SOUTH, lblOr, -118, SpringLayout.SOUTH, this);
-		sl_container.putConstraint(SpringLayout.SOUTH, btnEnter, -18, SpringLayout.NORTH, lblOr);
-		sl_container.putConstraint(SpringLayout.WEST, lblOr, 395, SpringLayout.WEST, this);
-		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		sl_container.putConstraint(SpringLayout.NORTH, lblOr, 21, SpringLayout.SOUTH, btnEnter);
+		sl_container.putConstraint(SpringLayout.WEST, lblOr, 368, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, lblOr, 431, SpringLayout.WEST, this);
+		lblOr.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(lblOr);
 		
 		JButton btnSignUp = new JButton("Sign up");
-		sl_container.putConstraint(SpringLayout.NORTH, btnSignUp, 6, SpringLayout.SOUTH, lblOr);
-		sl_container.putConstraint(SpringLayout.WEST, btnSignUp, 366, SpringLayout.WEST, this);
-		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		sl_container.putConstraint(SpringLayout.NORTH, btnSignUp, 458, SpringLayout.NORTH, this);
+		sl_container.putConstraint(SpringLayout.SOUTH, lblOr, -6, SpringLayout.NORTH, btnSignUp);
+		sl_container.putConstraint(SpringLayout.WEST, btnSignUp, 356, SpringLayout.WEST, this);
+		sl_container.putConstraint(SpringLayout.EAST, btnSignUp, -356, SpringLayout.EAST, this);
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnSignUp.addActionListener(this);
 		btnSignUp.setActionCommand("signup");
 		add(btnSignUp);
