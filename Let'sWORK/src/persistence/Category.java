@@ -12,8 +12,8 @@ public class Category {
 		
 	public Category(String nom, String desc) {
 		super();
-		this.name=nom;
-		this.description=desc;
+		this.name = nom;
+		this.description = desc;
 	}
 
 	public String getName() {
@@ -21,7 +21,7 @@ public class Category {
 	}
 	
 	public void setName(String nom) {
-		this.name=nom;
+		this.name = nom;
 	}
 	
 	public String getDescription() {
