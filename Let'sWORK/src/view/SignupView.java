@@ -2,6 +2,8 @@ package view;
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -9,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
-public class SignupView extends AbstractView {
+public class SignupView extends AbstractView implements ActionListener {
 	private JTextField firstnameField;
 	private JTextField LastnameField;
 	private JTextField emailField;
@@ -177,6 +179,20 @@ public class SignupView extends AbstractView {
 		springLayout.putConstraint(SpringLayout.NORTH, btnSignIn, 6, SpringLayout.SOUTH, lblOr);
 		springLayout.putConstraint(SpringLayout.WEST, btnSignIn, 368, SpringLayout.WEST, this);
 		btnSignIn.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnSignIn.addActionListener(this);
+		btnSignIn.setActionCommand("signin");
 		add(btnSignIn);
+			
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0)
+	{
+		String cmd = arg0.getActionCommand();
+		if(cmd.equals("signin"))
+		{
+			LoginView lv = new LoginView();
+			this.getWindow().setView(lv);
+		}		
 	}
 }

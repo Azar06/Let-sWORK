@@ -74,13 +74,27 @@ public class LoginView extends AbstractView implements ActionListener {
 		this.add(passwordField);
 
 		JButton btnEnter = new JButton("Login");
-		sl_container.putConstraint(SpringLayout.NORTH, btnEnter, 37, SpringLayout.SOUTH, passwordField);
 		sl_container.putConstraint(SpringLayout.WEST, btnEnter, 352, SpringLayout.WEST, this);
 		sl_container.putConstraint(SpringLayout.EAST, btnEnter, -352, SpringLayout.EAST, this);
 		btnEnter.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEnter.addActionListener(this);
 		btnEnter.setActionCommand("enter");
 		this.add(btnEnter);
+		
+		JLabel lblOr = new JLabel("or");
+		sl_container.putConstraint(SpringLayout.SOUTH, lblOr, -118, SpringLayout.SOUTH, this);
+		sl_container.putConstraint(SpringLayout.SOUTH, btnEnter, -18, SpringLayout.NORTH, lblOr);
+		sl_container.putConstraint(SpringLayout.WEST, lblOr, 395, SpringLayout.WEST, this);
+		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		add(lblOr);
+		
+		JButton btnSignUp = new JButton("Sign up");
+		sl_container.putConstraint(SpringLayout.NORTH, btnSignUp, 6, SpringLayout.SOUTH, lblOr);
+		sl_container.putConstraint(SpringLayout.WEST, btnSignUp, 366, SpringLayout.WEST, this);
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnSignUp.addActionListener(this);
+		btnSignUp.setActionCommand("signup");
+		add(btnSignUp);
 	}
 
 	//Récupère le pseudo
@@ -119,7 +133,12 @@ public class LoginView extends AbstractView implements ActionListener {
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
-		}		
+		}
+		else if(cmd.equals("signup"))
+		{
+			SignupView suv = new SignupView();
+			this.getWindow().setView(suv);
+		}
 	}
 	
 	public boolean login(String id, String pass) {
