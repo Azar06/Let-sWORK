@@ -174,10 +174,9 @@ public class SignupView extends AbstractView implements ActionListener {
 		add(lblSignInInfos);
 		
 		JButton btnSignUp = new JButton("Sign up");
-		springLayout.putConstraint(SpringLayout.NORTH, btnSignUp, 25, SpringLayout.SOUTH, cityField);
-		springLayout.putConstraint(SpringLayout.WEST, btnSignUp, 339, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnSignUp, -105, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnSignUp, 0, SpringLayout.EAST, lblId);
+		springLayout.putConstraint(SpringLayout.NORTH, btnSignUp, 17, SpringLayout.SOUTH, cityField);
+		springLayout.putConstraint(SpringLayout.WEST, btnSignUp, 330, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnSignUp, 10, SpringLayout.EAST, lblId);
 		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -207,18 +206,19 @@ public class SignupView extends AbstractView implements ActionListener {
 		add(passwordField);
 		
 		JLabel lblOr = new JLabel("or");
-		springLayout.putConstraint(SpringLayout.NORTH, lblOr, 13, SpringLayout.SOUTH, btnSignUp);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnSignUp, -14, SpringLayout.NORTH, lblOr);
+		springLayout.putConstraint(SpringLayout.NORTH, lblOr, 501, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblOr, 364, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblOr, 26, SpringLayout.SOUTH, btnSignUp);
 		springLayout.putConstraint(SpringLayout.EAST, lblOr, -365, SpringLayout.EAST, this);
 		lblOr.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(lblOr);
 		
 		JButton btnSignIn = new JButton("Sign in");
-		springLayout.putConstraint(SpringLayout.NORTH, btnSignIn, 6, SpringLayout.SOUTH, lblOr);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblOr, -6, SpringLayout.NORTH, btnSignIn);
+		springLayout.putConstraint(SpringLayout.NORTH, btnSignIn, 520, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, btnSignIn, 358, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnSignIn, 441, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnSignIn, -359, SpringLayout.EAST, this);
 		btnSignIn.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnSignIn.addActionListener(this);
 		btnSignIn.setActionCommand("signin");
