@@ -29,13 +29,13 @@ import javax.swing.JScrollBar;
 import javax.swing.SpinnerListModel;
 
 
-public class ProductView extends AbstractView implements ActionListener {
+public class ServiceView extends AbstractView implements ActionListener {
 
 	private CategoryFacade facade;
 	private JTextField newCodeField;
 	private JTextField newLabelField;
 	
-	public ProductView() {
+	public ServiceView() {
 		this.facade = new CategoryFacade();
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
@@ -47,19 +47,19 @@ public class ProductView extends AbstractView implements ActionListener {
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -86, SpringLayout.EAST, this);
 		add(scrollPane);
 		
-		JLabel lblCategories = new JLabel("Products");
-		springLayout.putConstraint(SpringLayout.WEST, lblCategories, 324, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblCategories, -35, SpringLayout.NORTH, scrollPane);
-		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		add(lblCategories);
+		JLabel lblServices = new JLabel("Services");
+		springLayout.putConstraint(SpringLayout.WEST, lblServices, 328, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblServices, -35, SpringLayout.NORTH, scrollPane);
+		lblServices.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		add(lblServices);
 		
 		JButton btnMenuProducts = new JButton("Products");
-		btnMenuProducts.setEnabled(false);
 		springLayout.putConstraint(SpringLayout.NORTH, btnMenuProducts, 0, SpringLayout.NORTH, scrollPane);
 		btnMenuProducts.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(btnMenuProducts);
 		
 		JButton btnMenuServices = new JButton("Services");
+		btnMenuServices.setEnabled(false);
 		springLayout.putConstraint(SpringLayout.NORTH, btnMenuServices, 8, SpringLayout.SOUTH, btnMenuProducts);
 		springLayout.putConstraint(SpringLayout.EAST, btnMenuServices, -627, SpringLayout.EAST, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnMenuProducts, 0, SpringLayout.EAST, btnMenuServices);
@@ -76,16 +76,16 @@ public class ProductView extends AbstractView implements ActionListener {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-		JLabel lblNewProduct = new JLabel("New product");
-		lblNewProduct.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		sl_panel.putConstraint(SpringLayout.NORTH, lblNewProduct, 10, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, lblNewProduct, 10, SpringLayout.WEST, panel);
-		panel.add(lblNewProduct);
+		JLabel lblNewService = new JLabel("New service");
+		lblNewService.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		sl_panel.putConstraint(SpringLayout.NORTH, lblNewService, 10, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, lblNewService, 10, SpringLayout.WEST, panel);
+		panel.add(lblNewService);
 		
 		JLabel lblCategory = new JLabel("Category");
-		sl_panel.putConstraint(SpringLayout.NORTH, lblCategory, 9, SpringLayout.SOUTH, lblNewProduct);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblCategory, 9, SpringLayout.SOUTH, lblNewService);
 		lblCategory.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		sl_panel.putConstraint(SpringLayout.WEST, lblCategory, 10, SpringLayout.WEST, lblNewProduct);
+		sl_panel.putConstraint(SpringLayout.WEST, lblCategory, 10, SpringLayout.WEST, lblNewService);
 		panel.add(lblCategory);
 		
 		JLabel lblCode = new JLabel("Code");
@@ -119,69 +119,63 @@ public class ProductView extends AbstractView implements ActionListener {
 		sl_panel.putConstraint(SpringLayout.EAST, separator, -10, SpringLayout.EAST, panel);
 		panel.add(separator);
 		
-		JLabel lblUpdateAProduct = new JLabel("Update a product");
-		sl_panel.putConstraint(SpringLayout.SOUTH, separator, -7, SpringLayout.NORTH, lblUpdateAProduct);
-		sl_panel.putConstraint(SpringLayout.NORTH, lblUpdateAProduct, 160, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, lblUpdateAProduct, 0, SpringLayout.WEST, lblNewProduct);
-		lblUpdateAProduct.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel.add(lblUpdateAProduct);
+		JLabel lblUpdateAService = new JLabel("Update a service");
+		sl_panel.putConstraint(SpringLayout.SOUTH, separator, -7, SpringLayout.NORTH, lblUpdateAService);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblUpdateAService, 160, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, lblUpdateAService, 0, SpringLayout.WEST, lblNewService);
+		lblUpdateAService.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel.add(lblUpdateAService);
 		
-		JLabel lblProductCode = new JLabel("Product code");
-		sl_panel.putConstraint(SpringLayout.EAST, lblProductCode, 0, SpringLayout.EAST, lblNewProduct);
-		lblProductCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(lblProductCode);
+		JLabel lblServiceCode = new JLabel("Service code");
+		sl_panel.putConstraint(SpringLayout.EAST, lblServiceCode, 0, SpringLayout.EAST, lblNewService);
+		lblServiceCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panel.add(lblServiceCode);
 		
-		JSpinner updateProductCodeSpinner = new JSpinner();
-		sl_panel.putConstraint(SpringLayout.NORTH, updateProductCodeSpinner, 9, SpringLayout.SOUTH, lblUpdateAProduct);
-		sl_panel.putConstraint(SpringLayout.WEST, updateProductCodeSpinner, 8, SpringLayout.EAST, lblProductCode);
-		sl_panel.putConstraint(SpringLayout.NORTH, lblProductCode, 1, SpringLayout.NORTH, updateProductCodeSpinner);
-		updateProductCodeSpinner.setModel(new SpinnerListModel(new String[] {"Product 1"}));
-		panel.add(updateProductCodeSpinner);
+		JSpinner updateServiceCodeSpinner = new JSpinner();
+		sl_panel.putConstraint(SpringLayout.NORTH, updateServiceCodeSpinner, 9, SpringLayout.SOUTH, lblUpdateAService);
+		sl_panel.putConstraint(SpringLayout.WEST, updateServiceCodeSpinner, 8, SpringLayout.EAST, lblServiceCode);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblServiceCode, 1, SpringLayout.NORTH, updateServiceCodeSpinner);
+		updateServiceCodeSpinner.setModel(new SpinnerListModel(new String[] {"Service 1"}));
+		panel.add(updateServiceCodeSpinner);
 		
-		JLabel lblDeleteAProduct = new JLabel("Delete a product");
-		sl_panel.putConstraint(SpringLayout.WEST, lblDeleteAProduct, 0, SpringLayout.WEST, lblNewProduct);
-		lblDeleteAProduct.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel.add(lblDeleteAProduct);
+		JLabel lblDeleteAService = new JLabel("Delete a service");
+		sl_panel.putConstraint(SpringLayout.WEST, lblDeleteAService, 0, SpringLayout.WEST, lblNewService);
+		lblDeleteAService.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel.add(lblDeleteAService);
 		
-		JLabel lblDelProductCode = new JLabel("Product code");
-		sl_panel.putConstraint(SpringLayout.SOUTH, lblDeleteAProduct, -6, SpringLayout.NORTH, lblDelProductCode);
-		sl_panel.putConstraint(SpringLayout.NORTH, lblDelProductCode, 272, SpringLayout.NORTH, panel);
-		lblDelProductCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		sl_panel.putConstraint(SpringLayout.WEST, lblDelProductCode, 21, SpringLayout.WEST, panel);
-		panel.add(lblDelProductCode);
+		JLabel lblDelServiceCode = new JLabel("Service code");
+		sl_panel.putConstraint(SpringLayout.SOUTH, lblDeleteAService, -6, SpringLayout.NORTH, lblDelServiceCode);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblDelServiceCode, 272, SpringLayout.NORTH, panel);
+		lblDelServiceCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		sl_panel.putConstraint(SpringLayout.WEST, lblDelServiceCode, 21, SpringLayout.WEST, panel);
+		panel.add(lblDelServiceCode);
 		
-		JSpinner deleteProductCodeSpinner = new JSpinner();
-		deleteProductCodeSpinner.setModel(new SpinnerListModel(new String[] {"Product 1"}));
-		sl_panel.putConstraint(SpringLayout.WEST, deleteProductCodeSpinner, 8, SpringLayout.EAST, lblDelProductCode);
-		panel.add(deleteProductCodeSpinner);
+		JSpinner deleteServiceCodeSpinner = new JSpinner();
+		deleteServiceCodeSpinner.setModel(new SpinnerListModel(new String[] {"Service 1"}));
+		sl_panel.putConstraint(SpringLayout.WEST, deleteServiceCodeSpinner, 8, SpringLayout.EAST, lblDelServiceCode);
+		panel.add(deleteServiceCodeSpinner);
 		
 		JButton btnUpdate = new JButton("Update");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnUpdate, 38, SpringLayout.SOUTH, separator);
-		sl_panel.putConstraint(SpringLayout.EAST, updateProductCodeSpinner, -13, SpringLayout.WEST, btnUpdate);
+		sl_panel.putConstraint(SpringLayout.EAST, updateServiceCodeSpinner, -13, SpringLayout.WEST, btnUpdate);
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
 		sl_panel.putConstraint(SpringLayout.WEST, btnUpdate, 0, SpringLayout.WEST, btnDelete);
 		sl_panel.putConstraint(SpringLayout.WEST, btnDelete, 410, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, deleteProductCodeSpinner, -13, SpringLayout.WEST, btnDelete);
-		sl_panel.putConstraint(SpringLayout.NORTH, btnDelete, -4, SpringLayout.NORTH, lblDelProductCode);
+		sl_panel.putConstraint(SpringLayout.EAST, deleteServiceCodeSpinner, -13, SpringLayout.WEST, btnDelete);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnDelete, -4, SpringLayout.NORTH, lblDelServiceCode);
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnDelete);
 		
 		JSeparator separator_1 = new JSeparator();
 		sl_panel.putConstraint(SpringLayout.NORTH, separator_1, 15, SpringLayout.SOUTH, btnUpdate);
 		sl_panel.putConstraint(SpringLayout.WEST, separator_1, 10, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, separator_1, -6, SpringLayout.NORTH, lblDeleteAProduct);
+		sl_panel.putConstraint(SpringLayout.SOUTH, separator_1, -6, SpringLayout.NORTH, lblDeleteAService);
 		sl_panel.putConstraint(SpringLayout.EAST, separator_1, -10, SpringLayout.EAST, panel);
-		sl_panel.putConstraint(SpringLayout.NORTH, deleteProductCodeSpinner, 36, SpringLayout.SOUTH, separator_1);
+		sl_panel.putConstraint(SpringLayout.NORTH, deleteServiceCodeSpinner, 36, SpringLayout.SOUTH, separator_1);
 		panel.add(separator_1);
-		
-		JLabel lblBrand = new JLabel("Brand");
-		sl_panel.putConstraint(SpringLayout.EAST, lblBrand, -178, SpringLayout.EAST, panel);
-		lblBrand.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		sl_panel.putConstraint(SpringLayout.NORTH, lblBrand, 0, SpringLayout.NORTH, lblCategory);
-		panel.add(lblBrand);
 		
 		JSpinner categorySpinner = new JSpinner();
 		sl_panel.putConstraint(SpringLayout.NORTH, categorySpinner, 1, SpringLayout.NORTH, lblCategory);
@@ -189,13 +183,6 @@ public class ProductView extends AbstractView implements ActionListener {
 		sl_panel.putConstraint(SpringLayout.EAST, categorySpinner, 202, SpringLayout.EAST, lblCategory);
 		categorySpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
 		panel.add(categorySpinner);
-		
-		JSpinner brandSpinner = new JSpinner();
-		brandSpinner.setModel(new SpinnerListModel(new String[] {"Brand 1"}));
-		sl_panel.putConstraint(SpringLayout.NORTH, brandSpinner, -1, SpringLayout.NORTH, lblCategory);
-		sl_panel.putConstraint(SpringLayout.WEST, brandSpinner, 6, SpringLayout.EAST, lblBrand);
-		sl_panel.putConstraint(SpringLayout.EAST, brandSpinner, -9, SpringLayout.EAST, btnUpdate);
-		panel.add(brandSpinner);
 		
 		JLabel lblLabel = new JLabel("Label");
 		sl_panel.putConstraint(SpringLayout.EAST, lblLabel, -220, SpringLayout.EAST, panel);
@@ -222,7 +209,6 @@ public class ProductView extends AbstractView implements ActionListener {
 		JButton btnLogOut = new JButton("Log out");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnLogOut, -6, SpringLayout.NORTH, scrollPane);
 		springLayout.putConstraint(SpringLayout.EAST, btnLogOut, 0, SpringLayout.EAST, scrollPane);
-		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		add(btnLogOut);
 	}
 

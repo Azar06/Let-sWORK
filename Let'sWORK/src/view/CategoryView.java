@@ -53,22 +53,22 @@ public class CategoryView extends AbstractView implements ActionListener {
 		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		add(lblCategories);
 		
-		JButton btnNewButton = new JButton("Products");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 0, SpringLayout.NORTH, scrollPane);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(btnNewButton);
+		JButton btnMenuProducts = new JButton("Products");
+		springLayout.putConstraint(SpringLayout.NORTH, btnMenuProducts, 0, SpringLayout.NORTH, scrollPane);
+		btnMenuProducts.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(btnMenuProducts);
 		
-		JButton btnServices = new JButton("Services");
-		springLayout.putConstraint(SpringLayout.NORTH, btnServices, 8, SpringLayout.SOUTH, btnNewButton);
-		springLayout.putConstraint(SpringLayout.EAST, btnServices, -627, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, btnServices);
-		btnServices.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(btnServices);
+		JButton btnMenuServices = new JButton("Services");
+		springLayout.putConstraint(SpringLayout.NORTH, btnMenuServices, 8, SpringLayout.SOUTH, btnMenuProducts);
+		springLayout.putConstraint(SpringLayout.EAST, btnMenuServices, -627, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnMenuProducts, 0, SpringLayout.EAST, btnMenuServices);
+		btnMenuServices.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(btnMenuServices);
 		
-		JButton btnCategories = new JButton("Categories");
-		springLayout.putConstraint(SpringLayout.NORTH, btnCategories, 6, SpringLayout.SOUTH, btnServices);
-		springLayout.putConstraint(SpringLayout.EAST, btnCategories, 0, SpringLayout.EAST, btnNewButton);
-		btnCategories.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JButton btnMenuCategories = new JButton("Categories");
+		springLayout.putConstraint(SpringLayout.NORTH, btnMenuCategories, 6, SpringLayout.SOUTH, btnMenuServices);
+		springLayout.putConstraint(SpringLayout.EAST, btnMenuCategories, 0, SpringLayout.EAST, btnMenuProducts);
+		btnMenuCategories.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
@@ -189,8 +189,13 @@ public class CategoryView extends AbstractView implements ActionListener {
 		sl_panel.putConstraint(SpringLayout.EAST, btnAdd, 0, SpringLayout.EAST, newShortdescrField);
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnAdd);
-		btnCategories.setEnabled(false);
-		add(btnCategories);
+		btnMenuCategories.setEnabled(false);
+		add(btnMenuCategories);
+		
+		JButton btnLogOut = new JButton("Log out");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnLogOut, -6, SpringLayout.NORTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.EAST, btnLogOut, 0, SpringLayout.EAST, scrollPane);
+		add(btnLogOut);
 	}
 
 	@Override
