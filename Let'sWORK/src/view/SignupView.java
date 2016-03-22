@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -21,8 +23,10 @@ public class SignupView extends AbstractView implements ActionListener {
 	private JTextField streetField;
 	private JTextField cityField;
 	private JPasswordField passwordField;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField siretField;
+	private JTextField urlField;
+	private JLabel lblSiret;
+	private JLabel lblUrl;
 	public SignupView() {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
@@ -190,6 +194,22 @@ public class SignupView extends AbstractView implements ActionListener {
 		add(chckbxCustomer);
 		
 		JCheckBox chckbxSeller = new JCheckBox("Seller");
+		chckbxSeller.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(chckbxSeller.isSelected()) {
+					siretField.setEnabled(true);
+					lblSiret.setEnabled(true);
+					urlField.setEnabled(true);
+					lblUrl.setEnabled(true);
+				}
+				else {
+					siretField.setEnabled(false);
+					lblSiret.setEnabled(false);
+					urlField.setEnabled(false);
+					lblUrl.setEnabled(false);
+				}
+			}
+		});
 		springLayout.putConstraint(SpringLayout.WEST, chckbxSeller, 113, SpringLayout.EAST, emailField);
 		springLayout.putConstraint(SpringLayout.EAST, chckbxSeller, 174, SpringLayout.EAST, emailField);
 		springLayout.putConstraint(SpringLayout.NORTH, chckbxSeller, 277, SpringLayout.NORTH, this);
@@ -224,7 +244,7 @@ public class SignupView extends AbstractView implements ActionListener {
 		btnSignIn.setActionCommand("signin");
 		add(btnSignIn);
 		
-		JLabel lblSiret = new JLabel("SIRET");
+		lblSiret = new JLabel("SIRET");
 		lblSiret.setHorizontalAlignment(SwingConstants.RIGHT);
 		springLayout.putConstraint(SpringLayout.EAST, phoneField, -48, SpringLayout.WEST, lblSiret);
 		springLayout.putConstraint(SpringLayout.NORTH, lblSiret, 72, SpringLayout.SOUTH, lblPassword);
@@ -232,16 +252,16 @@ public class SignupView extends AbstractView implements ActionListener {
 		lblSiret.setEnabled(false);
 		add(lblSiret);
 		
-		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 24, SpringLayout.SOUTH, chckbxCustomer);
-		springLayout.putConstraint(SpringLayout.WEST, textField, 474, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, textField, -159, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.EAST, lblSiret, -14, SpringLayout.WEST, textField);
-		textField.setEnabled(false);
-		add(textField);
-		textField.setColumns(10);
+		siretField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, siretField, 24, SpringLayout.SOUTH, chckbxCustomer);
+		springLayout.putConstraint(SpringLayout.WEST, siretField, 474, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, siretField, -159, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.EAST, lblSiret, -14, SpringLayout.WEST, siretField);
+		siretField.setEnabled(false);
+		add(siretField);
+		siretField.setColumns(10);
 		
-		JLabel lblUrl = new JLabel("URL");
+		lblUrl = new JLabel("URL");
 		springLayout.putConstraint(SpringLayout.EAST, streetField, -48, SpringLayout.WEST, lblUrl);
 		springLayout.putConstraint(SpringLayout.WEST, lblUrl, 0, SpringLayout.WEST, lblId);
 		lblUrl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -249,14 +269,14 @@ public class SignupView extends AbstractView implements ActionListener {
 		lblUrl.setEnabled(false);
 		add(lblUrl);
 		
-		textField_1 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_1, 23, SpringLayout.SOUTH, textField);
-		springLayout.putConstraint(SpringLayout.WEST, textField_1, 474, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, textField_1, -159, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.EAST, lblUrl, -14, SpringLayout.WEST, textField_1);
-		textField_1.setEnabled(false);
-		add(textField_1);
-		textField_1.setColumns(10);
+		urlField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, urlField, 23, SpringLayout.SOUTH, siretField);
+		springLayout.putConstraint(SpringLayout.WEST, urlField, 474, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, urlField, -159, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.EAST, lblUrl, -14, SpringLayout.WEST, urlField);
+		urlField.setEnabled(false);
+		add(urlField);
+		urlField.setColumns(10);
 			
 	}
 	
