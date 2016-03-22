@@ -2,8 +2,8 @@ package jdbc;
 
 import business.Factory;
 import jdbc.persistence.*;
-import persistence.LoadException;
 import persistence.*;
+import persistence.exception.LoadException;
 
 public class FactoryJDBC implements Factory {
 	
@@ -30,5 +30,10 @@ public class FactoryJDBC implements Factory {
 	@Override
 	public Category createCategory() {
 		return new CategoryJDBC();
+	}
+
+	@Override
+	public Goal createGoal() {
+		return new GoalJDBC();
 	}
 }

@@ -1,4 +1,4 @@
-package persistence;
+package persistence.exception;
 
 public class LoadException extends Exception {
 

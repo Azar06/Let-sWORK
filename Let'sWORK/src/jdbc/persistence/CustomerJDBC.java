@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
 import persistence.Customer;
-import persistence.LoadException;
 import persistence.PersonInfo;
-import persistence.SaveException;
 import persistence.UserRole;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class CustomerJDBC extends Customer {
 

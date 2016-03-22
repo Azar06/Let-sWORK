@@ -4,6 +4,7 @@ import business.Factory;
 import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
+import persistence.exception.LoadException;
 
 public class UserManager {
 	private Factory factorio;
@@ -11,18 +12,6 @@ public class UserManager {
 	public UserManager() {
 		// FactoryJDBC creation
 		this.factorio = new FactoryJDBC();
-	}
-
-	public User getUserWithUsername(String username) {
-		// We get the id of the user
-		User u = this.factorio.createUser();
-		try {
-			// get the username
-			u.load(username);
-		} catch (LoadException e) {
-			u = null;
-		}
-		return u;
 	}
 
 	public boolean login(String username, String pass) {
@@ -36,6 +25,18 @@ public class UserManager {
 		// If the password write by the user is the same as the password in the
 		// database
 		return result;
+	}
+	
+	private User getUserWithUsername(String username) {
+		// We get the id of the user
+		User u = this.factorio.createUser();
+		try {
+			// get the username
+			u.load(username);
+		} catch (LoadException e) {
+			u = null;
+		}
+		return u;
 	}
 
 	public SignupReturnState signup(String firstName, String lastName, String street, String city, String postalCode, String phone,
@@ -121,7 +122,6 @@ public class UserManager {
 				s.setPersonInfo(person);
 				user.addRole(s);
 			}
-
 		}
 		return signupReturnState;
 	}

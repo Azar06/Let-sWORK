@@ -2,20 +2,25 @@ package persistence;
 
 import java.util.*;
 
+import persistence.exception.LoadException;
+
 public abstract class User implements Savable {
 
 	private String username;
 	private String password;
 	private List<UserRole> roles;
+	private List<Goal> goals;
 	
 	// Abstract
 	public abstract void load(String username) throws LoadException;
+	public abstract void loadGoals() throws LoadException;
 	
 	// Constructor
 	public User(String username, String password, List<UserRole> roles) {
 		this.username = username;
 		this.password = password;
 		this.roles = roles;
+		this.goals = null;
 	}
 	
 	public User(String username, String password) {
@@ -43,6 +48,10 @@ public abstract class User implements Savable {
 		return this.password;
 	}
 	
+	public List<Goal> getGoals() {
+		return this.goals;
+	}
+	
 	public boolean hasRole(UserRole r) {
 		return this.roles.contains(r);
 	}
@@ -65,5 +74,9 @@ public abstract class User implements Savable {
 	
 	public List<UserRole> getRoles() {
 		return this.roles;
+	}
+	
+	public void setGoals(List<Goal> goals) {
+		this.goals = goals; 
 	}
 }
