@@ -13,5 +13,5 @@ public interface Factory {
 	public Goal createGoal();
 	public Activity createActivity();
 	public Diary createDiary();
-	public Ressource createRessource()
+	public Ressource createRessource();
 }
