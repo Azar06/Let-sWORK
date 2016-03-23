@@ -31,6 +31,19 @@ public abstract class User implements Savable {
 		this(null, null, null);
 	}
 	
+	// METHODS
+	public UserRole getRole(Right right) {
+		UserRole role = null;
+		Iterator<UserRole> it = this.roles.iterator();
+		while(it.hasNext() && role == null) {
+			UserRole r = it.next();
+			if(r.getRight() == right) {
+				role = r;
+			}
+		}
+		return role;
+	}
+	
 	// GETTER / SETTER
 	public void setUsername(String username) {
 		this.username = username;

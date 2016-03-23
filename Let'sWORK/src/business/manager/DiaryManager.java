@@ -28,12 +28,17 @@ public class DiaryManager {
 	
 	public Diary getDiary(User user) {
 		Diary diary = null;
-		try {
-			diary = this.factorio.createDiary();
-			diary.load(user);
+		Customer customer = (Customer)user.getRole(Right.CUSTOMER);
+		if(customer != null){
+			try {
+				diary = this.factorio.createDiary();
+				diary.load(customer);
+			}
+			catch (LoadException e) {
+				diary = null;
+			}
 		}
-		catch (LoadException e) {
-		}
+		return diary;
 	}
 	
 	public GoalReturnState createGoal(User owner, String name, String description, Date deadline) {
