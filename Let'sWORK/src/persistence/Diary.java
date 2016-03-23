@@ -1,6 +1,6 @@
 package persistence;
 
-import persistence.exception.LoadException;
+import persistence.exception.*;
 
 public abstract class Diary {
 	private String name;
@@ -20,6 +20,8 @@ public abstract class Diary {
 	
 	// ABSTRACT METHODS
 	public abstract void load(Customer owner) throws LoadException;
+	public abstract void save() throws SaveException;
+	public abstract void update() throws SaveException;
 	
 	// GETTER / SETTER
 

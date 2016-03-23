@@ -13,6 +13,7 @@ import persistence.Diary;
 import persistence.Goal;
 import persistence.User;
 import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class DiaryJDBC extends Diary {
 
@@ -47,6 +48,37 @@ public class DiaryJDBC extends Diary {
 			}
 		} catch (SQLException e) {
 			throw new LoadException("Can't load Diary (SQL issue)");
+		}
+	}
+	
+	public void save() throws SaveException {
+		if(id == -1) {
+			//TODO INSERT
+		}
+		else {
+			this.update();
+		}
+	}
+	
+	public void update() throws SaveException {
+		try {
+			if(this.getId() >= 0) {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement("UPDATE public.goal SET name = ?, isPublic = ?, customerId = ?) WHERE id = ?;");
+				prepare.setString(1, this.getName());
+				prepare.setBoolean(2, this.isPublic());
+				prepare.setLong(3, ((CustomerJDBC)this.getOwner()).getId());
+				prepare.setLong(4, this.getId());
+				// Execution of the query
+				ResultSet result = prepare.executeQuery();
+				
+				if(result.next()) {
+					this.setId(result.getLong("id"));
+				}
+			}
+		} catch (SQLException e) {
+			throw new SaveException("Can't save this Goal");
 		}
 	}
 
