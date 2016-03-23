@@ -117,6 +117,7 @@ public class LoginView extends AbstractView implements ActionListener {
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
+			this.getWindow().setView(new MainView(new CustomerMenuView(), new CategoryView()));
 		}
 		else if(cmd.equals("signup"))
 		{

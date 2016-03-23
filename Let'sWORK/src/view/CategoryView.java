@@ -29,7 +29,7 @@ import javax.swing.JScrollBar;
 import javax.swing.SpinnerListModel;
 
 
-public class CategoryView extends AbstractView implements ActionListener {
+public class CategoryView extends AbstractContentView implements ActionListener {
 
 	private CategoryFacade facade;
 	private JTextField newNameField;
@@ -49,20 +49,6 @@ public class CategoryView extends AbstractView implements ActionListener {
 		lblCategories.setBounds(307, 10, 185, 49);
 		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		add(lblCategories);
-		
-		JButton btnMenuProducts = new JButton("Products");
-		btnMenuProducts.setBounds(72, 155, 101, 31);
-		btnMenuProducts.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(btnMenuProducts);
-		
-		JButton btnMenuServices = new JButton("Services");
-		btnMenuServices.setBounds(78, 194, 95, 31);
-		btnMenuServices.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(btnMenuServices);
-		
-		JButton btnMenuCategories = new JButton("Categories");
-		btnMenuCategories.setBounds(58, 231, 115, 31);
-		btnMenuCategories.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
@@ -187,8 +173,6 @@ public class CategoryView extends AbstractView implements ActionListener {
 		updateLongdescrArea.setBounds(157, 294, 254, 71);
 		updateLongdescrArea.setEnabled(false);
 		panel.add(updateLongdescrArea);
-		btnMenuCategories.setEnabled(false);
-		add(btnMenuCategories);
 		
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.setBounds(639, 34, 75, 25);
