@@ -36,4 +36,9 @@ public class FactoryJDBC implements Factory {
 	public Goal createGoal() {
 		return new GoalJDBC();
 	}
+	
+	@Override
+	public Diary createDiary() {
+		return new DiaryJDBC();
+	}
 }

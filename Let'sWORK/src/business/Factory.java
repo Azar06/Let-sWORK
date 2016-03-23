@@ -11,4 +11,5 @@ public interface Factory {
 	public Seller createSeller();
 	public Category createCategory();
 	public Goal createGoal();
+	public Diary createDiary();
 }

@@ -26,6 +26,16 @@ public class DiaryManager {
 		return user.getGoals();
 	}
 	
+	public Diary getDiary(User user) {
+		Diary diary = null;
+		try {
+			diary = this.factorio.createDiary();
+			diary.load(user);
+		}
+		catch (LoadException e) {
+		}
+	}
+	
 	public GoalReturnState createGoal(User owner, String name, String description, Date deadline) {
 		GoalReturnState goalReturnState = new GoalReturnState();
 		//
