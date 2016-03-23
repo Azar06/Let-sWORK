@@ -34,6 +34,8 @@ public class CategoryView extends AbstractView implements ActionListener {
 	private CategoryFacade facade;
 	private JTextField newNameField;
 	private JTextField newShortdescrField;
+	private JTextField updateNameField;
+	private JTextField updateShortdescrField;
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
@@ -41,20 +43,19 @@ public class CategoryView extends AbstractView implements ActionListener {
 		setLayout(springLayout);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 155, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 189, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -78, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 65, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -29, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -86, SpringLayout.EAST, this);
 		add(scrollPane);
 		
 		JLabel lblCategories = new JLabel("Categories");
-		springLayout.putConstraint(SpringLayout.WEST, lblCategories, 307, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblCategories, -35, SpringLayout.NORTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblCategories, -6, SpringLayout.NORTH, scrollPane);
 		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		add(lblCategories);
 		
 		JButton btnMenuProducts = new JButton("Products");
-		springLayout.putConstraint(SpringLayout.NORTH, btnMenuProducts, 0, SpringLayout.NORTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 16, SpringLayout.EAST, btnMenuProducts);
+		springLayout.putConstraint(SpringLayout.NORTH, btnMenuProducts, 155, SpringLayout.NORTH, this);
 		btnMenuProducts.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(btnMenuProducts);
 		
@@ -133,15 +134,16 @@ public class CategoryView extends AbstractView implements ActionListener {
 		panel.add(lblUpdateACategory);
 		
 		JLabel lblCategoryName = new JLabel("Category name");
-		sl_panel.putConstraint(SpringLayout.NORTH, lblCategoryName, 10, SpringLayout.SOUTH, lblUpdateACategory);
-		sl_panel.putConstraint(SpringLayout.WEST, lblCategoryName, 0, SpringLayout.WEST, lblNewCategory);
+		sl_panel.putConstraint(SpringLayout.EAST, lblCategoryName, 0, SpringLayout.EAST, lblLongDescription);
 		lblCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblCategoryName);
 		
 		JSpinner updateCategorynameSpinner = new JSpinner();
+		sl_panel.putConstraint(SpringLayout.NORTH, updateCategorynameSpinner, 9, SpringLayout.SOUTH, lblUpdateACategory);
+		sl_panel.putConstraint(SpringLayout.WEST, updateCategorynameSpinner, 6, SpringLayout.EAST, lblCategoryName);
+		sl_panel.putConstraint(SpringLayout.EAST, updateCategorynameSpinner, -126, SpringLayout.EAST, panel);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblCategoryName, 1, SpringLayout.NORTH, updateCategorynameSpinner);
 		updateCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
-		sl_panel.putConstraint(SpringLayout.NORTH, updateCategorynameSpinner, -1, SpringLayout.NORTH, lblCategoryName);
-		sl_panel.putConstraint(SpringLayout.WEST, updateCategorynameSpinner, 19, SpringLayout.EAST, lblCategoryName);
 		panel.add(updateCategorynameSpinner);
 		
 		JLabel lblDeleteACategory = new JLabel("Delete a category");
@@ -150,37 +152,37 @@ public class CategoryView extends AbstractView implements ActionListener {
 		panel.add(lblDeleteACategory);
 		
 		JLabel lblDelCategoryName = new JLabel("Category name");
+		sl_panel.putConstraint(SpringLayout.NORTH, lblDelCategoryName, 424, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, lblDeleteACategory, -6, SpringLayout.NORTH, lblDelCategoryName);
-		sl_panel.putConstraint(SpringLayout.NORTH, lblDelCategoryName, 272, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, lblDelCategoryName, 0, SpringLayout.EAST, lblLongDescription);
 		lblDelCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		sl_panel.putConstraint(SpringLayout.WEST, lblDelCategoryName, 21, SpringLayout.WEST, panel);
 		panel.add(lblDelCategoryName);
 		
 		JSpinner deleteCategorynameSpinner = new JSpinner();
+		sl_panel.putConstraint(SpringLayout.NORTH, deleteCategorynameSpinner, -1, SpringLayout.NORTH, lblDelCategoryName);
+		sl_panel.putConstraint(SpringLayout.WEST, deleteCategorynameSpinner, 0, SpringLayout.WEST, newLongdescrArea);
+		sl_panel.putConstraint(SpringLayout.EAST, deleteCategorynameSpinner, 0, SpringLayout.EAST, updateCategorynameSpinner);
 		deleteCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
-		sl_panel.putConstraint(SpringLayout.EAST, updateCategorynameSpinner, 0, SpringLayout.EAST, deleteCategorynameSpinner);
-		sl_panel.putConstraint(SpringLayout.WEST, deleteCategorynameSpinner, 8, SpringLayout.EAST, lblDelCategoryName);
 		panel.add(deleteCategorynameSpinner);
 		
 		JButton btnUpdate = new JButton("Update");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnUpdate, -4, SpringLayout.NORTH, lblCategoryName);
+		btnUpdate.setEnabled(false);
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
 		sl_panel.putConstraint(SpringLayout.WEST, btnUpdate, 0, SpringLayout.WEST, btnDelete);
-		sl_panel.putConstraint(SpringLayout.WEST, btnDelete, 410, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, deleteCategorynameSpinner, -13, SpringLayout.WEST, btnDelete);
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDelete, -4, SpringLayout.NORTH, lblDelCategoryName);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDelete, 0, SpringLayout.EAST, newShortdescrField);
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnDelete);
 		
 		JSeparator separator_1 = new JSeparator();
-		sl_panel.putConstraint(SpringLayout.NORTH, separator_1, 15, SpringLayout.SOUTH, btnUpdate);
-		sl_panel.putConstraint(SpringLayout.WEST, separator_1, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.NORTH, separator_1, 385, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, separator_1, -6, SpringLayout.NORTH, lblDeleteACategory);
-		sl_panel.putConstraint(SpringLayout.EAST, separator_1, -10, SpringLayout.EAST, panel);
-		sl_panel.putConstraint(SpringLayout.NORTH, deleteCategorynameSpinner, 36, SpringLayout.SOUTH, separator_1);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnUpdate, -6, SpringLayout.NORTH, separator_1);
+		sl_panel.putConstraint(SpringLayout.WEST, separator_1, 0, SpringLayout.WEST, lblNewCategory);
+		sl_panel.putConstraint(SpringLayout.EAST, separator_1, 0, SpringLayout.EAST, separator);
 		panel.add(separator_1);
 		
 		JButton btnAdd = new JButton("Add");
@@ -189,10 +191,53 @@ public class CategoryView extends AbstractView implements ActionListener {
 		sl_panel.putConstraint(SpringLayout.EAST, btnAdd, 0, SpringLayout.EAST, newShortdescrField);
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnAdd);
+		
+		JLabel lblUpdateName = new JLabel("Name");
+		lblUpdateName.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblUpdateName, 19, SpringLayout.SOUTH, lblCategoryName);
+		sl_panel.putConstraint(SpringLayout.WEST, lblUpdateName, 54, SpringLayout.WEST, panel);
+		panel.add(lblUpdateName);
+		
+		updateNameField = new JTextField();
+		updateNameField.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.WEST, updateNameField, 6, SpringLayout.EAST, lblUpdateName);
+		sl_panel.putConstraint(SpringLayout.EAST, updateNameField, -208, SpringLayout.EAST, panel);
+		panel.add(updateNameField);
+		updateNameField.setColumns(10);
+		
+		JLabel lblUpdateShortDescription = new JLabel("Short description");
+		lblUpdateShortDescription.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblUpdateShortDescription, 9, SpringLayout.SOUTH, updateNameField);
+		panel.add(lblUpdateShortDescription);
+		
+		updateShortdescrField = new JTextField();
+		updateShortdescrField.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.EAST, lblUpdateShortDescription, -6, SpringLayout.WEST, updateShortdescrField);
+		sl_panel.putConstraint(SpringLayout.SOUTH, updateNameField, -6, SpringLayout.NORTH, updateShortdescrField);
+		sl_panel.putConstraint(SpringLayout.EAST, updateShortdescrField, 0, SpringLayout.EAST, newShortdescrField);
+		sl_panel.putConstraint(SpringLayout.NORTH, updateShortdescrField, 261, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, updateShortdescrField, 157, SpringLayout.WEST, panel);
+		panel.add(updateShortdescrField);
+		updateShortdescrField.setColumns(10);
+		
+		JLabel lblUpdateLongDescription = new JLabel("Long description");
+		lblUpdateLongDescription.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.NORTH, lblUpdateLongDescription, 17, SpringLayout.SOUTH, lblUpdateShortDescription);
+		sl_panel.putConstraint(SpringLayout.WEST, lblUpdateLongDescription, 0, SpringLayout.WEST, lblUpdateName);
+		panel.add(lblUpdateLongDescription);
+		
+		JTextArea updateLongdescrArea = new JTextArea();
+		updateLongdescrArea.setEnabled(false);
+		sl_panel.putConstraint(SpringLayout.NORTH, updateLongdescrArea, -3, SpringLayout.NORTH, lblUpdateLongDescription);
+		sl_panel.putConstraint(SpringLayout.WEST, updateLongdescrArea, 0, SpringLayout.WEST, updateShortdescrField);
+		sl_panel.putConstraint(SpringLayout.SOUTH, updateLongdescrArea, -20, SpringLayout.NORTH, separator_1);
+		sl_panel.putConstraint(SpringLayout.EAST, updateLongdescrArea, -6, SpringLayout.WEST, btnUpdate);
+		panel.add(updateLongdescrArea);
 		btnMenuCategories.setEnabled(false);
 		add(btnMenuCategories);
 		
 		JButton btnLogOut = new JButton("Log out");
+		springLayout.putConstraint(SpringLayout.EAST, lblCategories, -147, SpringLayout.WEST, btnLogOut);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnLogOut, -6, SpringLayout.NORTH, scrollPane);
 		springLayout.putConstraint(SpringLayout.EAST, btnLogOut, 0, SpringLayout.EAST, scrollPane);
 		add(btnLogOut);
