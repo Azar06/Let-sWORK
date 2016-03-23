@@ -7,4 +7,9 @@ public abstract class Customer extends Person {
 	public Customer(PersonInfo personInfo) {
 		super(personInfo);
 	}
+	
+	@Override
+	public Right getRight() {
+		return Right.CUSTOMER;
+	}
 }

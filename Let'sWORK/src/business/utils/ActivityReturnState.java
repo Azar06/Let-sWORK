@@ -7,12 +7,12 @@ import persistence.Category;
 public class ActivityReturnState {
 
 	private String nameState = null;
-	private Date dateState = null;
-	private int positionState = 0;
-	private boolean isPublicState = true;
-	private int diaryIdState = 0;
-	private Category categoryIdState = null;
-	private int goalIdState = 0;
+	private String dateState = null;
+	private String positionState = null;
+	private String isPublicState = null;
+	private String diaryIdState = null;
+	private String categoryIdState = null;
+	private String goalIdState = null;
 	
 	// 
 	public boolean isRight(){
@@ -30,55 +30,55 @@ public class ActivityReturnState {
 	}
 	
 	// GET & SET : DATE
-	public Date getDateState() {
+	public String getDateState() {
 		return dateState;
 	}
-	public void setDateState(Date dateState) {
+	public void setDateState(String dateState) {
 		this.dateState = dateState;
 	}
 
 	// GET & SET : POSITION
-	public int getPositionState() {
+	public String getPositionState() {
 		return positionState;
 	}
 
-	public void setPositionState(int positionState) {
+	public void setPositionState(String positionState) {
 		this.positionState = positionState;
 	}
 	
 	// GET & SET : ISPUBLIC
-	public boolean getIsPublicState() {
+	public String getIsPublicState() {
 		return isPublicState;
 	}
 
-	public void setIsPublicState(boolean isPublicState) {
+	public void setIsPublicState(String isPublicState) {
 		this.isPublicState = isPublicState;
 	}
 	
 	// GET & SET : DIARYID
-	public int getDiaryIdState() {
+	public String getDiaryState() {
 		return diaryIdState;
 	}
 
-	public void setDiaryIdState(int diaryIdState) {
+	public void setDiaryState(String diaryIdState) {
 		this.diaryIdState = diaryIdState;
 	}
 	
 	// GET & SET : CATEGORYID
-	public Category getCategoryState() {
+	public String getCategoryState() {
 		return categoryIdState;
 	}
 
-	public void setCategoryState(Category categoryIdState) {
+	public void setCategoryState(String categoryIdState) {
 		this.categoryIdState = categoryIdState;
 	}
 	
 	// GET & SET : GOALID
-	public int getGoalIdState() {
+	public String getGoalState() {
 		return goalIdState;
 	}
 
-	public void setGoalIdState(int goalIdState) {
+	public void setGoalState(String goalIdState) {
 		this.goalIdState = goalIdState;
 	}
 }

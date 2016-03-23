@@ -10,6 +10,11 @@ public abstract class Seller extends Person {
 		this.siret=siret;
 		this.url=url;
 	}
+	
+	@Override
+	public Right getRight() {
+		return Right.SELLER;
+	}
 
 	public String getSiret() {
 		return siret;

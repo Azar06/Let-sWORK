@@ -40,9 +40,9 @@ public class ActivityJDBC extends Activity {
 				prepare.setDate(2, this.getDate());
 				prepare.setInt(3, this.getPosition());
 				prepare.setBoolean(4, this.getIsPublic());
-				prepare.setLong(5, ((DiaryJDBC)getDiary().getId());
+				prepare.setLong(5, ((DiaryJDBC)getDiary()).getId());
 				prepare.setLong(6, ((CategoryJDBC)getCategory()).getId());
-				prepare.setLong(7, ((GoalJDBC)getGoal().getId());
+				prepare.setLong(7, ((GoalJDBC)getGoal()).getId());
 				// Execution of the query
 				prepare.execute();
 			} 

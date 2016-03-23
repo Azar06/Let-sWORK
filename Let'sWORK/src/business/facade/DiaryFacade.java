@@ -1,5 +1,6 @@
 package business.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import business.manager.DiaryManager;
@@ -18,11 +19,7 @@ public class DiaryFacade {
 		return this.diaryManager.getGoals(user);
 	}
 	
-	public void createGoal() {
-		
-	}
-	
-	public void updateGoal() {
-		
+	public void createGoal(User owner, String name, String description, Date deadline) {
+		this.diaryManager.createGoal(owner, name, description, deadline);
 	}
 }
