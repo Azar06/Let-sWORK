@@ -1,7 +1,6 @@
 package business.manager;
 
 import business.Factory;
-import business.utils.CategoryReturnState;
 import business.utils.RessourceReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;

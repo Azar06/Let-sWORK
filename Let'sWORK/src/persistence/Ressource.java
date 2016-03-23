@@ -11,6 +11,7 @@ public class Ressource {
 		this.description = desc;
 	}
 
+	// Accesseurs & Mutateurs : CODE
 	public String getCode() {
 		return this.code;
 	}
@@ -19,6 +20,7 @@ public class Ressource {
 		this.code = codeR;
 	}
 	
+	// Accesseurs & Mutateurs : DESCRIPTION
 	public String getDescription() {
 		return this.description;
 	}

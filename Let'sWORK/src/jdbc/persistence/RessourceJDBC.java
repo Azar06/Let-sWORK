@@ -2,13 +2,9 @@ package jdbc.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import jdbc.DataBaseConnection;
 import persistence.Ressource;
-import persistence.PersonInfo;
-import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
 public class RessourceJDBC extends Ressource{
@@ -24,7 +20,7 @@ public class RessourceJDBC extends Ressource{
 	}
 	
 	public void save() throws SaveException {
-		/*this.getCategory().save();*/
+		/*this.getRessource().save();*/
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query

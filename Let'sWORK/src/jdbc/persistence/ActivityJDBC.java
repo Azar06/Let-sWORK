@@ -35,7 +35,6 @@ public class ActivityJDBC extends Activity {
 			if (id==-1) {
 				PreparedStatement prepare = connection.prepareStatement(
 						"INSERT INTO public.activity (id, name, date, position, isPublic, diaryId, categoryId, goalId) VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING id;");
-				// Indication about the value of the username in the WHERE
 				prepare.setString(1, this.getName());
 				prepare.setDate(2, this.getDate());
 				prepare.setInt(3, this.getPosition());
