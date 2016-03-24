@@ -280,7 +280,7 @@ CREATE TABLE public.goal
 (
   id SERIAL NOT NULL,
   name character varying NOT NULL,
-  description bit varying,
+  description character varying,
   deadline date,
   customerId bigint NOT NULL,
   CONSTRAINT goal_fk PRIMARY KEY (id),
@@ -459,3 +459,4 @@ WITH (
 );
 ALTER TABLE public.comment
   OWNER TO "LetsWorkAdmin";
+
