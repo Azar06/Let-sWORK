@@ -2,14 +2,19 @@ package view;
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.SwingConstants;
 
-public class SignupView extends AbstractView {
+public class SignupView extends AbstractView implements ActionListener {
 	private JTextField firstnameField;
 	private JTextField LastnameField;
 	private JTextField emailField;
@@ -18,139 +23,200 @@ public class SignupView extends AbstractView {
 	private JTextField streetField;
 	private JTextField cityField;
 	private JPasswordField passwordField;
+	private JTextField siretField;
+	private JTextField urlField;
+	private JLabel lblSiret;
+	private JLabel lblUrl;
 	public SignupView() {
-		SpringLayout springLayout = new SpringLayout();
-		setLayout(springLayout);
+		setLayout(null);
 		
 		firstnameField = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, firstnameField, 99, SpringLayout.WEST, this);
+		firstnameField.setBounds(180, 194, 167, 22);
 		add(firstnameField);
 		firstnameField.setColumns(10);
 		
 		JLabel lblSignUp = new JLabel("Sign Up");
-		springLayout.putConstraint(SpringLayout.WEST, lblSignUp, 191, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblSignUp, -253, SpringLayout.SOUTH, this);
-		lblSignUp.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSignUp.setBounds(280, 39, 240, 43);
+		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSignUp.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		add(lblSignUp);
 		
 		JLabel lblToLetsWork = new JLabel("to Let's WORK!");
-		springLayout.putConstraint(SpringLayout.NORTH, lblToLetsWork, 4, SpringLayout.SOUTH, lblSignUp);
-		springLayout.putConstraint(SpringLayout.WEST, lblToLetsWork, 173, SpringLayout.WEST, this);
-		lblToLetsWork.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblToLetsWork.setBounds(273, 88, 254, 31);
+		lblToLetsWork.setHorizontalAlignment(SwingConstants.CENTER);
+		lblToLetsWork.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		add(lblToLetsWork);
 		
 		JLabel lblFirstName = new JLabel("First Name");
-		springLayout.putConstraint(SpringLayout.NORTH, lblFirstName, 3, SpringLayout.NORTH, firstnameField);
-		springLayout.putConstraint(SpringLayout.EAST, lblFirstName, -6, SpringLayout.WEST, firstnameField);
+		lblFirstName.setBounds(79, 195, 85, 19);
+		lblFirstName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblFirstName);
 		
 		JLabel lblLastName = new JLabel("Last Name");
-		springLayout.putConstraint(SpringLayout.WEST, lblLastName, 0, SpringLayout.WEST, lblFirstName);
+		lblLastName.setBounds(79, 239, 85, 19);
+		lblLastName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblLastName);
 		
 		LastnameField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, lblLastName, 3, SpringLayout.NORTH, LastnameField);
-		springLayout.putConstraint(SpringLayout.NORTH, LastnameField, 202, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, firstnameField, -6, SpringLayout.NORTH, LastnameField);
-		springLayout.putConstraint(SpringLayout.WEST, LastnameField, 0, SpringLayout.WEST, firstnameField);
+		LastnameField.setBounds(180, 238, 167, 22);
 		add(LastnameField);
 		LastnameField.setColumns(10);
 		
 		emailField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, emailField, 6, SpringLayout.SOUTH, LastnameField);
-		springLayout.putConstraint(SpringLayout.EAST, emailField, 0, SpringLayout.EAST, firstnameField);
+		emailField.setBounds(180, 282, 167, 22);
 		add(emailField);
 		emailField.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
-		springLayout.putConstraint(SpringLayout.NORTH, lblEmail, 3, SpringLayout.NORTH, emailField);
-		springLayout.putConstraint(SpringLayout.EAST, lblEmail, 0, SpringLayout.EAST, lblLastName);
+		lblEmail.setBounds(93, 283, 71, 19);
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblEmail);
 		
 		JLabel lblId = new JLabel("ID");
+		lblId.setBounds(395, 197, 65, 16);
+		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblId);
 		
 		idField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, lblId, 3, SpringLayout.NORTH, idField);
-		springLayout.putConstraint(SpringLayout.EAST, lblId, -6, SpringLayout.WEST, idField);
-		springLayout.putConstraint(SpringLayout.EAST, idField, 0, SpringLayout.EAST, firstnameField);
+		idField.setBounds(474, 194, 167, 22);
 		add(idField);
 		idField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
-		springLayout.putConstraint(SpringLayout.NORTH, lblPassword, 0, SpringLayout.NORTH, lblId);
-		springLayout.putConstraint(SpringLayout.EAST, lblPassword, -159, SpringLayout.EAST, this);
+		lblPassword.setBounds(389, 241, 71, 16);
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblPassword);
 		
 		JLabel lblPhone = new JLabel("Phone");
-		springLayout.putConstraint(SpringLayout.NORTH, lblPhone, 3, SpringLayout.NORTH, firstnameField);
+		lblPhone.setBounds(93, 327, 71, 19);
+		lblPhone.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPhone.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblPhone);
 		
 		phoneField = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, lblPhone, -6, SpringLayout.WEST, phoneField);
-		springLayout.putConstraint(SpringLayout.EAST, phoneField, -37, SpringLayout.EAST, this);
+		phoneField.setBounds(180, 326, 167, 22);
 		add(phoneField);
 		phoneField.setColumns(10);
 		
 		JLabel lblStreet = new JLabel("Street");
-		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 0, SpringLayout.NORTH, lblLastName);
+		lblStreet.setBounds(93, 372, 71, 19);
+		lblStreet.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblStreet);
 		
 		streetField = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, lblStreet, -6, SpringLayout.WEST, streetField);
-		springLayout.putConstraint(SpringLayout.EAST, streetField, -37, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, phoneField, -6, SpringLayout.NORTH, streetField);
+		streetField.setBounds(180, 371, 167, 22);
 		add(streetField);
 		streetField.setColumns(10);
 		
 		JLabel lblCity = new JLabel("City");
-		springLayout.putConstraint(SpringLayout.NORTH, lblCity, 3, SpringLayout.NORTH, emailField);
+		lblCity.setBounds(93, 417, 71, 19);
+		lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblCity);
 		
 		cityField = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, lblCity, -6, SpringLayout.WEST, cityField);
-		springLayout.putConstraint(SpringLayout.NORTH, cityField, 230, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, cityField, -37, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, streetField, -6, SpringLayout.NORTH, cityField);
+		cityField.setBounds(180, 416, 167, 22);
 		add(cityField);
 		cityField.setColumns(10);
 		
-		JLabel lblPersonalInfos = new JLabel("Personal infos");
-		springLayout.putConstraint(SpringLayout.WEST, lblPersonalInfos, 0, SpringLayout.WEST, lblFirstName);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblPersonalInfos, -6, SpringLayout.NORTH, firstnameField);
-		lblPersonalInfos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblPersonalInfos = new JLabel("Personal informations");
+		lblPersonalInfos.setBounds(79, 147, 193, 25);
+		lblPersonalInfos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblPersonalInfos);
 		
-		JLabel lblSignInInfos = new JLabel("Sign in infos");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblSignInInfos, -201, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.NORTH, idField, 6, SpringLayout.SOUTH, lblSignInInfos);
-		springLayout.putConstraint(SpringLayout.WEST, lblSignInInfos, 0, SpringLayout.WEST, lblFirstName);
-		lblSignInInfos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblSignInInfos = new JLabel("Sign in informations");
+		lblSignInInfos.setBounds(395, 147, 177, 25);
+		lblSignInInfos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblSignInInfos);
 		
 		JButton btnSignUp = new JButton("Sign up");
+		btnSignUp.setBounds(330, 455, 140, 32);
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnSignUp, 6, SpringLayout.SOUTH, cityField);
 		add(btnSignUp);
 		
 		JCheckBox chckbxCustomer = new JCheckBox("Customer");
-		springLayout.putConstraint(SpringLayout.NORTH, chckbxCustomer, 6, SpringLayout.SOUTH, emailField);
-		springLayout.putConstraint(SpringLayout.WEST, chckbxCustomer, 0, SpringLayout.WEST, firstnameField);
+		chckbxCustomer.setBounds(524, 277, 83, 25);
 		add(chckbxCustomer);
 		
 		JCheckBox chckbxSeller = new JCheckBox("Seller");
-		springLayout.putConstraint(SpringLayout.WEST, btnSignUp, 50, SpringLayout.EAST, chckbxSeller);
-		springLayout.putConstraint(SpringLayout.NORTH, chckbxSeller, 6, SpringLayout.SOUTH, emailField);
-		springLayout.putConstraint(SpringLayout.WEST, chckbxSeller, 4, SpringLayout.EAST, chckbxCustomer);
+		chckbxSeller.setBounds(460, 277, 61, 25);
+		chckbxSeller.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(chckbxSeller.isSelected()) {
+					siretField.setEnabled(true);
+					lblSiret.setEnabled(true);
+					urlField.setEnabled(true);
+					lblUrl.setEnabled(true);
+				}
+				else {
+					siretField.setEnabled(false);
+					lblSiret.setEnabled(false);
+					urlField.setEnabled(false);
+					lblUrl.setEnabled(false);
+				}
+			}
+		});
 		add(chckbxSeller);
 		
 		passwordField = new JPasswordField();
-		springLayout.putConstraint(SpringLayout.NORTH, passwordField, -3, SpringLayout.NORTH, lblId);
-		springLayout.putConstraint(SpringLayout.WEST, passwordField, 6, SpringLayout.EAST, lblPassword);
-		springLayout.putConstraint(SpringLayout.EAST, passwordField, 0, SpringLayout.EAST, phoneField);
+		passwordField.setBounds(474, 237, 167, 22);
 		add(passwordField);
+		
+		JLabel lblOr = new JLabel("or");
+		lblOr.setBounds(364, 501, 71, 13);
+		lblOr.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		add(lblOr);
+		
+		JButton btnSignIn = new JButton("Sign in");
+		btnSignIn.setBounds(358, 520, 83, 21);
+		btnSignIn.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnSignIn.addActionListener(this);
+		btnSignIn.setActionCommand("signin");
+		add(btnSignIn);
+		
+		lblSiret = new JLabel("SIRET");
+		lblSiret.setBounds(395, 329, 65, 16);
+		lblSiret.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSiret.setEnabled(false);
+		add(lblSiret);
+		
+		siretField = new JTextField();
+		siretField.setBounds(474, 326, 167, 22);
+		siretField.setEnabled(false);
+		add(siretField);
+		siretField.setColumns(10);
+		
+		lblUrl = new JLabel("URL");
+		lblUrl.setBounds(395, 374, 65, 16);
+		lblUrl.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUrl.setEnabled(false);
+		add(lblUrl);
+		
+		urlField = new JTextField();
+		urlField.setBounds(474, 371, 167, 22);
+		urlField.setEnabled(false);
+		add(urlField);
+		urlField.setColumns(10);
+			
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0)
+	{
+		String cmd = arg0.getActionCommand();
+		if(cmd.equals("signin"))
+		{
+			LoginView lv = new LoginView();
+			this.getWindow().setView(lv);
+		}		
 	}
 }

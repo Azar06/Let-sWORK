@@ -28,6 +28,7 @@ public class LetsWorkWindow extends JFrame implements WindowIF {
 	@Override
 	public void setView(AbstractView view) {
 		this.setContentPane(view);
+		this.setVisible(true);
 		view.setWindow(this);
 	}
 }

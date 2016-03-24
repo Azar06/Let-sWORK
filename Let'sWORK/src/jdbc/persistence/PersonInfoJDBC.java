@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
 import persistence.*;
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class PersonInfoJDBC extends PersonInfo {
 

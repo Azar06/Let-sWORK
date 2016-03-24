@@ -10,4 +10,8 @@ public interface Factory {
 	public Customer createCustomer();
 	public Seller createSeller();
 	public Category createCategory();
+	public Goal createGoal();
+	public Activity createActivity();
+	public Diary createDiary();
+	public Ressource createRessource();
 }

@@ -1,5 +1,8 @@
 package persistence;
 
+import persistence.exception.LoadException;
+import persistence.exception.SaveException;
+
 public abstract class PersonInfo {
 	private String lastName;
 	private String fistName;
