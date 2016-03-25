@@ -14,13 +14,15 @@ public class UserManager {
 		this.factorio = new FactoryJDBC();
 	}
 
-	public boolean login(String username, String pass) {
-		boolean result = false;
+	public User login(String username, String pass) {
+		User result = null;
 
 		User u = this.getUserWithUsername(username);
 
 		if (u != null) {
-			result = (u.getPassword().equals(pass));
+			if(u.getPassword().equals(pass)) {
+				result = u;
+			}
 		}
 		// If the password write by the user is the same as the password in the
 		// database

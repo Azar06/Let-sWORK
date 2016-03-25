@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import business.facade.UserFacade;
+import persistence.User;
 
 public class LoginView extends AbstractView implements ActionListener {
 	
@@ -103,8 +104,10 @@ public class LoginView extends AbstractView implements ActionListener {
 			String pass = getPasswdText();
 			if((!id.equals("")) && (!pass.equals("")))
 			{
-				if (login(id,pass)) {
-					String message = "Welcome "+ id+".";
+				User user = login(id,pass);
+				if (user != null) {
+					this.setUser(user);
+					String message = "Welcome " + id + ".";
 					JOptionPane.showMessageDialog(null, message, "Connection established", JOptionPane.INFORMATION_MESSAGE);
 					this.getWindow().setView(new MainView(new CustomerMenuView(), new CategoryView()));
 				}
@@ -126,7 +129,7 @@ public class LoginView extends AbstractView implements ActionListener {
 		}
 	}
 	
-	public boolean login(String id, String pass) {
-		return this.facade.login(id,pass);
+	public User login(String id, String pass) {
+		return this.facade.login(id, pass);
 	}
 }

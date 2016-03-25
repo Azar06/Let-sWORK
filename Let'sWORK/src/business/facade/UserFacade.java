@@ -2,6 +2,7 @@ package business.facade;
 
 import business.manager.UserManager;
 import business.utils.SignupReturnState;
+import persistence.User;
 
 public class UserFacade {
 	private UserManager manager;
@@ -11,7 +12,7 @@ public class UserFacade {
 		this.manager = new UserManager();
 	}
 
-	public boolean login(String id, String password) {
+	public User login(String id, String password) {
 		return this.manager.login(id, password);
 		// In UserManager, if they are the same, it's OK
 	}
