@@ -17,5 +17,4 @@ public class ProductOfferTest {
         po.removeAmount(7);
         assertEquals(po.getAmount(), 25);
     }
-
 }

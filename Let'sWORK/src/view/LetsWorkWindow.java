@@ -7,7 +7,7 @@ public class LetsWorkWindow extends JFrame implements WindowIF {
 	private static final long serialVersionUID = 1L;
 	
 	private static int width = 800;
-	private static int height = 600;
+	private static int height = 630;
 	
 	public LetsWorkWindow() {
 		super();

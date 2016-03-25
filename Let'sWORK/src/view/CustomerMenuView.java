@@ -2,10 +2,14 @@ package view;
 
 import java.awt.Font;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 public class CustomerMenuView extends AbstractMenuView {
 	public CustomerMenuView() {
+		
+		this.setLayout(new BoxLayout(this, 1));
+		
 		JButton btnMenuProducts = new JButton("Products");
 		btnMenuProducts.setBounds(72, 155, 101, 31);
 		btnMenuProducts.setFont(new Font("Tahoma", Font.PLAIN, 18));
