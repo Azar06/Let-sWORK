@@ -46,9 +46,20 @@ public class FactoryJDBC implements Factory {
 	public Diary createDiary() {
 		return new DiaryJDBC();
 	}
-	
+
 	@Override
 	public Ressource createRessource() {
 		return new RessourceJDBC();
 	}
+
+	@Override
+	public ProductOffer createProductOffer(double price, int initialAmount) {
+		return new ProductOfferJDBC(price, initialAmount);
+	}
+
+	@Override
+	public ServiceOffer createServiceOffer(double price) {
+		return new ServiceOfferJDBC(price);
+	}
+
 }

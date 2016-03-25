@@ -2,7 +2,7 @@ package persistence;
 
 public class ServiceOffer extends Offer{
 
-    public ServiceOffer(float price, int amount) {
+    public ServiceOffer(double price) {
         super(price);
     }
 
