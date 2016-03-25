@@ -126,17 +126,17 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		separator_1.setBounds(10, 385, 503, 2);
 		panel.add(separator_1);
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.setBounds(433, 118, 80, 27);
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnAdd.addActionListener(this);
-		btnAdd.setActionCommand("add");
-		this.add(btnAdd);
-		
 		JLabel lblUpdateName = new JLabel("Name");
 		lblUpdateName.setBounds(54, 233, 33, 16);
 		lblUpdateName.setEnabled(false);
 		panel.add(lblUpdateName);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.setBounds(433, 118, 80, 27);
+		panel.add(btnAdd);
+		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnAdd.addActionListener(this);
+		btnAdd.setActionCommand("add");
 		
 		updateNameField = new JTextField();
 		updateNameField.setBounds(93, 233, 222, 22);
