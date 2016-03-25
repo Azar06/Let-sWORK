@@ -2,13 +2,13 @@ package persistence;
 
 abstract class Offer {
 
-    private float price;
+    private double price;
 
-    public Offer(float price) {
+    public Offer(double price) {
         this.price = price;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return this.price;
     }
 

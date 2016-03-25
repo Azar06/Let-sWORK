@@ -4,17 +4,21 @@ public class ProductOffer extends Offer{
 
     private int amount;
 
-    public ProductOffer(float price, int amount) {
+    public ProductOffer(double price, int initialAmount) {
         super(price);
-        this.amount= amount;
+        this.amount = initialAmount;
     }
 
     public int getAmount() {
         return this.amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void addAmount(int amount) {
+        this.amount += amount;
+    }
+
+    public void removeAmount(int amount) {
+        this.amount -= amount;
     }
 
 }
