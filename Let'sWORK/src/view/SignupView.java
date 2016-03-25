@@ -14,9 +14,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
+import business.facade.UserFacade;
+
 public class SignupView extends AbstractView implements ActionListener {
+	private UserFacade facade;
+	
 	private JTextField firstnameField;
-	private JTextField LastnameField;
+	private JTextField lastnameField;
 	private JTextField emailField;
 	private JTextField idField;
 	private JTextField phoneField;
@@ -27,7 +31,12 @@ public class SignupView extends AbstractView implements ActionListener {
 	private JTextField urlField;
 	private JLabel lblSiret;
 	private JLabel lblUrl;
+	private JCheckBox chckbxSeller;
+	private JCheckBox chckbxCustomer;
+	private JTextField postalField;
+	
 	public SignupView() {
+		this.facade = new UserFacade();
 		setLayout(null);
 		
 		firstnameField = new JTextField();
@@ -54,29 +63,30 @@ public class SignupView extends AbstractView implements ActionListener {
 		add(lblFirstName);
 		
 		JLabel lblLastName = new JLabel("Last Name");
-		lblLastName.setBounds(79, 239, 85, 19);
+		lblLastName.setBounds(79, 230, 85, 19);
 		lblLastName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblLastName);
 		
-		LastnameField = new JTextField();
-		LastnameField.setBounds(180, 238, 167, 22);
-		add(LastnameField);
-		LastnameField.setColumns(10);
+		lastnameField = new JTextField();
+		lastnameField.setBounds(180, 229, 167, 22);
+		add(lastnameField);
+		lastnameField.setColumns(10);
 		
 		emailField = new JTextField();
-		emailField.setBounds(180, 282, 167, 22);
+		emailField.setBounds(180, 264, 167, 22);
 		add(emailField);
 		emailField.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(93, 283, 71, 19);
+		lblEmail.setBounds(93, 265, 71, 19);
 		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblEmail);
 		
-		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(395, 197, 65, 16);
+		JLabel lblId = new JLabel("Username");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblId.setBounds(375, 197, 85, 16);
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblId);
 		
@@ -86,40 +96,41 @@ public class SignupView extends AbstractView implements ActionListener {
 		idField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPassword.setBounds(389, 241, 71, 16);
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblPassword);
 		
 		JLabel lblPhone = new JLabel("Phone");
-		lblPhone.setBounds(93, 327, 71, 19);
+		lblPhone.setBounds(93, 300, 71, 19);
 		lblPhone.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPhone.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblPhone);
 		
 		phoneField = new JTextField();
-		phoneField.setBounds(180, 326, 167, 22);
+		phoneField.setBounds(180, 299, 167, 22);
 		add(phoneField);
 		phoneField.setColumns(10);
 		
 		JLabel lblStreet = new JLabel("Street");
-		lblStreet.setBounds(93, 372, 71, 19);
+		lblStreet.setBounds(93, 335, 71, 19);
 		lblStreet.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblStreet);
 		
 		streetField = new JTextField();
-		streetField.setBounds(180, 371, 167, 22);
+		streetField.setBounds(180, 334, 167, 22);
 		add(streetField);
 		streetField.setColumns(10);
 		
 		JLabel lblCity = new JLabel("City");
-		lblCity.setBounds(93, 417, 71, 19);
+		lblCity.setBounds(93, 370, 71, 19);
 		lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(lblCity);
 		
 		cityField = new JTextField();
-		cityField.setBounds(180, 416, 167, 22);
+		cityField.setBounds(180, 369, 167, 22);
 		add(cityField);
 		cityField.setColumns(10);
 		
@@ -142,11 +153,11 @@ public class SignupView extends AbstractView implements ActionListener {
 		});
 		add(btnSignUp);
 		
-		JCheckBox chckbxCustomer = new JCheckBox("Customer");
+		chckbxCustomer = new JCheckBox("Customer");
 		chckbxCustomer.setBounds(524, 277, 83, 25);
 		add(chckbxCustomer);
 		
-		JCheckBox chckbxSeller = new JCheckBox("Seller");
+		chckbxSeller = new JCheckBox("Seller");
 		chckbxSeller.setBounds(460, 277, 61, 25);
 		chckbxSeller.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -184,6 +195,7 @@ public class SignupView extends AbstractView implements ActionListener {
 		add(btnSignIn);
 		
 		lblSiret = new JLabel("SIRET");
+		lblSiret.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSiret.setBounds(395, 329, 65, 16);
 		lblSiret.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSiret.setEnabled(false);
@@ -196,6 +208,7 @@ public class SignupView extends AbstractView implements ActionListener {
 		siretField.setColumns(10);
 		
 		lblUrl = new JLabel("URL");
+		lblUrl.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblUrl.setBounds(395, 374, 65, 16);
 		lblUrl.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUrl.setEnabled(false);
@@ -206,8 +219,98 @@ public class SignupView extends AbstractView implements ActionListener {
 		urlField.setEnabled(false);
 		add(urlField);
 		urlField.setColumns(10);
+		
+		postalField = new JTextField();
+		postalField.setBounds(180, 404, 167, 22);
+		add(postalField);
+		postalField.setColumns(10);
+		
+		JLabel lblPostalCode = new JLabel("Postal code");
+		lblPostalCode.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPostalCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPostalCode.setBounds(79, 406, 85, 16);
+		add(lblPostalCode);
 			
 	}
+	
+	//Recupere le prenom
+	public String getFirstNameText()
+	{
+		return this.firstnameField.getText(); 
+	}
+
+	//Recupere le nom de famille
+	public String getLastNameText()
+	{
+		return this.lastnameField.getText();
+	}
+	
+	//Recupere l'email
+	public String getEmailText()
+	{
+		return this.emailField.getText();
+	}
+	
+	//Recupere le telephone
+	public String getPhoneText()
+	{
+		return this.phoneField.getText();
+	}
+	
+	//Recupere la rue
+	public String getStreetText()
+	{
+		return this.streetField.getText();
+	}
+	
+	//Recupere la ville
+	public String getCityText()
+	{
+		return this.cityField.getText();
+	}
+	
+	//Recupere le code postal
+	public String getPostalCodeText()
+	{
+		return this.postalField.getText();
+	}
+	
+	//Recupere l'identifiant
+	public String getIdText()
+	{
+		return this.idField.getText();
+	}
+	
+	//Recupere le mot de passe 
+	public String getPassText()
+	{
+		return new String(this.passwordField.getPassword());
+	}
+	
+	//Renvoie true si l'user est un seller
+	public boolean isSeller()
+	{
+		return this.chckbxSeller.isSelected();
+	}
+	
+	//Renvoie true si l'user est un customer
+	public boolean isCustomer()
+	{
+		return this.chckbxCustomer.isSelected();
+	}
+	
+	//Recupere le siret
+	public String getSiretText()
+	{
+		return this.siretField.getText();
+	}
+	
+	//Recupere l'url
+	public String getUrlText()
+	{
+		return this.urlField.getText();
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0)
@@ -217,6 +320,48 @@ public class SignupView extends AbstractView implements ActionListener {
 		{
 			LoginView lv = new LoginView();
 			this.getWindow().setView(lv);
-		}		
+		}
+		if(cmd.equals("enter"))
+		{
+			String firstName = getFirstNameText();
+			String lastName = getLastNameText();
+			String street = getStreetText();
+			String city = getCityText();
+			String postalCode = getPostalCodeText();
+			String phone = getPhoneText();
+			String email = getEmailText();
+			String username = getIdText();
+			String password = getPassText();
+			boolean isCustomer = isCustomer();
+			boolean isSeller = isCustomer();
+			String siret = getSiretText();
+			String url = getUrlText();
+			
+			//on verifie si les informations basiques sont bien renseignees
+			if((firstName == "") || (lastName == "") || (street == "") || (city == "") || (postalCode == "") || (phone == "") || (email == "") || (username == "") || (password == ""))
+			{
+				String message = "All fields must be filled in.";
+				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				if(!isCustomer && !isSeller) { //on verifie si l'utilisateur a un role
+					String message = "You must be customer and/or seller.";
+					JOptionPane.showMessageDialog(null, message, "Missing role", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					if(isSeller && ((siret == "") || (url == ""))) { //si l'utilisateur est seller mais que le siret et/ou l'url ne sont pas renseignes
+						String message = "All fields must be filled in.";
+						JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
+					}
+					else { //tout est good
+						this.facade.signup(firstName, lastName, street, city, postalCode, phone, email, username, password, isCustomer, isSeller, siret, url);
+						String message = "Successfully signed up";
+						JOptionPane.showMessageDialog(null, message, "Congrats, "+ username+". You have successfully registered into our application. You can now log in with the informations you filled.", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}
+			
+		}
+
 	}
 }
