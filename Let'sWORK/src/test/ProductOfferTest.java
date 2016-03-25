@@ -1,10 +1,13 @@
-package persistence;
+package test;
 
 import static org.junit.Assert.*;
+import org.junit.Test;
+
+import persistence.ProductOffer;
 
 public class ProductOfferTest {
 
-    @org.junit.Test
+    @Test
     public void testProductOffer() throws Exception {
         ProductOffer po = new ProductOffer(23.5, 5);
 
