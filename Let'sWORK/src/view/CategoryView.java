@@ -46,13 +46,8 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(67, 63, 525, 506);
+		scrollPane.setBounds(55, 25, 525, 506);
 		add(scrollPane);
-		
-		JLabel lblCategories = new JLabel("Categories");
-		lblCategories.setBounds(257, 10, 185, 49);
-		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		add(lblCategories);
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
@@ -158,10 +153,6 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		updateDescrArea.setBounds(130, 268, 283, 71);
 		updateDescrArea.setEnabled(false);
 		panel.add(updateDescrArea);
-		
-		JButton btnLogOut = new JButton("Log out");
-		btnLogOut.setBounds(503, 33, 94, 25);
-		add(btnLogOut);
 	}
 	
 	//Recupere le nouveau nom de la categorie a ajouter
