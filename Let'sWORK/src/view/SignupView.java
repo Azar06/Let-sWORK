@@ -147,10 +147,8 @@ public class SignupView extends AbstractView implements ActionListener {
 		JButton btnSignUp = new JButton("Sign up");
 		btnSignUp.setBounds(330, 455, 140, 32);
 		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnSignUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnSignUp.addActionListener(this);
+		btnSignUp.setActionCommand("signup");
 		add(btnSignUp);
 		
 		chckbxCustomer = new JCheckBox("Customer");
@@ -321,7 +319,7 @@ public class SignupView extends AbstractView implements ActionListener {
 			LoginView lv = new LoginView();
 			this.getWindow().setView(lv);
 		}
-		if(cmd.equals("enter"))
+		if(cmd.equals("signup"))
 		{
 			String firstName = getFirstNameText();
 			String lastName = getLastNameText();
@@ -333,12 +331,12 @@ public class SignupView extends AbstractView implements ActionListener {
 			String username = getIdText();
 			String password = getPassText();
 			boolean isCustomer = isCustomer();
-			boolean isSeller = isCustomer();
+			boolean isSeller = isSeller();
 			String siret = getSiretText();
 			String url = getUrlText();
 			
 			//on verifie si les informations basiques sont bien renseignees
-			if((firstName == "") || (lastName == "") || (street == "") || (city == "") || (postalCode == "") || (phone == "") || (email == "") || (username == "") || (password == ""))
+			if(firstName.equals("") || lastName.equals("") || street.equals("") || city.equals("") || postalCode.equals("") || phone.equals("") || email.equals("") || username.equals("") || password.equals(""))
 			{
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
@@ -349,7 +347,7 @@ public class SignupView extends AbstractView implements ActionListener {
 					JOptionPane.showMessageDialog(null, message, "Missing role", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					if(isSeller && ((siret == "") || (url == ""))) { //si l'utilisateur est seller mais que le siret et/ou l'url ne sont pas renseignes
+					if(isSeller && (siret.equals("") || url.equals(""))) { //si l'utilisateur est seller mais que le siret et/ou l'url ne sont pas renseignes
 						String message = "All fields must be filled in.";
 						JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 					}
