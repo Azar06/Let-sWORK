@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 
+import persistence.User;
+
 public abstract class AbstractView extends JPanel{
 	
 	/**
@@ -17,5 +19,19 @@ public abstract class AbstractView extends JPanel{
 	
 	public void setWindow(LetsWorkWindow window) {
 		this.window = window;
+	}
+	
+	public User getUser() {
+		User u = null;
+		if(this.window != null) {
+			u = this.window.getUser();
+		}
+		return u;
+	}
+	
+	public void setUser(User user) {
+		if(this.window != null) {
+			this.window.setUser(user);
+		}
 	}
 }

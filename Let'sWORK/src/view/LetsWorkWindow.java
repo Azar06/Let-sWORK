@@ -2,12 +2,16 @@ package view;
 
 import javax.swing.JFrame;
 
+import persistence.User;
+
 public class LetsWorkWindow extends JFrame implements WindowIF {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private static int width = 800;
 	private static int height = 630;
+	
+	private User user = null;
 	
 	public LetsWorkWindow() {
 		super();
@@ -30,5 +34,13 @@ public class LetsWorkWindow extends JFrame implements WindowIF {
 		this.setContentPane(view);
 		this.setVisible(true);
 		view.setWindow(this);
+	}
+	
+	public User getUser() {
+		return this.user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
