@@ -123,13 +123,13 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(deleteCategorynameSpinner);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(417, 352, 79, 27);
+		btnUpdate.setBounds(417, 352, 96, 27);
 		btnUpdate.setEnabled(false);
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(417, 420, 73, 27);
+		btnDelete.setBounds(417, 420, 96, 27);
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnDelete);
 		
@@ -138,7 +138,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(separator_1);
 		
 		JButton btnAdd = new JButton("Add");
-		btnAdd.setBounds(433, 118, 57, 27);
+		btnAdd.setBounds(433, 118, 80, 27);
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnAdd);
 		
@@ -175,7 +175,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(updateLongdescrArea);
 		
 		JButton btnLogOut = new JButton("Log out");
-		btnLogOut.setBounds(517, 33, 75, 25);
+		btnLogOut.setBounds(503, 33, 94, 25);
 		add(btnLogOut);
 	}
 
