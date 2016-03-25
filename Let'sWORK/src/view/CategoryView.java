@@ -42,11 +42,11 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(189, 65, 525, 506);
+		scrollPane.setBounds(67, 63, 525, 506);
 		add(scrollPane);
 		
 		JLabel lblCategories = new JLabel("Categories");
-		lblCategories.setBounds(307, 10, 185, 49);
+		lblCategories.setBounds(257, 10, 185, 49);
 		lblCategories.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		add(lblCategories);
 		
@@ -175,7 +175,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(updateLongdescrArea);
 		
 		JButton btnLogOut = new JButton("Log out");
-		btnLogOut.setBounds(639, 34, 75, 25);
+		btnLogOut.setBounds(517, 33, 75, 25);
 		add(btnLogOut);
 	}
 
