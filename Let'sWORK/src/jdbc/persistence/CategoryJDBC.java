@@ -23,7 +23,6 @@ public class CategoryJDBC extends Category {
 		super(null, null);
 	}
 	
-	
 	public void save() throws SaveException {
 		/*this.getCategory().save();*/
 		try {
@@ -48,14 +47,36 @@ public class CategoryJDBC extends Category {
 				// Execution of the query
 				prepare.execute();
 			}
-			
-			
+						
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}
 	}
 	
-	
+	@Override
+	public void loadWithName(String name) throws LoadException {
+		try {
+			Connection connection = DataBaseConnection.getConnection();
+			// Preparation for the query
+			PreparedStatement prepare = connection.prepareStatement("SELECT id, name, description FROM public.category WHERE name=?;");
+			prepare.setString(1, name);
+			// Execution of the query
+			ResultSet result = prepare.executeQuery();
+			// we use a while here bcs we know it is a list
+			if (result.next()) {
+				// We get the id, the name and the description
+				this.setId(result.getLong("id"));
+				this.setName(result.getString("name"));
+				this.setDescription(result.getString("description"));
+			} else {
+				throw new LoadException("Can't load the category");
+			}
+		}
+		catch (SQLException ex){
+			throw new LoadException("Can't load the category");
+		}
+	}
+
 	
 	
 /*

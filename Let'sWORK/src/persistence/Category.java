@@ -1,6 +1,8 @@
 package persistence;
 
-public class Category {
+import persistence.exception.LoadException;
+
+public abstract class Category {
 
 	private String name;
 	private String description;
@@ -15,7 +17,9 @@ public class Category {
 		this.name = nom;
 		this.description = desc;
 	}
-
+	
+	public abstract void loadWithName(String name) throws LoadException;
+	
 	public String getName() {
 		return this.name;
 	}
