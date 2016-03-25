@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 import business.facade.UserFacade;
+import business.utils.SignupReturnState;
 
 public class SignupView extends AbstractView implements ActionListener {
 	private UserFacade facade;
@@ -351,10 +352,16 @@ public class SignupView extends AbstractView implements ActionListener {
 						String message = "All fields must be filled in.";
 						JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 					}
-					else { //tout est good
-						this.facade.signup(firstName, lastName, street, city, postalCode, phone, email, username, password, isCustomer, isSeller, siret, url);
-						String message = "Successfully signed up";
-						JOptionPane.showMessageDialog(null, message, "Congrats, "+ username+". You have successfully registered into our application. You can now log in with the informations you filled.", JOptionPane.INFORMATION_MESSAGE);
+					else {
+						SignupReturnState returnState = this.facade.signup(firstName, lastName, street, city, postalCode, phone, email, username, password, isCustomer, isSeller, siret, url);
+						if(returnState.isRight()) {
+							String message = "Successfully signed up";
+							JOptionPane.showMessageDialog(null, message, "Congrats, "+ username+". You have successfully registered into our application. You can now log in with the informations you filled.", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else {
+							String message = "Error at the creation of your account. Maybe an account with the same username is already existent.";
+							JOptionPane.showMessageDialog(null, message, "Account creation failed", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 			}

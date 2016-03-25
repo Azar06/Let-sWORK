@@ -20,6 +20,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import business.facade.CategoryFacade;
 import business.facade.UserFacade;
+import business.utils.CategoryReturnState;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
@@ -33,9 +35,11 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 
 	private CategoryFacade facade;
 	private JTextField newNameField;
-	private JTextField newShortdescrField;
+	private JTextArea newDescrArea;
 	private JTextField updateNameField;
-	private JTextField updateShortdescrField;
+	private JTextArea updateDescrArea;
+	private JSpinner updateCategorynameSpinner;
+	private JSpinner deleteCategorynameSpinner;
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
@@ -69,24 +73,14 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(newNameField);
 		newNameField.setColumns(10);
 		
-		JLabel lblShortDescription = new JLabel("Short description");
-		lblShortDescription.setBounds(25, 72, 107, 19);
-		lblShortDescription.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(lblShortDescription);
+		JLabel lblDescription = new JLabel("Description");
+		lblDescription.setBounds(20, 89, 78, 19);
+		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panel.add(lblDescription);
 		
-		newShortdescrField = new JTextField();
-		newShortdescrField.setBounds(138, 71, 352, 22);
-		panel.add(newShortdescrField);
-		newShortdescrField.setColumns(10);
-		
-		JLabel lblLongDescription = new JLabel("Long description");
-		lblLongDescription.setBounds(20, 104, 104, 19);
-		lblLongDescription.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(lblLongDescription);
-		
-		JTextArea newLongdescrArea = new JTextArea();
-		newLongdescrArea.setBounds(130, 103, 297, 42);
-		panel.add(newLongdescrArea);
+		newDescrArea = new JTextArea();
+		newDescrArea.setBounds(100, 89, 327, 56);
+		panel.add(newDescrArea);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 151, 503, 2);
@@ -102,7 +96,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		lblCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblCategoryName);
 		
-		JSpinner updateCategorynameSpinner = new JSpinner();
+		updateCategorynameSpinner = new JSpinner();
 		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
 		updateCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
 		panel.add(updateCategorynameSpinner);
@@ -117,7 +111,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		lblDelCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblDelCategoryName);
 		
-		JSpinner deleteCategorynameSpinner = new JSpinner();
+		deleteCategorynameSpinner = new JSpinner();
 		deleteCategorynameSpinner.setBounds(130, 423, 267, 22);
 		deleteCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
 		panel.add(deleteCategorynameSpinner);
@@ -140,7 +134,9 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setBounds(433, 118, 80, 27);
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(btnAdd);
+		btnAdd.addActionListener(this);
+		btnAdd.setActionCommand("add");
+		this.add(btnAdd);
 		
 		JLabel lblUpdateName = new JLabel("Name");
 		lblUpdateName.setBounds(54, 233, 33, 16);
@@ -153,34 +149,60 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		panel.add(updateNameField);
 		updateNameField.setColumns(10);
 		
-		JLabel lblUpdateShortDescription = new JLabel("Short description");
-		lblUpdateShortDescription.setBounds(54, 264, 97, 16);
-		lblUpdateShortDescription.setEnabled(false);
-		panel.add(lblUpdateShortDescription);
+		JLabel lblUpdateDescription = new JLabel("Description");
+		lblUpdateDescription.setBounds(54, 271, 69, 16);
+		lblUpdateDescription.setEnabled(false);
+		panel.add(lblUpdateDescription);
 		
-		updateShortdescrField = new JTextField();
-		updateShortdescrField.setBounds(157, 261, 333, 22);
-		updateShortdescrField.setEnabled(false);
-		panel.add(updateShortdescrField);
-		updateShortdescrField.setColumns(10);
-		
-		JLabel lblUpdateLongDescription = new JLabel("Long description");
-		lblUpdateLongDescription.setBounds(54, 297, 93, 16);
-		lblUpdateLongDescription.setEnabled(false);
-		panel.add(lblUpdateLongDescription);
-		
-		JTextArea updateLongdescrArea = new JTextArea();
-		updateLongdescrArea.setBounds(157, 294, 254, 71);
-		updateLongdescrArea.setEnabled(false);
-		panel.add(updateLongdescrArea);
+		updateDescrArea = new JTextArea();
+		updateDescrArea.setBounds(130, 268, 283, 71);
+		updateDescrArea.setEnabled(false);
+		panel.add(updateDescrArea);
 		
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.setBounds(503, 33, 94, 25);
 		add(btnLogOut);
 	}
+	
+	//Recupere le nouveau nom de la categorie a ajouter
+	public String getNewNameText()
+	{
+		return this.newNameField.getText();
+	}
+	
+	//Recupere le nouveau descriptif de la categorie a ajouter
+	public String getNewDescrText()
+	{
+		return this.newDescrArea.getText();
+	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void actionPerformed(ActionEvent arg0) {
+		String cmd = arg0.getActionCommand();
+		if(cmd.equals("add"))
+		{
+			String newName = getNewNameText();
+			String newDescr = getNewDescrText();
+			if(newName.equals("") || newDescr.equals("")) { // si tous les champs ne sont pas renseignes
+				String message = "All fields must be filled in.";
+				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				CategoryReturnState returnState = this.facade.create(newName, newDescr);
+				if(returnState.isRight()) {
+					String message = "Category " + newName + "created.";
+					JOptionPane.showMessageDialog(null, message, "Creation completed", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					String message = "Error at the creation of the new category. Maybe a category with the same name is already existent.";
+					JOptionPane.showMessageDialog(null, message, "Creation failed", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public String getTitle() {
+		return "Categories";
 	}
 }
