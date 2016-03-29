@@ -6,11 +6,11 @@ public abstract class Category {
 
 	private String name;
 	private String description;
-	
-	/*public BasketLine(Offer bo, int qty) {
-		this.basketOffer=bo;
-		this.amount=qty;
-	}*/
+
+	public Category() {
+		this.name = null;
+		this.description = null;
+	}
 		
 	public Category(String nom, String desc) {
 		super();

@@ -3,13 +3,15 @@ package test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import business.Factory;
 import persistence.ProductOffer;
 
 public class ProductOfferTest {
 
     @Test
     public void testProductOffer() throws Exception {
-        ProductOffer po = new ProductOffer(23.5, 5);
+    	Factory factorio = new TestFactory();
+        ProductOffer po = factorio.createProductOffer(23.5, 5);
 
         assertEquals(po.getAmount(), 5);
         po.addAmount(27);

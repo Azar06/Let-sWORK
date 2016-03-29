@@ -48,7 +48,7 @@ public class FactoryJDBC implements Factory {
 	}
 
 	@Override
-	public Ressource createRessource() {
+	public Resource createRessource() {
 		return new RessourceJDBC();
 	}
 

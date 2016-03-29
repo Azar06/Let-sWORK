@@ -2,7 +2,7 @@ package persistence;
 
 import java.sql.Date;
 
-public class Activity {
+public abstract class Activity {
 	private String name;
 	private Date date;
 	private Integer position;

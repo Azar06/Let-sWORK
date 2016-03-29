@@ -4,6 +4,10 @@ abstract class Offer {
 
     private double price;
 
+    public Offer() {
+    	this.price = 0;
+    }
+    
     public Offer(double price) {
         this.price = price;
     }

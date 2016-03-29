@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import jdbc.DataBaseConnection;
-import persistence.Ressource;
+import persistence.Resource;
 import persistence.exception.SaveException;
 
-public class RessourceJDBC extends Ressource{
+public class RessourceJDBC extends Resource{
 
 	private long id = -1;
 	

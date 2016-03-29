@@ -1,11 +1,11 @@
 package persistence;
 
-public class Ressource {
+public abstract class Resource {
 
 	private String code;
 	private String description;
 	
-	public Ressource(String codeR, String desc) {
+	public Resource(String codeR, String desc) {
 		super();
 		this.code = codeR;
 		this.description = desc;
