@@ -1,9 +1,14 @@
 package persistence;
 
-public class ProductOffer extends Offer{
+public abstract class ProductOffer extends Offer {
 
     private int amount;
 
+    public ProductOffer() {
+    	super();
+    	this.amount = 0;
+    }
+    
     public ProductOffer(double price, int initialAmount) {
         super(price);
         this.amount = initialAmount;

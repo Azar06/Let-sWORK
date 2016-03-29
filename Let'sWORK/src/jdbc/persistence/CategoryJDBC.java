@@ -23,6 +23,7 @@ public class CategoryJDBC extends Category {
 		super(null, null);
 	}
 	
+	@Override
 	public void save() throws SaveException {
 		/*this.getCategory().save();*/
 		try {

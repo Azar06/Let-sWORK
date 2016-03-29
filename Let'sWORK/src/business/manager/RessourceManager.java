@@ -24,7 +24,7 @@ public class RessourceManager {
 		}
 		//If all is right
 		if (state.isRight()) {
-			Ressource ressource = this.factorio.createRessource();
+			Resource ressource = this.factorio.createRessource();
 			ressource.setCode(code);
 			ressource.setDescription(description);
 		}

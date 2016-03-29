@@ -1,7 +1,12 @@
 package business.facade;
 
+import java.util.List;
+
 import business.manager.CategoryManager;
 import business.utils.CategoryReturnState;
+import persistence.Category;
+import persistence.CategorySet;
+import persistence.exception.LoadException;
 
 
 public class CategoryFacade {
@@ -15,5 +20,13 @@ public class CategoryFacade {
 	//Return the state of the creation of a category
 	public CategoryReturnState create(String name, String description) {
 		return this.manager.create(name, description);
+	}
+	
+	public CategoryReturnState save(Category category) {
+		return this.manager.save(category);
+	}
+	
+	public List<Category> getCategories() {
+		return this.manager.getCategories();
 	}
 }

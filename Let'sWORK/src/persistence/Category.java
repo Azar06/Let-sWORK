@@ -1,16 +1,17 @@
 package persistence;
 
 import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public abstract class Category {
 
 	private String name;
 	private String description;
-	
-	/*public BasketLine(Offer bo, int qty) {
-		this.basketOffer=bo;
-		this.amount=qty;
-	}*/
+
+	public Category() {
+		this.name = null;
+		this.description = null;
+	}
 		
 	public Category(String nom, String desc) {
 		super();
@@ -19,6 +20,7 @@ public abstract class Category {
 	}
 	
 	public abstract void loadWithName(String name) throws LoadException;
+	public abstract void save() throws SaveException;
 	
 	public String getName() {
 		return this.name;
