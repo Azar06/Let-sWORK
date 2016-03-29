@@ -26,7 +26,7 @@ public class CategoryFacade {
 		return this.manager.save(category);
 	}
 	
-	public List<Category> getCategories() {
-		return this.manager.getCategories();
+	public CategorySet getCategorySet() {
+		return this.manager.getCategorySet();
 	}
 }

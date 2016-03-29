@@ -76,12 +76,12 @@ public class CategoryManager {
 		return state;
 	}
 	
-	public List<Category> getCategories() {
+	public CategorySet getCategorySet() {
 		CategorySet catSet = factorio.createCategorySet();
 		try {
 			catSet.loadAll();
 		} catch (LoadException e) {
 		}
-		return catSet.getCategories();
+		return catSet;
 	}
 }
