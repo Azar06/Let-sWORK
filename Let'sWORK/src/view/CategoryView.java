@@ -9,10 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -91,11 +94,6 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		lblCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblCategoryName);
 		
-		updateCategorynameSpinner = new JSpinner();
-		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
-		updateCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
-		panel.add(updateCategorynameSpinner);
-		
 		JLabel lblDeleteACategory = new JLabel("Delete a category");
 		lblDeleteACategory.setBounds(10, 393, 159, 25);
 		lblDeleteACategory.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -116,6 +114,8 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		btnUpdate.setEnabled(false);
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(btnUpdate);
+		btnUpdate.addActionListener(this);
+		btnUpdate.setActionCommand("update");
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setBounds(417, 420, 96, 27);
@@ -153,6 +153,30 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		updateDescrArea.setBounds(130, 268, 283, 71);
 		updateDescrArea.setEnabled(false);
 		panel.add(updateDescrArea);
+		
+		updateCategorynameSpinner = new JSpinner();
+		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
+		updateCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"", "Category 1"}));
+		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(e.equals("")) {
+					lblUpdateName.setEnabled(false);
+					updateNameField.setEnabled(false);
+					lblUpdateDescription.setEnabled(false);
+					updateDescrArea.setEnabled(false);
+					btnUpdate.setEnabled(false);
+				}
+				else {
+					lblUpdateName.setEnabled(true);
+					updateNameField.setEnabled(true);
+					lblUpdateDescription.setEnabled(true);
+					updateDescrArea.setEnabled(true);
+					btnUpdate.setEnabled(true);
+				}
+			}
+		});
+		panel.add(updateCategorynameSpinner);
+		
 	}
 	
 	//Recupere le nouveau nom de la categorie a ajouter
@@ -166,6 +190,18 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 	{
 		return this.newDescrArea.getText();
 	}
+	
+	//Recupere le nouveau nom de la categorie a modifier
+		public String getUpdateNameText()
+		{
+			return this.updateNameField.getText();
+		}
+		
+		//Recupere le nouveau descriptif de la categorie a modifier
+		public String getUpdateDescrText()
+		{
+			return this.updateDescrArea.getText();
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -187,6 +223,25 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				else {
 					String message = "Error at the creation of the new category. Maybe a category with the same name is already existent.";
 					JOptionPane.showMessageDialog(null, message, "Creation failed", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+		else if(cmd.equals("update")) {
+			String updName = getUpdateNameText();
+			String updDescr = getUpdateDescrText();
+			if(updName.equals("") || updDescr.equals("")) { // si tous les champs ne sont pas renseignes
+				String message = "All fields must be filled in.";
+				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				CategoryReturnState returnState = this.facade.update(updName, updDescr);
+				if(returnState.isRight()) {
+					String message = "Category " + updName + "updated.";
+					JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					String message = "Error at the update of the category. Maybe a category with the same name is already existent.";
+					JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

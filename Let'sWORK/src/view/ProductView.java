@@ -249,28 +249,11 @@ public class ProductView extends AbstractContentView implements ActionListener {
 		String cmd = arg0.getActionCommand();
 		if(cmd.equals("add"))
 		{
-			String newName = getNewNameText();
-			String newDescr = getNewDescrText();
-			if(newName.equals("") || newDescr.equals("")) { // si tous les champs ne sont pas renseignes
-				String message = "All fields must be filled in.";
-				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				CategoryReturnState returnState = this.facade.create(newName, newDescr);
-				if(returnState.isRight()) {
-					String message = "Category " + newName + "created.";
-					JOptionPane.showMessageDialog(null, message, "Creation completed", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else {
-					String message = "Error at the creation of the new category. Maybe a category with the same name is already existent.";
-					JOptionPane.showMessageDialog(null, message, "Creation failed", JOptionPane.ERROR_MESSAGE);
-				}
-			}
 		}
 	}
 	
 	@Override
 	public String getTitle() {
-		return "Categories";
+		return "Products";
 	}
 }
