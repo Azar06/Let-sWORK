@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -24,6 +26,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import business.facade.CategoryFacade;
 import business.facade.UserFacade;
 import business.utils.CategoryReturnState;
+import persistence.Category;
+import persistence.CategorySet;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -106,7 +110,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		
 		deleteCategorynameSpinner = new JSpinner();
 		deleteCategorynameSpinner.setBounds(130, 423, 267, 22);
-		deleteCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"Category 1"}));
+		deleteCategorynameSpinner.setModel(new SpinnerListModel(new String[] {" ", "Category 1", "Category 2"}));
 		panel.add(deleteCategorynameSpinner);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -156,7 +160,11 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		
 		updateCategorynameSpinner = new JSpinner();
 		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
-		updateCategorynameSpinner.setModel(new SpinnerListModel(new String[] {"", "Category 1"}));
+		CategorySet categories = this.facade.getCategorySet();
+		ArrayList<String> catList = new ArrayList<String>();
+		catList.add("");
+		catList.addAll(categories.getNames());
+		updateCategorynameSpinner.setModel(new SpinnerListModel(catList));
 		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if(e.equals("")) {

@@ -9,6 +9,7 @@ public abstract class Category {
 	private String description;
 
 	public Category() {
+		super();
 		this.name = null;
 		this.description = null;
 	}
