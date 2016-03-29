@@ -33,4 +33,18 @@ public abstract class CategorySet {
 		}
 		return names;
 	}
+	
+	public Category getCategoryWithName(String name) {
+		Iterator<Category> it = this.getCategories().iterator();
+		Category cat = null;
+		if(name != null){
+			while(it.hasNext() && cat == null) {
+				Category c = it.next();
+				if(name.equals(c.getName())) {
+					cat = c;
+				}
+			}
+		}
+		return cat;
+	}
 }
