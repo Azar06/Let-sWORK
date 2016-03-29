@@ -47,10 +47,14 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 	private JTextArea updateDescrArea;
 	private JSpinner updateCategorynameSpinner;
 	private JSpinner deleteCategorynameSpinner;
+	private CategorySet categories;
+	private String catName;
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
 		setLayout(null);
+		this.categories = this.facade.getCategorySet();
+		this.catName = "";
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(55, 25, 525, 506);
@@ -160,14 +164,16 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		
 		updateCategorynameSpinner = new JSpinner();
 		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
-		CategorySet categories = this.facade.getCategorySet();
+		
 		ArrayList<String> catList = new ArrayList<String>();
 		catList.add("");
-		catList.addAll(categories.getNames());
+		catList.addAll(this.categories.getNames());
 		updateCategorynameSpinner.setModel(new SpinnerListModel(catList));
 		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if(e.equals("")) {
+					updateNameField.setText("");
+					updateDescrArea.setText("");
 					lblUpdateName.setEnabled(false);
 					updateNameField.setEnabled(false);
 					lblUpdateDescription.setEnabled(false);
@@ -175,11 +181,15 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 					btnUpdate.setEnabled(false);
 				}
 				else {
+					catName = e.toString();
 					lblUpdateName.setEnabled(true);
 					updateNameField.setEnabled(true);
 					lblUpdateDescription.setEnabled(true);
 					updateDescrArea.setEnabled(true);
 					btnUpdate.setEnabled(true);
+					updateNameField.setText(catName);
+					String d = categories.getCategoryWithName(catName).getDescription();
+					updateDescrArea.setText(d);
 				}
 			}
 		});
@@ -242,14 +252,19 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				CategoryReturnState returnState = this.facade.update(updName, updDescr);
-				if(returnState.isRight()) {
-					String message = "Category " + updName + "updated.";
-					JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else {
-					String message = "Error at the update of the category. Maybe a category with the same name is already existent.";
-					JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
+				if(!this.catName.equals("")) {
+					Category theCategoryWeWantToUpdate = this.categories.getCategoryWithName(this.catName);
+					theCategoryWeWantToUpdate.setName(updName);
+					theCategoryWeWantToUpdate.setDescription(updDescr);
+					CategoryReturnState returnState = this.facade.save(theCategoryWeWantToUpdate);
+					if(returnState.isRight()) {
+						String message = "Category " + this.catName + " updated to " + updName + ".";
+						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						String message = "Error at the update of the category. Maybe a category with the same name is already existent.";
+						JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		}
