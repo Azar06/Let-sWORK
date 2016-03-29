@@ -62,4 +62,9 @@ public class FactoryJDBC implements Factory {
 		return new ServiceOfferJDBC(price);
 	}
 
+	@Override
+	public CategorySet createCategorySet() {
+		return new CategorySetJDBC();
+	}
+
 }

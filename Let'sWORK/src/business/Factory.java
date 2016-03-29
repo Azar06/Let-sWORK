@@ -16,4 +16,5 @@ public interface Factory {
 	public Resource createRessource();
 	public ProductOffer createProductOffer(double price, int amount);
 	public ServiceOffer createServiceOffer(double price);
+	public CategorySet createCategorySet();
 }
