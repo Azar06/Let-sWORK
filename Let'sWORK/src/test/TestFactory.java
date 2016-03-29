@@ -8,8 +8,7 @@ public class TestFactory implements Factory {
 
 	@Override
 	public User createUser() {
-		// TODO Auto-generated method stub
-		return null;
+		return new UserT();
 	}
 
 	@Override
@@ -20,14 +19,12 @@ public class TestFactory implements Factory {
 
 	@Override
 	public Customer createCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CustomerT(null);
 	}
 
 	@Override
 	public Seller createSeller() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SellerT(null, null, null);
 	}
 
 	@Override
@@ -69,6 +66,17 @@ public class TestFactory implements Factory {
 	public ServiceOffer createServiceOffer(double price) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public CategorySet createCategorySet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Admin createAdmin() {
+		return new AdminT();
 	}
 
 }

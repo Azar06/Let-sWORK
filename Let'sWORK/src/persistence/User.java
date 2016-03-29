@@ -28,7 +28,7 @@ public abstract class User implements Savable {
 	}
 	
 	public User() {
-		this(null, null, null);
+		this(null, null);
 	}
 	
 	// METHODS
@@ -70,10 +70,12 @@ public abstract class User implements Savable {
 	}
 	
 	public void addRole(UserRole r) {
-		if (!(this.hasRole(r))) {
-			this.roles.add(r);
-			r.setUser(this);
+		UserRole currentRole = this.getRole(r.getRight());
+		if (currentRole != null) {
+			this.roles.remove(currentRole);
 		}
+		this.roles.add(r);
+		r.setUser(this);
 	}
 	
 	public void removeRole(UserRole r) {

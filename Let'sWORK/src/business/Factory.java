@@ -6,6 +6,7 @@ public interface Factory {
 	
 	// public User getUserWithUsername(String id);
 	public User createUser();
+	public Admin createAdmin();
 	public PersonInfo createPerson();
 	public Customer createCustomer();
 	public Seller createSeller();

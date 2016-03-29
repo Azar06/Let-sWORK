@@ -67,4 +67,9 @@ public class FactoryJDBC implements Factory {
 		return new CategorySetJDBC();
 	}
 
+	@Override
+	public Admin createAdmin() {
+		return new AdminJDBC();
+	}
+
 }
