@@ -26,6 +26,10 @@ public class CategoryFacade {
 		return this.manager.save(category);
 	}
 	
+	public CategoryReturnState delete(Category category) {
+		return this.manager.delete(category);
+	}
+	
 	public CategorySet getCategorySet() {
 		return this.manager.getCategorySet();
 	}

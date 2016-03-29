@@ -8,6 +8,7 @@ import business.utils.CategoryReturnState;
 import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
+import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
@@ -71,6 +72,21 @@ public class CategoryManager {
 			try {
 				category.save();
 			} catch (SaveException e) {
+			}
+		}
+		return state;
+	}
+	
+	public CategoryReturnState delete(Category category) {
+		CategoryReturnState state = new CategoryReturnState();
+		if (category.getName() == null || category.getName().length() == 0) {
+			state.setNameState("You need to fill this field.");
+		} else {
+			Category cat = this.factorio.createCategory();
+			try {
+				cat.deleteWithName(category.getName());
+			}
+			catch (DeleteException ex){
 			}
 		}
 		return state;

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
 import persistence.Category;
+import persistence.exception.DeleteException;
 import persistence.PersonInfo;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
@@ -60,7 +61,7 @@ public class CategoryJDBC extends Category {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
 			PreparedStatement prepare = connection.prepareStatement("SELECT id, name, description FROM public.category WHERE name=?;");
-			prepare.setString(1, name);
+			prepare.setString(1, this.getName());
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			// we use a while here bcs we know it is a list
@@ -78,6 +79,21 @@ public class CategoryJDBC extends Category {
 		}
 	}
 
+	@Override
+	public void deleteWithName(String Name) throws DeleteException {
+		try {
+			Connection connection = DataBaseConnection.getConnection();
+			// Preparation for the query
+			PreparedStatement prepare = connection.prepareStatement("DELETE FROM public.category WHERE name=?;");
+			prepare.setString(1, this.getName());
+			// Execution of the query
+			ResultSet result = prepare.executeQuery();
+			// we use a while here bcs we know it is a list
+		}
+		catch (SQLException ex){
+			throw new DeleteException("Can't delete the category");
+		}
+	}
 	
 	
 /*

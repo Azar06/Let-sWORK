@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
@@ -22,6 +23,7 @@ public abstract class Category {
 	
 	public abstract void loadWithName(String name) throws LoadException;
 	public abstract void save() throws SaveException;
+	public abstract void deleteWithName(String name) throws DeleteException;
 	
 	public String getName() {
 		return this.name;

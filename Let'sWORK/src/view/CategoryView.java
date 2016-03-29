@@ -171,7 +171,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		updateCategorynameSpinner.setModel(new SpinnerListModel(catList));
 		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				if(e.equals("")) {
+				if(e.toString().equals("")) {
 					updateNameField.setText("");
 					updateDescrArea.setText("");
 					lblUpdateName.setEnabled(false);
@@ -187,7 +187,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 					lblUpdateDescription.setEnabled(true);
 					updateDescrArea.setEnabled(true);
 					btnUpdate.setEnabled(true);
-					updateNameField.setText(catName);
+					updateNameField.setText(catName.toString());
 					String d = categories.getCategoryWithName(catName).getDescription();
 					updateDescrArea.setText(d);
 				}
