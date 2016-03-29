@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,6 +32,13 @@ public class MainView extends AbstractView {
 		
 		this.header.add(this.titleLabel,  BorderLayout.CENTER);
 		JButton logoutButton = new JButton("Log out");
+		logoutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getWindow().setView(new LoginView());
+				getWindow().setUser(null);
+			}
+		});
 		this.header.add(logoutButton,  BorderLayout.EAST);
 				
 		// Layout de la vue entière
@@ -68,5 +77,9 @@ public class MainView extends AbstractView {
 	public void setTitle(String title){
 		this.title = title;
 		this.titleLabel.setText(title);
+	}
+	
+	public String getTitle() {
+		return this.title;
 	}
 }
