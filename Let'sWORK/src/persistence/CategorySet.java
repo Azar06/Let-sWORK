@@ -25,4 +25,12 @@ public abstract class CategorySet {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+	
+	public List<String> getNames() {
+		List<String> names = new ArrayList<String>();
+		for(Category cat : this.categories) {
+			names.add(cat.getName());
+		}
+		return names;
+	}
 }
