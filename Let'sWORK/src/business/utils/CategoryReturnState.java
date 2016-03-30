@@ -24,7 +24,7 @@ public class CategoryReturnState {
 
 	/**
 	 * Change the name state of a category
-	 * @param nameState : Change the name state of a category
+	 * @param nameState : the new name state of a category
 	 */
 	public void setNameState(String nameState) {
 		this.nameState = nameState;

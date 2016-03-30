@@ -22,14 +22,38 @@ public abstract class Product extends Resource {
 			this.brandName = brandName;
 		}
 		
-		public abstract void loadWithName(String name) throws LoadException;
+		/**
+		 * Load an object product thanks to its label.
+		 * Load the id, the label, the description and the brand name of a product.
+		 * @param label :  the label of the product we search
+		 * @throws LoadException
+		 */
+		public abstract void loadWithLabel(String label) throws LoadException;
+		
+		/**
+		 * Allow the user to create a new product
+		 * @throws SaveException
+		 */
 		public abstract void save() throws SaveException;
+		
+		/**
+		 * Delete the product selected
+		 * @throws DeleteException
+		 */
 		public abstract void delete() throws DeleteException;
 		
+		/**
+		 * Get the brand name of a product
+		 * @return the brand name of a product
+		 */
 		public String getBrandName() {
 			return this.brandName;
 		}
 		
+		/**
+		 * Change the brand name of the product
+		 * @param brandName : the new brand name of the product
+		 */
 		public void setBrandName(String brandName) {
 			this.brandName = brandName;
 		}
