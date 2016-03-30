@@ -22,4 +22,5 @@ public interface Factory {
 	public ServiceSet createServiceSet();
 	public Product createProduct();
 	public ProductSet createProductSet();
+	public ActivitySet createActivitySet();
 }

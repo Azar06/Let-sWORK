@@ -92,4 +92,8 @@ public class FactoryJDBC implements Factory {
 		return new ProductSetJDBC();
 	}
 
+	@Override
+	public ActivitySet createActivitySet() {
+		return new ActivitySetJDBC();
+	}
 }
