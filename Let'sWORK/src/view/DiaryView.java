@@ -38,28 +38,28 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		
 		//FROM HERE
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(100, 100, 100)));
-		panel_1.setBackground(SystemColor.menu);
-		panel_1.setBounds(12, 13, 605, 82);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel activityPanel = new JPanel();
+		activityPanel.setBorder(new LineBorder(new Color(100, 100, 100)));
+		activityPanel.setBackground(SystemColor.menu);
+		activityPanel.setBounds(12, 13, 605, 82);
+		panel.add(activityPanel);
+		activityPanel.setLayout(null);
 		
 		JLabel lblActivityname = new JLabel("ActivityName");
 		lblActivityname.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblActivityname.setBounds(12, 13, 514, 27);
-		panel_1.add(lblActivityname);
+		activityPanel.add(lblActivityname);
 		
 		JLabel lblAchievementDate = new JLabel("Achievement date :");
 		lblAchievementDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblAchievementDate.setBounds(12, 46, 134, 16);
-		panel_1.add(lblAchievementDate);
+		activityPanel.add(lblAchievementDate);
 		
 		JLabel lblDate = new JLabel("dd/mm/yyyy");
 		lblDate.setForeground(Color.BLUE);
 		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDate.setBounds(149, 47, 94, 16);
-		panel_1.add(lblDate);
+		activityPanel.add(lblDate);
 		
 		//boolean to know if the activity is visible or hidden
 		boolean isVisible = true;
@@ -80,7 +80,7 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		btnVisible.setBackground(isVisibleBckgdCol);
 		btnVisible.setForeground(isVisibleFrgdCol);
 		btnVisible.setBounds(530, 13, 63, 25);
-		panel_1.add(btnVisible);
+		activityPanel.add(btnVisible);
 		
 		//TO HERE
 		

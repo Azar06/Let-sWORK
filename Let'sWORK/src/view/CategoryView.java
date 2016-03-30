@@ -305,12 +305,12 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				boolean delete = this.facade.delete(this.selectedCategoryToDelete);
 				if(delete) {
 					String message = "Category " + oldName + " is deleted.";
-					JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "Deletion completed", JOptionPane.INFORMATION_MESSAGE);
 					this.getMainView().setContentView(new CategoryView());
 				}
 				else {
-					String message = "Error at the delete of the category.";
-					JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
+					String message = "Error at the deletion of the category.";
+					JOptionPane.showMessageDialog(null, message, "Deletion failed", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
