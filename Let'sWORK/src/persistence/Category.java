@@ -30,13 +30,13 @@ public abstract class Category {
 	public abstract void loadWithName(String name) throws LoadException;
 	
 	/**
-	 * Allow the user to insert a new category in the database
+	 * Allow the user to create a new category
 	 * @throws SaveException
 	 */
 	public abstract void save() throws SaveException;
 	
 	/**
-	 * Delete the category selected in the database
+	 * Delete the category selected
 	 * @throws DeleteException
 	 */
 	public abstract void delete() throws DeleteException;
