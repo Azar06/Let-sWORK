@@ -84,6 +84,7 @@ public class CategoryManager {
 			resultState = true;
 		}
 		catch (DeleteException ex){
+			ex.printStackTrace();
 		}
 		return resultState;
 	}

@@ -49,6 +49,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 	private JSpinner deleteCategorynameSpinner;
 	private CategorySet categories;
 	private Category selectedCategory;
+	private Category selectedCategoryToDelete = null;
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
@@ -112,11 +113,6 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		lblDelCategoryName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblDelCategoryName);
 		
-		deleteCategorynameSpinner = new JSpinner();
-		deleteCategorynameSpinner.setBounds(130, 423, 267, 22);
-		deleteCategorynameSpinner.setModel(new SpinnerListModel(new String[] {" ", "Category 1", "Category 2"}));
-		panel.add(deleteCategorynameSpinner);
-		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(417, 352, 96, 27);
 		btnUpdate.setEnabled(false);
@@ -128,6 +124,9 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setBounds(417, 420, 96, 27);
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnDelete.setEnabled(false);
+		btnDelete.setActionCommand("delete");
+		btnDelete.addActionListener(this);
 		panel.add(btnDelete);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -164,11 +163,14 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		
 		updateCategorynameSpinner = new JSpinner();
 		updateCategorynameSpinner.setBounds(130, 194, 267, 22);
+		deleteCategorynameSpinner = new JSpinner();
+		deleteCategorynameSpinner.setBounds(130, 423, 267, 22);
 		
 		ArrayList<String> catList = new ArrayList<String>();
 		catList.add("");
 		catList.addAll(this.categories.getNames());
 		updateCategorynameSpinner.setModel(new SpinnerListModel(catList));
+		deleteCategorynameSpinner.setModel(new SpinnerListModel(catList));
 		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				String nameWrite = (String) updateCategorynameSpinner.getValue();
@@ -193,7 +195,20 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				}
 			}
 		});
+		deleteCategorynameSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				String nameWrite = (String) deleteCategorynameSpinner.getValue();
+				selectedCategoryToDelete = categories.getCategoryWithName(nameWrite);
+				if(selectedCategoryToDelete == null) {
+					btnDelete.setEnabled(false);
+				}
+				else {
+					btnDelete.setEnabled(true);
+				}
+			}
+		});
 		panel.add(updateCategorynameSpinner);
+		panel.add(deleteCategorynameSpinner);
 	}
 	
 	//Recupere le nouveau nom de la categorie a ajouter
@@ -236,6 +251,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				if(returnState.isRight()) {
 					String message = "Category " + newName + " created.";
 					JOptionPane.showMessageDialog(null, message, "Creation completed", JOptionPane.INFORMATION_MESSAGE);
+					this.getMainView().setContentView(new CategoryView());
 				}
 				else {
 					String message = "Error at the creation of the new category. Maybe a category with the same name is already existent.";
@@ -259,11 +275,27 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 					if(returnState.isRight()) {
 						String message = "Category " + oldName + " updated to " + updName + ".";
 						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
+						this.getMainView().setContentView(new CategoryView());
 					}
 					else {
 						String message = "Error at the update of the category. Maybe a category with the same name is already existent.";
 						JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
 					}
+				}
+			}
+		}
+		else if(cmd.equals("delete")) {
+			if(this.selectedCategoryToDelete != null) {
+				String oldName = this.selectedCategoryToDelete.getName();
+				boolean delete = this.facade.delete(this.selectedCategoryToDelete);
+				if(delete) {
+					String message = "Category " + oldName + " is deleted.";
+					JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
+					this.getMainView().setContentView(new CategoryView());
+				}
+				else {
+					String message = "Error at the delete of the category.";
+					JOptionPane.showMessageDialog(null, message, "Update failed", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

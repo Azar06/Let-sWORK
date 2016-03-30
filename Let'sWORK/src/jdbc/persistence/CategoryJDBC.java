@@ -61,7 +61,7 @@ public class CategoryJDBC extends Category {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
 			PreparedStatement prepare = connection.prepareStatement("SELECT id, name, description FROM public.category WHERE name=?;");
-			prepare.setString(1, this.getName());
+			prepare.setString(1, name);
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			// we use a while here bcs we know it is a list
@@ -88,7 +88,7 @@ public class CategoryJDBC extends Category {
 				PreparedStatement prepare = connection.prepareStatement("DELETE FROM public.category WHERE id=?;");
 				prepare.setLong(1, this.getId());
 				// Execution of the query
-				ResultSet result = prepare.executeQuery();
+				prepare.execute();
 				// we use a while here bcs we know it is a list
 			}
 			catch (SQLException ex){
