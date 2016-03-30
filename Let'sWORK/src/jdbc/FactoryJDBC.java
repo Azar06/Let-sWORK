@@ -48,7 +48,7 @@ public class FactoryJDBC implements Factory {
 	}
 
 	@Override
-	public Resource createRessource() {
+	public Resource createResource() {
 		return new ResourceJDBC();
 	}
 
@@ -70,6 +70,16 @@ public class FactoryJDBC implements Factory {
 	@Override
 	public Admin createAdmin() {
 		return new AdminJDBC();
+	}
+
+	@Override
+	public Service createService() {
+		return new ServiceJDBC();
+	}
+
+	@Override
+	public ServiceSet createServiceSet() {
+		return new ServiceSetJDBC();
 	}
 
 }
