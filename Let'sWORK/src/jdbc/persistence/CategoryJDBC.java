@@ -26,7 +26,6 @@ public class CategoryJDBC extends Category {
 	
 	@Override
 	public void save() throws SaveException {
-		/*this.getCategory().save();*/
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query

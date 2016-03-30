@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import business.facade.UserFacade;
+import persistence.Right;
 import persistence.User;
 
 public class LoginView extends AbstractView implements ActionListener {
@@ -109,7 +110,7 @@ public class LoginView extends AbstractView implements ActionListener {
 					this.setUser(user);
 					String message = "Welcome " + id + ".";
 					JOptionPane.showMessageDialog(null, message, "Connection established", JOptionPane.INFORMATION_MESSAGE);
-					this.getWindow().setView(new MainView(new CustomerMenuView(), new CategoryView()));
+					this.showViewAfterLogin();
 				}
 				else {
 					String message = "Invalid user name password combination.";
@@ -127,6 +128,17 @@ public class LoginView extends AbstractView implements ActionListener {
 			SignupView suv = new SignupView();
 			this.getWindow().setView(suv);
 		}
+	}
+	
+	public void showViewAfterLogin() {
+		if(this.getUser().getRoles().size() == 1){
+			Right userRight = this.getUser().getRoles().get(0).getRight();
+			this.getWindow().setView(new MainView(AbstractMenuView.getMenuView(userRight), AbstractContentView.getMainContentView(userRight), this.getUser()));
+		}
+		else {
+			this.getWindow().setView(new SelectRoleView(this.getUser()));
+		}
+		
 	}
 	
 	public User login(String id, String pass) {
