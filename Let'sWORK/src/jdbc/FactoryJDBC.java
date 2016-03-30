@@ -49,7 +49,7 @@ public class FactoryJDBC implements Factory {
 
 	@Override
 	public Resource createRessource() {
-		return new RessourceJDBC();
+		return new ResourceJDBC();
 	}
 
 	@Override
