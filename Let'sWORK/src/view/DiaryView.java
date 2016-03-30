@@ -14,7 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.Color;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
@@ -26,76 +29,31 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 	//private Activity selectedActivity;
 
 	public DiaryView() {
-		setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(23, 23, 651, 447);
-		add(scrollPane);
-		
+		this.setLayout(new BorderLayout());
+
 		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
-		panel.setLayout(null);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		
-		//FROM HERE
-		
-		JPanel activityPanel = new JPanel();
-		activityPanel.setBorder(new LineBorder(new Color(100, 100, 100)));
-		activityPanel.setBackground(SystemColor.menu);
-		activityPanel.setBounds(12, 13, 605, 82);
-		panel.add(activityPanel);
-		activityPanel.setLayout(null);
-		
-		JLabel lblActivityname = new JLabel("ActivityName");
-		lblActivityname.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblActivityname.setBounds(12, 13, 514, 27);
-		activityPanel.add(lblActivityname);
-		
-		JLabel lblAchievementDate = new JLabel("Achievement date :");
-		lblAchievementDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblAchievementDate.setBounds(12, 46, 134, 16);
-		activityPanel.add(lblAchievementDate);
-		
-		JLabel lblDate = new JLabel("dd/mm/yyyy");
-		lblDate.setForeground(Color.BLUE);
-		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDate.setBounds(149, 47, 94, 16);
-		activityPanel.add(lblDate);
-		
-		//boolean to know if the activity is visible or hidden
-		boolean isVisible = true;
-		String isVisibleText;
-		Color isVisibleBckgdCol;
-		Color isVisibleFrgdCol;
-		if(isVisible) {
-			isVisibleText = "Visible";
-			isVisibleBckgdCol = Color.GREEN;
-			isVisibleFrgdCol = new Color(0, 128, 0);
-		} else {
-			isVisibleText = "Hidden";
-			isVisibleBckgdCol = Color.RED;
-			isVisibleFrgdCol = new Color(128, 0, 0);
+		for(int i = 0; i < 100; i++) {
+			panel.add(new ActivityPanel());
 		}
-		JButton btnVisible = new JButton(isVisibleText);
-		btnVisible.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnVisible.setBackground(isVisibleBckgdCol);
-		btnVisible.setForeground(isVisibleFrgdCol);
-		btnVisible.setBounds(530, 13, 63, 25);
-		activityPanel.add(btnVisible);
 		
-		//TO HERE
+		JScrollPane scrollPane = new JScrollPane(panel);
+		this.add(scrollPane, BorderLayout.CENTER);
+		
+		JPanel buttonPanel = new JPanel();
 		
 		JButton btnNewActivity = new JButton("New activity");
 		btnNewActivity.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewActivity.setBounds(78, 495, 153, 60);
-		add(btnNewActivity);
+		buttonPanel.add(btnNewActivity);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(468, 483, 97, 25);
-		add(btnUpdate);
+		buttonPanel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(577, 483, 97, 25);
-		add(btnDelete);
+		buttonPanel.add(btnDelete);
+		
+		this.add(buttonPanel, BorderLayout.SOUTH);
 		//this.activities = this.facade.getActivitySet();
 		//this.selectedActivity = null;
 	}
