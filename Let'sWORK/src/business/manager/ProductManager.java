@@ -20,10 +20,10 @@ public class ProductManager {
 	/**
 	 * Insert a new product in the database 
 	 * if all the fields have been filled in and if it does not already exist in the database
-	 * @param label
-	 * @param description
-	 * @param brandName
-	 * @return
+	 * @param label : the label of the product we want to create
+	 * @param description : the description of the product we want to create
+	 * @param brandName : the brand name of the product we want to create
+	 * @return state : true if the insertion has been done, false otherwise
 	 */
 	public ProductReturnState create(String label, String description, String brandName) {
 		ProductReturnState state = new ProductReturnState();
@@ -41,16 +41,25 @@ public class ProductManager {
 			Product product = this.factorio.createProduct();
 			product.setLabel(label);
 			product.setDescription(description);
+			product.setBrandName(brandName);
 		}
 		return state;
 	}
 	
+	/**
+	 * Update a product in the database 
+	 * if all the fields have been filled in and if it already exists in the database
+	 * @param product : an object product
+	 * @return state : true if the modification has been done, false otherwise
+	 */
 	public ProductReturnState save(Product product) {
 		ProductReturnState state = new ProductReturnState();
 		if (product.getLabel() == null || product.getLabel().length() == 0) {
 			state.setLabelState("You need to fill this field.");
 		} else if (product.getDescription() == null || product.getDescription().length() == 0) {
 			state.setLabelState("You need to fill this field.");
+		} else if (product.getBrandName() == null || product.getBrandName().length() == 0){
+			state.setBrandNameState("You need to fill this fiels.");
 		} else {
 			Product p = this.factorio.createProduct();
 			try {
@@ -65,6 +74,9 @@ public class ProductManager {
 		if (product.getDescription() == null || product.getDescription().length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
 		}
+		if (product.getBrandName() == null || product.getBrandName().length() == 0) {
+			state.setBrandNameState("You need to fill this field.");
+		}
 		//If all is right
 		if (state.isRight()) {
 			try {
@@ -75,6 +87,11 @@ public class ProductManager {
 		return state;
 	}
 	
+	/**
+	 * Delete a product if it is present in the database
+	 * @param product : an object product
+	 * @return boolean : this boolean return true if the product has been deleted, and false otherwise
+	 */
 	public boolean delete(Product product) {
 		boolean resultState = false;
 		try {
@@ -87,6 +104,10 @@ public class ProductManager {
 		return resultState;
 	}
 	
+	/**
+	 * Get a collection of products
+	 * @return the collection of products
+	 */
 	public ProductSet getProductSet() {
 		ProductSet pSet = factorio.createProductSet();
 		try {
