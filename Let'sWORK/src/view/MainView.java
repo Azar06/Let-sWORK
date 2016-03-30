@@ -2,12 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import persistence.User;
 
 public class MainView extends AbstractView {
 	private AbstractMenuView menuView;
@@ -16,7 +20,7 @@ public class MainView extends AbstractView {
 	private JLabel titleLabel;
 	private String title;
 	
-	public MainView(AbstractMenuView menuView, AbstractContentView contentView) {
+	public MainView(AbstractMenuView menuView, AbstractContentView contentView, User user) {
 		this.header = new JPanel();
 		this.titleLabel = new JLabel();
 		this.titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
@@ -30,6 +34,11 @@ public class MainView extends AbstractView {
 		this.header.setLayout(layoutHeader);
 		
 		this.header.add(this.titleLabel,  BorderLayout.CENTER);
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
+		
+		
 		JButton logoutButton = new JButton("Log out");
 		logoutButton.addActionListener(new ActionListener() {
 			@Override
@@ -38,7 +47,20 @@ public class MainView extends AbstractView {
 				getWindow().setUser(null);
 			}
 		});
-		this.header.add(logoutButton,  BorderLayout.EAST);
+		buttonPanel.add(logoutButton);
+		
+		if(user.getRoles().size() > 1){
+			JButton roleViewButton = new JButton("RoleView");
+			roleViewButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getWindow().setView(new SelectRoleView(user));
+				}
+			});
+			buttonPanel.add(roleViewButton);
+		}
+		
+		this.header.add(buttonPanel,  BorderLayout.EAST);
 				
 		// Layout de la vue entière
 		BorderLayout layout = new BorderLayout();

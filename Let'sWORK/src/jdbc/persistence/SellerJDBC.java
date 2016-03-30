@@ -48,7 +48,7 @@ public class SellerJDBC extends Seller {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.customer WHERE id = ?;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.seller WHERE id = ?;");
 			// Indication about the value of the username in the WHERE
 			prepare.setLong(1, id);
 			// Execution of the query
