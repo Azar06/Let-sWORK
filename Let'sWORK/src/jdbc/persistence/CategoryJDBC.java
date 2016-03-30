@@ -26,7 +26,6 @@ public class CategoryJDBC extends Category {
 	
 	@Override
 	public void save() throws SaveException {
-		/*this.getCategory().save();*/
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
@@ -123,10 +122,18 @@ public class CategoryJDBC extends Category {
 	}
 	*/
 
+	/**
+	 * Get the id of the category
+	 * @return the id of the category
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Change the id of the category
+	 * @param id : the new id of the category
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

@@ -32,6 +32,11 @@ public abstract class User implements Savable {
 	}
 	
 	// METHODS
+	/**
+	 * Get the user role of a user
+	 * @param right : a collection of rights
+	 * @return a role 
+	 */
 	public UserRole getRole(Right right) {
 		UserRole role = null;
 		Iterator<UserRole> it = this.roles.iterator();
@@ -45,30 +50,59 @@ public abstract class User implements Savable {
 	}
 	
 	// GETTER / SETTER
+	/**
+	 * Change the username of a user
+	 * @param the new username
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
+	/**
+	 * Get the username of a user
+	 * @return the username of a user
+	 */
 	public String getUsername() {
 		return this.username;
 	}
 	
+	/**
+	 * Change the password of a user
+	 * @param pass : the new password
+	 */
 	public void setPassword(String pass) {
 		this.password = pass;
 	}
 	
+	/**
+	 * Get the password of a user
+	 * @return the password of a user
+	 */
 	public String getPassword() {
 		return this.password;
 	}
 	
+	/**
+	 * Get a collection of goals of a user
+	 * @return a list of goals
+	 */
 	public List<Goal> getGoals() {
 		return this.goals;
 	}
 	
+	/**
+	 * Check if the user as a certain role (write in parameter)
+	 * @param r
+	 * @return true if the user has the role, false otherwise
+	 */
 	public boolean hasRole(UserRole r) {
 		return this.roles.contains(r);
 	}
 	
+	/**
+	 * Add a new role to a user
+	 * @param r : a user role
+	 */
 	public void addRole(UserRole r) {
 		UserRole currentRole = this.getRole(r.getRight());
 		if (currentRole != null) {
@@ -78,6 +112,10 @@ public abstract class User implements Savable {
 		r.setUser(this);
 	}
 	
+	/**
+	 * Remove the role of a user, to null
+	 * @param r : a user role
+	 */
 	public void removeRole(UserRole r) {
 		if (this.hasRole(r)) {
 			this.roles.remove(r);
@@ -87,10 +125,18 @@ public abstract class User implements Savable {
 		}
 	}
 	
+	/**
+	 * Get a collection of roles of a user
+	 * @return a list of roles
+	 */
 	public List<UserRole> getRoles() {
 		return this.roles;
 	}
 	
+	/**
+	 * Change the collection of goals of a user
+	 * @param goals : a collection of goals
+	 */
 	public void setGoals(List<Goal> goals) {
 		this.goals = goals; 
 	}
