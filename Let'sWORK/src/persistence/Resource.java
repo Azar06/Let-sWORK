@@ -2,22 +2,25 @@ package persistence;
 
 public abstract class Resource {
 
-	private String code;
+	private String label;
 	private String description;
 	
+	public Resource () {
+		super();
+	}
 	public Resource(String codeR, String desc) {
 		super();
-		this.code = codeR;
+		this.label = codeR;
 		this.description = desc;
 	}
 
 	// Accesseurs & Mutateurs : CODE
-	public String getCode() {
-		return this.code;
+	public String getLabel() {
+		return this.label;
 	}
 	
-	public void setCode(String codeR) {
-		this.code = codeR;
+	public void setLabel(String labelR) {
+		this.label = labelR;
 	}
 	
 	// Accesseurs & Mutateurs : DESCRIPTION
