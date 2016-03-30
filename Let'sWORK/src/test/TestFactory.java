@@ -90,5 +90,17 @@ public class TestFactory implements Factory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Product createProduct() {
+		// TODO Auto-generated method stub
+		return new ProductT();
+	}
+
+	@Override
+	public ProductSet createProductSet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

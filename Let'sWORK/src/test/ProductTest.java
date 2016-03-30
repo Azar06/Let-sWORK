@@ -12,14 +12,17 @@ public class ProductTest {
 	public void testProduct() {
 		Factory factorio = new TestFactory();
         Product p = factorio.createProduct();
-        p.setLabel("Couture");
-        p.setDescription("Je peux vous coudre vos ourlets pour 10 boules");
+        p.setLabel("Marteau");
+        p.setDescription("Marteau très solide, idéal pour planter des clous");
+        p.setBrandName("Marque");
 
-        assertEquals(p.getLabel(), "Couture");
-        assertEquals(p.getDescription(), "Je peux vous coudre vos ourlets pour 10 boules");
-        p.setLabel("Peinture");
-        p.setDescription("Revetement de facade ayyyyghttt!");
-        assertEquals(p.getLabel(), "Peinture");
-        assertEquals(p.getDescription(), "Revetement de facade ayyyyghttt!");
+        assertEquals(p.getLabel(), "Marteau");
+        assertEquals(p.getDescription(), "Marteau très solide, idéal pour planter des clous");
+        assertEquals(p.getBrandName(), "Marque");
+        
+        p.setLabel("Clous");
+        p.setDescription("Très fins");
+        assertEquals(p.getLabel(), "Clous");
+        assertEquals(p.getDescription(), "Très fins");
 	}
 }
