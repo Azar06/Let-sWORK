@@ -81,5 +81,15 @@ public class FactoryJDBC implements Factory {
 	public ServiceSet createServiceSet() {
 		return new ServiceSetJDBC();
 	}
+	
+	@Override
+	public Product createProduct() {
+		return new ProductJDBC();
+	}
+
+	@Override
+	public ProductSet createProductSet() {
+		return new ProductSetJDBC();
+	}
 
 }
