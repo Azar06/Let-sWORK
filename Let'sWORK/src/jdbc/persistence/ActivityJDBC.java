@@ -25,8 +25,7 @@ public class ActivityJDBC extends Activity {
 	public ActivityJDBC() {
 		super();
 	}
-	
-	
+
 	public void save() throws SaveException {
 		/*this.getCategory().save();*/
 		try {
@@ -62,5 +61,13 @@ public class ActivityJDBC extends Activity {
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
