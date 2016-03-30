@@ -52,7 +52,7 @@ public class TestFactory implements Factory {
 	}
 
 	@Override
-	public Resource createRessource() {
+	public Resource createResource() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -77,6 +77,18 @@ public class TestFactory implements Factory {
 	@Override
 	public Admin createAdmin() {
 		return new AdminT();
+	}
+
+	@Override
+	public Service createService() {
+		// TODO Auto-generated method stub
+		return new ServiceT();
+	}
+
+	@Override
+	public ServiceSet createServiceSet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
