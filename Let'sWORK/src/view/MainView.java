@@ -17,14 +17,13 @@ public class MainView extends AbstractView {
 	private String title;
 	
 	public MainView(AbstractMenuView menuView, AbstractContentView contentView) {
-		this.menuView = menuView;
-		this.contentView = contentView;
 		this.header = new JPanel();
 		this.titleLabel = new JLabel();
 		this.titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		this.titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		
-		this.setTitle(this.contentView.getTitle());
+		this.setMenuView(menuView);
+		this.setContentView(contentView);
 		
 		// Layout du Header
 		BorderLayout layoutHeader = new BorderLayout();
@@ -68,8 +67,13 @@ public class MainView extends AbstractView {
 	}
 
 	public void setContentView(AbstractContentView contentView) {
+		this.setVisible(false);
+		if(this.contentView != null){
+			this.remove(this.contentView);
+		}
 		this.contentView = contentView;
-		this.add(this.contentView, BorderLayout.WEST);
+		this.add(this.contentView, BorderLayout.CENTER);
+		this.setTitle(this.contentView.getTitle());
 		this.setVisible(true);
 		this.contentView.setMainView(this);
 	}
