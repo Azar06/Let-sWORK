@@ -6,6 +6,7 @@ public abstract class Diary {
 	private String name;
 	private Boolean isPublic;
 	private Customer owner;
+	private ActivitySet activitySet;
 	
 	public Diary(String name, Boolean isPublic, Customer owner) {
 		super();
@@ -47,5 +48,13 @@ public abstract class Diary {
 
 	public void setOwner(Customer owner) {
 		this.owner = owner;
+	}
+
+	public ActivitySet getActivitySet() {
+		return activitySet;
+	}
+
+	public void setActivitySet(ActivitySet activitySet) {
+		this.activitySet = activitySet;
 	}
 }

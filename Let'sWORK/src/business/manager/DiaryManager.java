@@ -1,8 +1,10 @@
 package business.manager;
 
-import java.util.*;
+import java.sql.Date;
+import java.util.List;
 
 import business.Factory;
+import business.utils.ActivityReturnState;
 import business.utils.GoalReturnState;
 import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
@@ -24,6 +26,59 @@ public class DiaryManager {
 		catch (LoadException e) {
 		}
 		return user.getGoals();
+	}
+	
+	public ActivitySet getActivitySet(User user) {
+		ActivitySet activitySet = factorio.createActivitySet();
+		try {
+			activitySet.loadWithUser(user);
+		}
+		catch (LoadException e) {
+			e.printStackTrace();
+			activitySet = null;
+		}
+		return activitySet;
+	}
+	
+	public ActivityReturnState createActivity(Diary diary, String name, Date date, int position, boolean isPublic, Category category, Goal goal) {
+		ActivityReturnState state = new ActivityReturnState();
+		if (name == null || name.length() == 0) {
+			state.setNameState("You need to fill this field.");
+		}
+		if (date == null) {
+			state.setDateState("You need to fill this field.");
+		}
+		if (position < 0) {
+			state.setPositionState("You need to fill this field.");
+		}
+		if (category == null) {
+			state.setCategoryState("You need to fill this field.");
+		}
+		//If all is right
+		if (state.isRight()) {
+			Activity activity = this.factorio.createActivity();
+			activity.setDiary(diary);
+			activity.setName(name);
+			activity.setDate(date);
+			activity.setPosition(position);
+			activity.setIsPublic(isPublic);
+			activity.setCategory(category);
+			activity.setGoal(goal);
+			try {
+				activity.save();
+			} catch (SaveException e) {
+				e.printStackTrace();
+			}
+		}
+		return state;
+	}
+	
+	public Diary getDiaryWithActivySet(User user) {
+		Diary diary = this.getDiary(user);
+		if(diary != null) {
+			diary.setActivitySet(this.getActivitySet(user));
+		}
+		return diary;
 	}
 	
 	public Diary getDiary(User user) {
@@ -52,7 +107,7 @@ public class DiaryManager {
 			goalReturnState.setDescriptionState("You need to fill this field.");
 		}
 		// 
-		if (deadline == null || deadline.after(new Date())) {
+		if (deadline == null || deadline.after(new Date((new java.util.Date().getTime())))) {
 			goalReturnState.setDeadlineState("You need to fill this field.");
 		}
 

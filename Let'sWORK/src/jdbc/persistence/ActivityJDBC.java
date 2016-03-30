@@ -26,12 +26,13 @@ public class ActivityJDBC extends Activity {
 		super();
 	}
 
+	@Override
 	public void save() throws SaveException {
 		/*this.getCategory().save();*/
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			if (id==-1) {
+			if (id == -1) {
 				PreparedStatement prepare = connection.prepareStatement(
 						"INSERT INTO public.activity (id, name, date, position, isPublic, diaryId, categoryId, goalId) VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING id;");
 				prepare.setString(1, this.getName());
@@ -42,7 +43,14 @@ public class ActivityJDBC extends Activity {
 				prepare.setLong(6, ((CategoryJDBC)getCategory()).getId());
 				prepare.setLong(7, ((GoalJDBC)getGoal()).getId());
 				// Execution of the query
-				prepare.execute();
+				ResultSet res = prepare.executeQuery();
+				
+				if(res.next()){
+					this.id = res.getLong("id");
+				}
+				else {
+					throw new SaveException("Can't know the id !");
+				}
 			} 
 			/*
 			else {

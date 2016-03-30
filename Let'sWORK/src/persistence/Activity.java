@@ -2,6 +2,8 @@ package persistence;
 
 import java.sql.Date;
 
+import persistence.exception.SaveException;
+
 public abstract class Activity {
 	private String name;
 	private Date date;
@@ -27,7 +29,11 @@ public abstract class Activity {
 		this(null, null, null, true, null, null, null);
 	}
 	
-
+	// ABSTRACT METHODS
+	
+	public abstract void save() throws SaveException;
+	
+	// GETTER AND SETTER
 	
 	// Accesseurs & Mutateurs : NAME
 	public String getName() {
