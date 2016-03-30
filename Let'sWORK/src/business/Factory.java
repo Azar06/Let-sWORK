@@ -20,4 +20,7 @@ public interface Factory {
 	public CategorySet createCategorySet();
 	public Service createService();
 	public ServiceSet createServiceSet();
+	public Product createProduct();
+	public ProductSet createProductSet();
+	public ActivitySet createActivitySet();
 }
