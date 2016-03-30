@@ -8,35 +8,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.DataBaseConnection;
-import persistence.Service;
-import persistence.ServiceSet;
+import persistence.Product;
+import persistence.ProductSet;
 import persistence.exception.LoadException;
 
-public class ServiceSetJDBC extends ServiceSet {
+public class ProductSetJDBC extends ProductSet {
 	@Override
 	public void loadAll() throws LoadException {
-		List<Service> services = new ArrayList<Service>();
+		List<Product> products = new ArrayList<Product>();
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.service;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.product;");
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			
 			while (result.next()) {
-				ServiceJDBC serv = new ServiceJDBC();
+				ProductJDBC prod = new ProductJDBC();
 
-				serv.setId(result.getLong("id"));
-				serv.setLabel(result.getString("label"));
-				serv.setDescription(result.getString("description"));
+				prod.setId(result.getLong("id"));
+				prod.setLabel(result.getString("label"));
+				prod.setDescription(result.getString("description"));
+				prod.setBrandName(result.getString("brandName"));
 				
-				services.add(serv);
+				products.add(prod);
 			}
 		} catch (SQLException e) {
 			throw new LoadException("Can't load Goals");
 		}
-		this.setServices(services);
+		this.setProducts(products);
 		
 	}
-
 }
