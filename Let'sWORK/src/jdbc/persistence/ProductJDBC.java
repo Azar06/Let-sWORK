@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
+import persistence.Category;
 import persistence.Product;
 import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
@@ -19,8 +20,8 @@ public class ProductJDBC extends Product {
 		super();
 	}
 	
-	public ProductJDBC(String brandName, String label, String description) {
-		super(brandName, label, description);
+	public ProductJDBC(String brandName, String label, String description, Category category) {
+		super(brandName, label, description, category);
 	}
 	
 	@Override

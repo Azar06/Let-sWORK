@@ -2,6 +2,7 @@ package business.facade;
 
 import business.manager.ServiceManager;
 import business.utils.ServiceReturnState;
+import persistence.Category;
 import persistence.Service;
 import persistence.ServiceSet;
 
@@ -14,8 +15,8 @@ public class ServiceFacade {
 	}
 
 	//Return the state of the creation of a category
-	public ServiceReturnState create(String label, String description) {
-		return this.manager.create(label, description);
+	public ServiceReturnState create(String label, String description, Category cat) {
+		return this.manager.create(label, description, cat);
 	}
 	
 	public ServiceReturnState save(Service service) {

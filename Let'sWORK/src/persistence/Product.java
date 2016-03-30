@@ -17,8 +17,8 @@ public abstract class Product extends Resource {
 			this.brandName = brandName;
 		}
 		
-		public Product(String brandName, String label, String description) {
-			super(label, description);
+		public Product(String brandName, String label, String description, Category category) {
+			super(label, description, category);
 			this.brandName = brandName;
 		}
 		

@@ -3,6 +3,7 @@ package business.manager;
 import business.Factory;
 import business.utils.ProductReturnState;
 import jdbc.FactoryJDBC;
+import persistence.Category;
 import persistence.Product;
 import persistence.ProductSet;
 import persistence.exception.DeleteException;
@@ -25,7 +26,7 @@ public class ProductManager {
 	 * @param brandName : the brand name of the product we want to create
 	 * @return state : true if the insertion has been done, false otherwise
 	 */
-	public ProductReturnState create(String label, String description, String brandName) {
+	public ProductReturnState create(String label, String description, String brandName, Category cat) {
 		ProductReturnState state = new ProductReturnState();
 		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
@@ -36,12 +37,16 @@ public class ProductManager {
 		if (brandName == null || brandName.length() == 0) {
 			state.setBrandNameState("You need to fill this field.");
 		}
+		if (cat == null) {
+			state.setBrandNameState("You need to fill this field.");
+		}
 		//If all is right
 		if (state.isRight()) {
 			Product product = this.factorio.createProduct();
 			product.setLabel(label);
 			product.setDescription(description);
 			product.setBrandName(brandName);
+			product.setCategory(cat);
 		}
 		return state;
 	}

@@ -2,6 +2,7 @@ package business.facade;
 
 import business.manager.ProductManager;
 import business.utils.ProductReturnState;
+import persistence.Category;
 import persistence.Product;
 import persistence.ProductSet;
 
@@ -14,8 +15,8 @@ public class ProductFacade {
 	}
 
 	//Return the state of the creation of a category
-	public ProductReturnState create(String label, String description, String brandName) {
-		return this.manager.create(label, description, brandName);
+	public ProductReturnState create(String label, String description, String brandName, Category cat) {
+		return this.manager.create(label, description, brandName, cat);
 	}
 	
 	public ProductReturnState save(Product product) {

@@ -10,8 +10,8 @@ public abstract class Service extends Resource {
 		super();
 	}
 	
-	public Service(String label, String desc) {
-		super(label,desc);
+	public Service(String label, String desc, Category category) {
+		super(label,desc, category);
 	}
 	
 	public abstract void loadWithLabel(String label) throws LoadException;

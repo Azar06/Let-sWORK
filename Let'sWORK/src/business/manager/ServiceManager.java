@@ -20,7 +20,7 @@ public class ServiceManager {
 		this.factorio = new FactoryJDBC();
 	}
 	
-	public ServiceReturnState create(String label, String description) {
+	public ServiceReturnState create(String label, String description, Category cat) {
 		ServiceReturnState state = new ServiceReturnState();
 		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
@@ -28,11 +28,15 @@ public class ServiceManager {
 		if (description == null || description.length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
 		}
+		if (cat == null) {
+			state.setDescriptionState("You need to fill this field.");
+		}
 		//If all is right
 		if (state.isRight()) {
 			Service service = this.factorio.createService();
 			service.setLabel(label);
 			service.setDescription(description);
+			service.setCategory(cat);
 		}
 		return state;
 	}

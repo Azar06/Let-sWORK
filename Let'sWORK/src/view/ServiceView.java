@@ -52,8 +52,11 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	private JTextArea updateDescrArea;
 	private JSpinner updateServicelabelSpinner;
 	private JSpinner deleteServicelabelSpinner;
+	private JSpinner categorySpinner;
+	private JSpinner updateServicecategorySpinner;
 	private CategorySet categories;
-	private Category selectedCategory;
+	private Category selectedCategoryForCreation = null;
+	private Category selectedCategory = null;
 	private ServiceSet services;
 	private Service selectedService;
 	private Service selectedServiceToDelete = null;
@@ -63,7 +66,6 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		this.servFacade = new ServiceFacade();
 		setLayout(null);
 		this.categories = this.catFacade.getCategorySet();
-		this.selectedCategory = null;
 		this.services = this.servFacade.getServiceSet();
 		this.selectedService = null;
 
@@ -94,10 +96,6 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		lblCategory.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCategory.setBounds(265, 41, 69, 25);
 		panel.add(lblCategory);
-		
-		JSpinner categorySpinner = new JSpinner();
-		categorySpinner.setBounds(337, 43, 153, 22);
-		panel.add(categorySpinner);
 		
 		JLabel lblDescription = new JLabel("Description");
 		lblDescription.setBounds(20, 89, 78, 19);
@@ -174,11 +172,6 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		lblUpdateCategory.setEnabled(false);
 		lblUpdateCategory.setBounds(295, 236, 56, 16);
 		panel.add(lblUpdateCategory);
-		
-		JSpinner updateServicecategorySpinner = new JSpinner();
-		updateServicecategorySpinner.setEnabled(false);
-		updateServicecategorySpinner.setBounds(354, 233, 136, 22);
-		panel.add(updateServicecategorySpinner);
 
 		JLabel lblUpdateDescription = new JLabel("Description");
 		lblUpdateDescription.setBounds(54, 271, 69, 16);
@@ -190,10 +183,37 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		updateDescrArea.setEnabled(false);
 		panel.add(updateDescrArea);
 
+		categorySpinner = new JSpinner();
+		categorySpinner.setBounds(337, 43, 153, 22);
+		updateServicecategorySpinner = new JSpinner();
+		updateServicecategorySpinner.setBounds(354, 233, 136, 22);
+		updateServicecategorySpinner.setEnabled(false);
+		
 		updateServicelabelSpinner = new JSpinner();
 		updateServicelabelSpinner.setBounds(117, 194, 267, 22);
 		deleteServicelabelSpinner = new JSpinner();
 		deleteServicelabelSpinner.setBounds(117, 423, 267, 22);
+		
+		
+		ArrayList<String> catList = new ArrayList<String>();
+		catList.add("");
+		catList.addAll(this.categories.getNames());
+		categorySpinner.setModel(new SpinnerListModel(catList));
+		updateServicecategorySpinner.setModel(new SpinnerListModel(catList));
+		categorySpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				String nameWrite = (String) categorySpinner.getValue();
+				selectedCategoryForCreation = categories.getCategoryWithName(nameWrite);
+			}
+		});
+		updateServicecategorySpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				String nameWrite = (String) updateServicecategorySpinner.getValue();
+				selectedCategory = categories.getCategoryWithName(nameWrite);
+			}
+		});
+		panel.add(categorySpinner);
+		panel.add(updateServicecategorySpinner);
 
 		ArrayList<String> sList = new ArrayList<String>();
 		sList.add("");
@@ -212,6 +232,8 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 					lblUpdateDescription.setEnabled(false);
 					updateDescrArea.setEnabled(false);
 					btnUpdate.setEnabled(false);
+					lblUpdateCategory.setEnabled(false);
+					updateServicecategorySpinner.setEnabled(false);
 				}
 				else {
 					lblUpdateLabel.setEnabled(true);
@@ -219,8 +241,11 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 					lblUpdateDescription.setEnabled(true);
 					updateDescrArea.setEnabled(true);
 					btnUpdate.setEnabled(true);
+					lblUpdateCategory.setEnabled(true);
+					updateServicecategorySpinner.setEnabled(true);
 					updateLabelField.setText(selectedService.getLabel());
 					updateDescrArea.setText(selectedService.getDescription());
+					updateServicecategorySpinner.setValue(selectedService.getCategory());
 				}
 			}
 		});
@@ -258,6 +283,15 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	{
 		return this.newDescrArea.getText();
 	}
+	
+	/**
+	 * Get the category of the service to create
+	 * @return the category chosen
+	 */
+	public Category getNewCategory()
+	{
+		return this.selectedCategoryForCreation;
+	}
 
 	/**
 	 * Get the label of the service to update, write in the text field from the panel UPDATE
@@ -276,6 +310,15 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	{
 		return this.updateDescrArea.getText();
 	}
+	
+	/**
+	 * Get the category of the service to update
+	 * @return the category chosen
+	 */
+	public Category getUpdateCategory()
+	{
+		return this.selectedCategory;
+	}
 
 	/**
 	 * After the click on the button, the function start the insertion, the modification or the suppression of a category
@@ -287,12 +330,13 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		{
 			String newLabel = getNewLabelText();
 			String newDescr = getNewDescrText();
-			if(newLabel.equals("") || newDescr.equals("")) { // si tous les champs ne sont pas renseignes
+			Category newCat = getNewCategory();
+			if(newLabel.equals("") || newDescr.equals("") || newCat.equals(null)) { // si tous les champs ne sont pas renseignes
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				ServiceReturnState returnState = this.servFacade.create(newLabel, newDescr);
+				ServiceReturnState returnState = this.servFacade.create(newLabel, newDescr, newCat);
 				if(returnState.isRight()) {
 					String message = "Service " + newLabel + " created.";
 					JOptionPane.showMessageDialog(null, message, "Creation completed", JOptionPane.INFORMATION_MESSAGE);
@@ -307,7 +351,8 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		else if(cmd.equals("update")) {
 			String updLabel = getUpdateLabelText();
 			String updDescr = getUpdateDescrText();
-			if(updLabel.equals("") || updDescr.equals("")) { // si tous les champs ne sont pas renseignes
+			Category updCat = getUpdateCategory();
+			if(updLabel.equals("") || updDescr.equals("") ||updCat.equals(null)) { // si tous les champs ne sont pas renseignes
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
@@ -316,6 +361,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 					String oldLabel = this.selectedService.getLabel();
 					this.selectedService.setLabel(updLabel);
 					this.selectedService.setDescription(updDescr);
+					this.selectedService.setCategory(updCat);
 					ServiceReturnState returnState = this.servFacade.save(this.selectedService);
 					if(returnState.isRight()) {
 						String message = "Service " + oldLabel + " updated to " + updLabel + ".";
@@ -351,6 +397,6 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	 */
 	@Override
 	public String getTitle() {
-		return "Categories";
+		return "Services";
 	}
 }

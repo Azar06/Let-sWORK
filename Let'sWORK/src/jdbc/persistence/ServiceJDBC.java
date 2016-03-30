@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.DataBaseConnection;
+import persistence.Category;
 import persistence.Service;
 import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
@@ -19,8 +20,8 @@ public class ServiceJDBC extends Service {
 		super();
 	}
 	
-	public ServiceJDBC(String label, String description) {
-		super(label, description);
+	public ServiceJDBC(String label, String description, Category category) {
+		super(label, description, category);
 	}
 
 	@Override
