@@ -7,15 +7,15 @@ import jdbc.DataBaseConnection;
 import persistence.Resource;
 import persistence.exception.SaveException;
 
-public class RessourceJDBC extends Resource{
+public class ResourceJDBC extends Resource{
 
 	private long id = -1;
 	
-	public RessourceJDBC(String name, String description) {
+	public ResourceJDBC(String name, String description) {
 		super(name, description);
 	}
 	
-	public RessourceJDBC() {
+	public ResourceJDBC() {
 		super(null, null);
 	}
 	
@@ -27,7 +27,7 @@ public class RessourceJDBC extends Resource{
 			if (id==-1) {
 				PreparedStatement prepare = connection.prepareStatement(
 						"INSERT INTO public.ressource (id, code, description) VALUES(DEFAULT, ?, ?) RETURNING id;");
-				prepare.setString(1, this.getCode());
+				prepare.setString(1, this.getLabel());
 				prepare.setString(2, this.getDescription());
 				// Execution of the query
 				prepare.execute();

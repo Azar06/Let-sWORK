@@ -1,21 +1,21 @@
 package business.utils;
 
-public class RessourceReturnState {
-
-	private String codeState = null;
+public class ServiceReturnState {
+	
+	private String labelState = null;
 	private String descriptionState = null;
 	
 	public boolean isRight(){
 		//No error message on name and description
-		return (codeState == null && descriptionState == null);
+		return (labelState == null && descriptionState == null);
 	}
 
-	public String getCodeState() {
-		return codeState;
+	public String getLabelState() {
+		return labelState;
 	}
 
-	public void setCodeState(String codeState) {
-		this.codeState = codeState;
+	public void setLabelState(String codeState) {
+		this.labelState = codeState;
 	}
 
 	public String getDescriptionState() {
