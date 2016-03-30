@@ -1,21 +1,21 @@
 package business.manager;
 
 import business.Factory;
-import business.utils.RessourceReturnState;
+import business.utils.ResourceReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
 
-public class RessourceManager {
+public class ResourceManager {
 
 	private Factory factorio;
 
-	public RessourceManager() {
+	public ResourceManager() {
 		// FactoryJDBC creation
 		this.factorio = new FactoryJDBC();
 	}
 	
-	public RessourceReturnState create(String code, String description) {
-		RessourceReturnState state = new RessourceReturnState();
+	public ResourceReturnState create(String code, String description) {
+		ResourceReturnState state = new ResourceReturnState();
 		if (code == null || code.length() == 0) {
 			state.setCodeState("You need to fill this field.");
 		}
@@ -24,9 +24,9 @@ public class RessourceManager {
 		}
 		//If all is right
 		if (state.isRight()) {
-			Resource ressource = this.factorio.createRessource();
-			ressource.setLabel(code);
-			ressource.setDescription(description);
+			Resource resource = this.factorio.createResource();
+			resource.setLabel(code);
+			resource.setDescription(description);
 		}
 		return state;
 	}

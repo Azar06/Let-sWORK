@@ -14,8 +14,10 @@ public interface Factory {
 	public Goal createGoal();
 	public Activity createActivity();
 	public Diary createDiary();
-	public Resource createRessource();
+	public Resource createResource();
 	public ProductOffer createProductOffer(double price, int amount);
 	public ServiceOffer createServiceOffer(double price);
 	public CategorySet createCategorySet();
+	public Service createService();
+	public ServiceSet createServiceSet();
 }
