@@ -17,6 +17,11 @@ public abstract class Product extends Resource {
 			this.brandName = brandName;
 		}
 		
+		public Product(String brandName, String label, String description) {
+			super(label, description);
+			this.brandName = brandName;
+		}
+		
 		public abstract void loadWithName(String name) throws LoadException;
 		public abstract void save() throws SaveException;
 		public abstract void delete() throws DeleteException;
