@@ -13,7 +13,7 @@ public abstract class AbstractContentView extends MainViewComponent {
 			contentView = new CategoryView();
 		}
 		else if(right == Right.CUSTOMER) {
-			contentView = new CategoryView();
+			contentView = new DiaryView();
 		}
 		else if(right == Right.SELLER) {
 			contentView = new CategoryView();
