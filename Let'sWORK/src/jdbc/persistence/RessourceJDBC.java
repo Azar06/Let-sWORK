@@ -27,7 +27,7 @@ public class RessourceJDBC extends Resource{
 			if (id==-1) {
 				PreparedStatement prepare = connection.prepareStatement(
 						"INSERT INTO public.ressource (id, code, description) VALUES(DEFAULT, ?, ?) RETURNING id;");
-				prepare.setString(1, this.getCode());
+				prepare.setString(1, this.getLabel());
 				prepare.setString(2, this.getDescription());
 				// Execution of the query
 				prepare.execute();

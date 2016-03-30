@@ -21,19 +21,12 @@ public abstract class Product extends Resource {
 		public abstract void save() throws SaveException;
 		public abstract void delete() throws DeleteException;
 		
-		public String getName() {
-			return this.name;
+		public String getBrandName() {
+			return this.brandName;
 		}
 		
-		public void setName(String nom) {
-			this.name = nom;
+		public void setBrandName(String brandName) {
+			this.brandName = brandName;
 		}
-		
-		public String getDescription() {
-			return this.description;
-		}
-		
-		public void setDescription(String desc) {
-			this.description=desc;
-		}
+	
 }
