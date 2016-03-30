@@ -77,19 +77,15 @@ public class CategoryManager {
 		return state;
 	}
 	
-	public CategoryReturnState delete(Category category) {
-		CategoryReturnState state = new CategoryReturnState();
-		if (category.getName() == null || category.getName().length() == 0) {
-			state.setNameState("You need to fill this field.");
-		} else {
-			Category cat = this.factorio.createCategory();
-			try {
-				cat.deleteWithName(category.getName());
-			}
-			catch (DeleteException ex){
-			}
+	public boolean delete(Category category) {
+		boolean resultState = false;
+		try {
+			category.delete();
+			resultState = true;
 		}
-		return state;
+		catch (DeleteException ex){
+		}
+		return resultState;
 	}
 	
 	public CategorySet getCategorySet() {

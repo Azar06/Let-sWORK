@@ -26,7 +26,7 @@ public class CategoryFacade {
 		return this.manager.save(category);
 	}
 	
-	public CategoryReturnState delete(Category category) {
+	public boolean delete(Category category) {
 		return this.manager.delete(category);
 	}
 	

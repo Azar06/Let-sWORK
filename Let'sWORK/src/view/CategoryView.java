@@ -48,13 +48,13 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 	private JSpinner updateCategorynameSpinner;
 	private JSpinner deleteCategorynameSpinner;
 	private CategorySet categories;
-	private String catName;
+	private Category selectedCategory;
 	
 	public CategoryView() {
 		this.facade = new CategoryFacade();
 		setLayout(null);
 		this.categories = this.facade.getCategorySet();
-		this.catName = "";
+		this.selectedCategory = null;
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(55, 25, 525, 506);
@@ -171,7 +171,9 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 		updateCategorynameSpinner.setModel(new SpinnerListModel(catList));
 		updateCategorynameSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				if(e.toString().equals("")) {
+				String nameWrite = (String) updateCategorynameSpinner.getValue();
+				selectedCategory = categories.getCategoryWithName(nameWrite);
+				if(selectedCategory == null) {
 					updateNameField.setText("");
 					updateDescrArea.setText("");
 					lblUpdateName.setEnabled(false);
@@ -181,20 +183,17 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 					btnUpdate.setEnabled(false);
 				}
 				else {
-					catName = e.toString();
 					lblUpdateName.setEnabled(true);
 					updateNameField.setEnabled(true);
 					lblUpdateDescription.setEnabled(true);
 					updateDescrArea.setEnabled(true);
 					btnUpdate.setEnabled(true);
-					updateNameField.setText(catName.toString());
-					String d = categories.getCategoryWithName(catName).getDescription();
-					updateDescrArea.setText(d);
+					updateNameField.setText(selectedCategory.getName());
+					updateDescrArea.setText(selectedCategory.getDescription());
 				}
 			}
 		});
 		panel.add(updateCategorynameSpinner);
-		
 	}
 	
 	//Recupere le nouveau nom de la categorie a ajouter
@@ -235,7 +234,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 			else {
 				CategoryReturnState returnState = this.facade.create(newName, newDescr);
 				if(returnState.isRight()) {
-					String message = "Category " + newName + "created.";
+					String message = "Category " + newName + " created.";
 					JOptionPane.showMessageDialog(null, message, "Creation completed", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -252,13 +251,13 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				if(!this.catName.equals("")) {
-					Category theCategoryWeWantToUpdate = this.categories.getCategoryWithName(this.catName);
-					theCategoryWeWantToUpdate.setName(updName);
-					theCategoryWeWantToUpdate.setDescription(updDescr);
-					CategoryReturnState returnState = this.facade.save(theCategoryWeWantToUpdate);
+				if(this.selectedCategory != null) {
+					String oldName = this.selectedCategory.getName();
+					this.selectedCategory.setName(updName);
+					this.selectedCategory.setDescription(updDescr);
+					CategoryReturnState returnState = this.facade.save(this.selectedCategory);
 					if(returnState.isRight()) {
-						String message = "Category " + this.catName + " updated to " + updName + ".";
+						String message = "Category " + oldName + " updated to " + updName + ".";
 						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else {

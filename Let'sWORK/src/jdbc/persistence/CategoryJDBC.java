@@ -30,7 +30,7 @@ public class CategoryJDBC extends Category {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			if (id==-1) {
+			if (id == -1) {
 				PreparedStatement prepare = connection.prepareStatement(
 						"INSERT INTO public.category (id, name, description) VALUES(DEFAULT, ?, ?) RETURNING id;");
 				// Indication about the value of the username in the WHERE
@@ -40,7 +40,7 @@ public class CategoryJDBC extends Category {
 				prepare.execute();
 			} else {
 				PreparedStatement prepare = connection.prepareStatement(
-						"UPDATE public.category SET name=?,  description=? WHERE id=?;");
+						"UPDATE public.category SET name=?, description=? WHERE id=?;");
 				// Indication about the value of the username in the WHERE
 				prepare.setString(1, this.getName());
 				prepare.setString(2, this.getDescription());
@@ -80,17 +80,22 @@ public class CategoryJDBC extends Category {
 	}
 
 	@Override
-	public void deleteWithName(String Name) throws DeleteException {
-		try {
-			Connection connection = DataBaseConnection.getConnection();
-			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("DELETE FROM public.category WHERE name=?;");
-			prepare.setString(1, this.getName());
-			// Execution of the query
-			ResultSet result = prepare.executeQuery();
-			// we use a while here bcs we know it is a list
+	public void delete() throws DeleteException {
+		if(this.id >= 0){
+			try {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement("DELETE FROM public.category WHERE id=?;");
+				prepare.setLong(1, this.getId());
+				// Execution of the query
+				ResultSet result = prepare.executeQuery();
+				// we use a while here bcs we know it is a list
+			}
+			catch (SQLException ex){
+				throw new DeleteException("Can't delete the category (SQL)");
+			}
 		}
-		catch (SQLException ex){
+		else {
 			throw new DeleteException("Can't delete the category");
 		}
 	}
