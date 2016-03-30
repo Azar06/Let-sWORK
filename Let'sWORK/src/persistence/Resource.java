@@ -8,9 +8,9 @@ public abstract class Resource {
 	public Resource () {
 		super();
 	}
-	public Resource(String codeR, String desc) {
+	public Resource(String labelR, String desc) {
 		super();
-		this.label = codeR;
+		this.label = labelR;
 		this.description = desc;
 	}
 
