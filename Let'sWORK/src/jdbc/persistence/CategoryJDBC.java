@@ -123,10 +123,18 @@ public class CategoryJDBC extends Category {
 	}
 	*/
 
+	/**
+	 * Get the id of the category
+	 * @return the id of the category
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Change the id of the category
+	 * @param id : the new id of the category
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

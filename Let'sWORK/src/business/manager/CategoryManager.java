@@ -20,6 +20,13 @@ public class CategoryManager {
 		this.factorio = new FactoryJDBC();
 	}
 
+	/**
+	 * Insert a new category in the database 
+	 * if all the fields have been filled in and if it does not already exist in the database
+	 * @param name : the name of the category we want to create
+	 * @param description : the description of the category we want to create
+	 * @return state : true if the insertion has been done, false otherwise
+	 */
 	public CategoryReturnState create(String name, String description) {
 		CategoryReturnState state = new CategoryReturnState();
 		if (name == null || name.length() == 0) {
@@ -49,6 +56,12 @@ public class CategoryManager {
 		return state;
 	}
 	
+	/**
+	 * Update a new category in the database 
+	 * if all the fields have been filled in and if it already exists in the database
+	 * @param category : an object category
+	 * @return state : true if the modification has been done, false otherwise
+	 */
 	public CategoryReturnState save(Category category) {
 		CategoryReturnState state = new CategoryReturnState();
 		if (category.getName() == null || category.getName().length() == 0) {
@@ -77,6 +90,11 @@ public class CategoryManager {
 		return state;
 	}
 	
+	/**
+	 * Delete a category if it is present in the database
+	 * @param category : an object category
+	 * @return boolean : this boolean return true if the category has been deleted, and false otherwise
+	 */
 	public boolean delete(Category category) {
 		boolean resultState = false;
 		try {
@@ -89,6 +107,10 @@ public class CategoryManager {
 		return resultState;
 	}
 	
+	/**
+	 * Get a collection of category
+	 * @return the collection of category
+	 */
 	public CategorySet getCategorySet() {
 		CategorySet catSet = factorio.createCategorySet();
 		try {
