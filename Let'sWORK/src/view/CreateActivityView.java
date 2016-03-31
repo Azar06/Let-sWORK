@@ -2,21 +2,65 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
+
+import business.facade.CategoryFacade;
+import business.facade.DiaryFacade;
+import business.utils.ActivityReturnState;
+import persistence.Category;
+import persistence.CategorySet;
+import persistence.Diary;
+import persistence.Goal;
+import persistence.GoalSet;
+import persistence.TimePosition;
+import persistence.User;
+
 import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 
 public class CreateActivityView extends AbstractContentView implements ActionListener {
+	
 	private JTextField textField;
-	public CreateActivityView() {
-		setLayout(null);
+	private CategorySet categorySet;
+	private GoalSet goalSet;
+	private DiaryFacade diaryFacade;
+	
+	private Diary diary;
+	private User user;
+	
+	private JFormattedTextField dateTextField;
+	private JSlider positionSlider;
+	private JRadioButton visibleButton;
+	private JSpinner categorySpinner;
+	private JSpinner goalSpinner;
+	
+	public CreateActivityView(User user, Diary diary) {
+		this.user = user;
+		this.diary = diary;
+		this.diaryFacade = new DiaryFacade();
+		
+		this.setLayout(null);
 		
 		JLabel lblActivityName = new JLabel("Activity name ");
 		lblActivityName.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -33,90 +77,152 @@ public class CreateActivityView extends AbstractContentView implements ActionLis
 		lblDate.setBounds(55, 143, 56, 16);
 		add(lblDate);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(65, 172, 437, 25);
-		add(formattedTextField);
+		this.dateTextField = new JFormattedTextField(createFormatter("##/##/####"));
+		this.dateTextField.setBounds(125, 138, 200, 25);
+		this.add(this.dateTextField);
 		
 		JLabel lblTimeslot = new JLabel("Timeslot");
 		lblTimeslot.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTimeslot.setBounds(55, 238, 92, 16);
+		lblTimeslot.setBounds(55, 238-50, 92, 16);
 		add(lblTimeslot);
 		
-		JSlider slider = new JSlider();
-		slider.setMinimum(1);
-		slider.setMaximum(5);
-		slider.setValue(1);
-		slider.setBounds(81, 267, 421, 26);
-		add(slider);
+		this.positionSlider = new JSlider();
+		this.positionSlider.setMinimum(0);
+		this.positionSlider.setMaximum(4);
+		this.positionSlider.setValue(0);
+		this.positionSlider.setBounds(81, 267-50, 421, 26);
+		add(this.positionSlider);
 		
 		JLabel lblMorning = new JLabel("Morning");
 		lblMorning.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMorning.setBounds(55, 293, 56, 16);
+		lblMorning.setBounds(55, 293-50, 56, 16);
 		add(lblMorning);
 		
 		JLabel lblNoon = new JLabel("Noon");
 		lblNoon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNoon.setBounds(162, 293, 56, 16);
+		lblNoon.setBounds(162, 293-50, 56, 16);
 		add(lblNoon);
 		
 		JLabel lblAternoon = new JLabel("Aternoon");
 		lblAternoon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAternoon.setBounds(264, 293, 56, 16);
+		lblAternoon.setBounds(264, 293-50, 56, 16);
 		add(lblAternoon);
 		
 		JLabel lblEvening = new JLabel("Evening");
 		lblEvening.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEvening.setBounds(366, 293, 56, 16);
+		lblEvening.setBounds(366, 293-50, 56, 16);
 		add(lblEvening);
 		
 		JLabel lblNight = new JLabel("Night");
 		lblNight.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNight.setBounds(469, 293, 56, 16);
+		lblNight.setBounds(469, 293-50, 56, 16);
 		add(lblNight);
 		
-		JCheckBox chckbxVisible = new JCheckBox("Visible");
-		chckbxVisible.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxVisible.setBounds(55, 345, 84, 25);
-		add(chckbxVisible);
+		// VISIBILITY :
 		
-		JCheckBox chckbxHidden = new JCheckBox("Hidden");
-		chckbxHidden.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxHidden.setBounds(143, 345, 98, 25);
-		add(chckbxHidden);
+		this.visibleButton = new JRadioButton("Visible");
+		this.visibleButton.setActionCommand("visible");
+		this.visibleButton.setSelected(true);
+		this.visibleButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		this.visibleButton.setBounds(55, 345-50, 84, 25);
+		this.add(this.visibleButton);
+
+	    JRadioButton hiddenButton = new JRadioButton("Hidden");
+	    hiddenButton.setActionCommand("hidden");
+	    hiddenButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+	    hiddenButton.setBounds(143, 345-50, 98, 25);
+		this.add(hiddenButton);
+
+	    //Group the radio buttons.
+	    ButtonGroup visibilityGroup = new ButtonGroup();
+	    visibilityGroup.add(visibleButton);
+	    visibilityGroup.add(hiddenButton);
+
+		JLabel lblCategory = new JLabel("Category");
+		lblCategory.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCategory.setBounds(55, 391-50, 92, 25);
+		add(lblCategory);
+		
+		this.categorySet = (new CategoryFacade()).getCategorySet();
+		this.categorySpinner = new JSpinner();
+		this.categorySpinner.setBounds(65, 426-50, 437, 22);
+		List<String> catList = new ArrayList<String>();
+		catList.add("");
+		catList.addAll(this.categorySet.getNames());
+		this.categorySpinner.setModel(new SpinnerListModel(catList));
+		this.add(this.categorySpinner);
+
+		
+		JLabel lblObjective = new JLabel("Goal");
+		lblObjective.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblObjective.setBounds(56, 469-50, 103, 25);
+		add(lblObjective);
+		
+		this.goalSpinner = new JSpinner();
+		this.goalSpinner.setBounds(65, 500-50, 437, 22);
+		this.goalSet = this.diaryFacade.getGoalSet(user);
+		List<String> goalNameList = new ArrayList<String>();
+		goalNameList.add("");
+		goalNameList.addAll(this.goalSet.getNames());
+		this.goalSpinner.setModel(new SpinnerListModel(goalNameList));
+		this.add(this.goalSpinner);
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnCreate.setBounds(293, 542, 113, 33);
+		btnCreate.setBounds(293, 542-50, 113, 33);
+		btnCreate.addActionListener(this);
 		add(btnCreate);
-		
-		JLabel lblCategory = new JLabel("Category");
-		lblCategory.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblCategory.setBounds(55, 391, 92, 25);
-		add(lblCategory);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(65, 426, 437, 22);
-		add(spinner);
-		
-		JLabel lblObjective = new JLabel("Objective");
-		lblObjective.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblObjective.setBounds(56, 469, 103, 25);
-		add(lblObjective);
-		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(65, 500, 437, 22);
-		add(spinner_1);
 	}
 
+	private MaskFormatter createFormatter(String s) {
+        MaskFormatter formatter = null;
+        try {
+            formatter = new MaskFormatter(s);
+        } catch (java.text.ParseException exc) {
+            System.err.println("formatter is bad: " + exc.getMessage());
+        }
+        return formatter;
+    }
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		// name
+		String name = this.textField.getText();
 		
+		// date
+		java.sql.Date date = null;
+		Date dateTemp = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			dateTemp = formatter.parse(this.dateTextField.getText());
+			date = new java.sql.Date(dateTemp.getTime());
+		} catch (ParseException e) {
+			date = null;
+		}
+		
+		// position
+		TimePosition position = TimePosition.getPosition(this.positionSlider.getValue());
+		
+		// public
+		boolean isPublic = this.visibleButton.isSelected();
+		
+		// category
+		Category category = this.categorySet.getCategoryWithName((String)this.categorySpinner.getValue());
+		
+		// goal
+		Goal goal = this.goalSet.getGoalWithName((String)this.goalSpinner.getValue());
+		
+		ActivityReturnState returnState = this.diaryFacade.createActivity(this.diary, name, date, position, isPublic, category, goal);
+		if(returnState.isRight()){
+			this.getMainView().setContentView(new DiaryView(this.user));
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Some fields are wrong", "Wrong fields", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "New activity";
 	}
 }

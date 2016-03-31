@@ -1,14 +1,7 @@
 package jdbc.persistence;
 
-import java.sql.*;
-import java.util.*;
-
-import jdbc.DataBaseConnection;
-
 import persistence.ProductOffer;
 
-import persistence.exception.LoadException;
-import persistence.exception.SaveException;
 
 public class ProductOfferJDBC extends ProductOffer {
 
@@ -20,10 +13,10 @@ public class ProductOfferJDBC extends ProductOffer {
         this.id = -1;
     }
 
-//    public ProductOfferJDBC() {
-//        super();
-//        this.id = -1;
-//    }
+    public ProductOfferJDBC() {
+        super();
+        this.id = -1;
+    }
 
 //    public void load(String username) throws LoadException {
 //        try {
@@ -82,7 +75,7 @@ public class ProductOfferJDBC extends ProductOffer {
 //            throw new LoadException("Can't load User with the username : " + username);
 //        }
 //    }
-
+//
 //    @Override
 //    public void save() throws SaveException {
 //        try {
@@ -116,7 +109,7 @@ public class ProductOfferJDBC extends ProductOffer {
 //            throw new SaveException("An error");
 //        }
 //    }
-
+//
 //    @Override
 //    public boolean equals(Object o) {
 //        if (o instanceof UserJDBC && this.id >= 0) {
@@ -126,10 +119,18 @@ public class ProductOfferJDBC extends ProductOffer {
 //        }
 //    }
 
+    /**
+     * Get the id of the product offer
+     * @return the id of the product offer
+     */
     protected long getId() {
         return this.id;
     }
 
+    /**
+     * Change the id of the product offer
+     * @param id : the new id of the product offer
+     */
     protected void setId(long id) {
         this.id = id;
     }

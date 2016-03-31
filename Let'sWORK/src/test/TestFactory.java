@@ -111,4 +111,10 @@ public class TestFactory implements Factory {
 		return null;
 	}
 
+	@Override
+	public GoalSet createGoalSet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

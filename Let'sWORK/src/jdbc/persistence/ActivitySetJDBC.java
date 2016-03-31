@@ -11,6 +11,7 @@ import jdbc.DataBaseConnection;
 import persistence.Activity;
 import persistence.ActivitySet;
 import persistence.Diary;
+import persistence.TimePosition;
 import persistence.User;
 import persistence.exception.LoadException;
 
@@ -33,7 +34,7 @@ public class ActivitySetJDBC extends ActivitySet {
 				activity.setId(result.getLong("id"));
 				activity.setName(result.getString("name"));
 				activity.setDate(result.getDate("date"));
-				activity.setPosition(result.getInt("position"));
+				activity.setPosition(TimePosition.getPosition(result.getInt("position")));
 				activity.setIsPublic(result.getBoolean("isPublic"));
 				activity.setDiary(diary);
 				// categoryId

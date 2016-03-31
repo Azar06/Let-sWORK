@@ -18,13 +18,16 @@ public class DiaryManager {
 		this.factorio = new FactoryJDBC();
 	}
 	
-	public List<Goal> getGoals(User user) {
+	public GoalSet getGoalSet(User user) {
+		GoalSet goalSet = factorio.createGoalSet();
 		try {
-			user.loadGoals();
+			goalSet.loadWithUser(user);
 		}
 		catch (LoadException e) {
+			e.printStackTrace();
+			goalSet = null;
 		}
-		return user.getGoals();
+		return goalSet;
 	}
 	
 	public ActivitySet getActivitySet(Diary diary) {
@@ -39,7 +42,7 @@ public class DiaryManager {
 		return activitySet;
 	}
 	
-	public ActivityReturnState createActivity(Diary diary, String name, Date date, int position, boolean isPublic, Category category, Goal goal) {
+	public ActivityReturnState createActivity(Diary diary, String name, Date date, TimePosition position, boolean isPublic, Category category, Goal goal) {
 		ActivityReturnState state = new ActivityReturnState();
 		if (name == null || name.length() == 0) {
 			state.setNameState("You need to fill this field.");
@@ -47,7 +50,7 @@ public class DiaryManager {
 		if (date == null) {
 			state.setDateState("You need to fill this field.");
 		}
-		if (position < 0) {
+		if (position == null) {
 			state.setPositionState("You need to fill this field.");
 		}
 		if (category == null) {

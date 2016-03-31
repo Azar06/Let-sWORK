@@ -1,14 +1,7 @@
 package jdbc.persistence;
 
-import java.sql.*;
-import java.util.*;
-
-import jdbc.DataBaseConnection;
-
 import persistence.ServiceOffer;
 
-import persistence.exception.LoadException;
-import persistence.exception.SaveException;
 
 public class ServiceOfferJDBC extends ServiceOffer {
 
@@ -126,10 +119,18 @@ public class ServiceOfferJDBC extends ServiceOffer {
 //        }
 //    }
 
+    /**
+     * Get the id of the service offer
+     * @return the id of the service offer
+     */
     protected long getId() {
         return this.id;
     }
 
+    /**
+     * Change the id of the service offer
+     * @param id : the new id of the service offer
+     */
     protected void setId(long id) {
         this.id = id;
     }

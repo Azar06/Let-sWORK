@@ -19,7 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class DiaryView extends AbstractContentView implements ActionListener {
+public class DiaryView extends AbstractContentView {
 
 	/**
 	 * 
@@ -46,12 +46,19 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		}
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel buttonPanel = new JPanel();
 		
 		JButton btnNewActivity = new JButton("New activity");
 		btnNewActivity.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewActivity.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				getMainView().setContentView(new CreateActivityView(user, diary));
+			}
+		});
 		buttonPanel.add(btnNewActivity);
 		
 		this.updateButton = new JButton("Update");
@@ -100,12 +107,6 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		this.deleteButton.setEnabled(bool);
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public String getTitle() {
 		return "Diary : " + this.diary.getName();
