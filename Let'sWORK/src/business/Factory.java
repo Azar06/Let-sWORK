@@ -23,4 +23,5 @@ public interface Factory {
 	public Product createProduct();
 	public ProductSet createProductSet();
 	public ActivitySet createActivitySet();
+	public GoalSet createGoalSet();
 }

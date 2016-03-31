@@ -96,4 +96,9 @@ public class FactoryJDBC implements Factory {
 	public ActivitySet createActivitySet() {
 		return new ActivitySetJDBC();
 	}
+
+	@Override
+	public GoalSet createGoalSet() {
+		return new GoalSetJDBC();
+	}
 }
