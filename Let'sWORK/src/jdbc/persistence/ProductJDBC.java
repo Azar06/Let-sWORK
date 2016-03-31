@@ -57,22 +57,27 @@ public class ProductJDBC extends Product {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
 			PreparedStatement prepare = connection.prepareStatement(
-					"INSERT INTO public.product (id, label, description, brandName) VALUES(DEFAULT, ?, ?, ?) RETURNING id;");
+					"INSERT INTO public.ressource (code, label, description) VALUES(DEFAULT, ?, ?) RETURNING code;");
 			prepare.setString(1, this.getLabel());
 			prepare.setString(2, this.getDescription());
-			prepare.setString(3,  this.getBrandName());
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			// we don't use a while here bcs we know label is unique
 			if (result.next()) {
 				// We get the label and the description and the database
-				this.setId(result.getLong("id"));
+				this.setId(result.getLong("code"));
 			} else {
 				// If there is no result : Exception
 				throw new SaveException("An error");
 			}
-//			this.resource.save();
+
+			PreparedStatement prepare2 = connection.prepareStatement("INSERT INTO public.product (id, brandname) VALUES(?, ?);");
+			prepare2.setLong(1, this.getId());
+			prepare2.setString(2, this.getBrandName());
+			// Execution of the query
+			prepare2.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println(e.toString());
 			throw new SaveException("An error");
 		}
 	}
