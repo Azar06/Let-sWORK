@@ -11,6 +11,7 @@ import persistence.Activity;
 import persistence.Category;
 import persistence.Diary;
 import persistence.Goal;
+import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
@@ -68,6 +69,28 @@ public class ActivityJDBC extends Activity {
 			
 		} catch (SQLException e) {
 			throw new SaveException("An error");
+		}
+	}
+	
+	@Override
+	public void delete() throws DeleteException {
+		if(this.getId() >= 0){
+			try {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement("DELETE FROM public.activity WHERE id = ?;");
+				prepare.setLong(1, this.getId());
+				// Execution of the query
+				prepare.execute();
+				
+				this.setId(-1);
+			}
+			catch (SQLException ex){
+				throw new DeleteException("Can't delete the activity (SQL)");
+			}
+		}
+		else {
+			throw new DeleteException("Can't delete the activity");
 		}
 	}
 

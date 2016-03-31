@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import persistence.Activity;
 
@@ -30,6 +29,7 @@ public class ActivityPanel extends JPanel implements MouseListener {
 	
 	private DiaryView diaryView;
 	private Activity activity;
+	private boolean selected = false;
 	
 	public ActivityPanel(DiaryView diaryView, Activity activity) {
 		
@@ -88,20 +88,35 @@ public class ActivityPanel extends JPanel implements MouseListener {
 
 	public void setSelected() {
 		this.setBorder(fatBorder);
+		this.selected = true;
 	}
 	
 	public void setUnselected() {
 		this.setBorder(basicBorder);
+		this.selected = false;
 	}
+	
+	// METHOD FROM MouseListener
 	
     @Override public void mouseClicked(MouseEvent e){    }
     @Override public void mousePressed(MouseEvent e){    }
-    
-    @Override 
-    public void mouseReleased(MouseEvent e){
-    	this.setSelected();
-    }
-    
     @Override public void mouseEntered(MouseEvent e){    }
     @Override public void mouseExited(MouseEvent e){    }
+    @Override 
+    public void mouseReleased(MouseEvent e){
+    	if(!this.selected){
+    		this.setSelected();
+        	this.diaryView.setSelected(this);
+    	}
+    	else {
+    		this.setUnselected();
+        	this.diaryView.setSelected(null);
+    	}
+    }
+    
+    // GETTER AND SETTER
+    
+    public Activity getActivity() {
+    	return this.activity;
+    }
 }
