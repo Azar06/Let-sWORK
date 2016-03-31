@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import business.Factory;
 import jdbc.DataBaseConnection;
 import persistence.Service;
 import persistence.ServiceSet;
@@ -24,16 +25,25 @@ public class ServiceSetJDBC extends ServiceSet {
 			ResultSet result = prepare.executeQuery();
 			
 			while (result.next()) {
-				ServiceJDBC serv = new ServiceJDBC();
+                ServiceJDBC serv = new ServiceJDBC();
 
-				serv.setId(result.getLong("id"));
-				serv.setLabel(result.getString("label"));
-				serv.setDescription(result.getString("description"));
-				
-				services.add(serv);
+                serv.setId(result.getLong("id"));
+                // Preparation for the query
+                PreparedStatement prepare2 = connection.prepareStatement("SELECT * FROM public.ressource WHERE code = ?;");
+                prepare2.setLong(1, serv.getId());
+                // Execution of the query
+                ResultSet result2 = prepare2.executeQuery();
+
+                if (result2.next()) {
+                    serv.setLabel(result2.getString("label"));
+                    serv.setDescription(result2.getString("description"));
+
+                    services.add(serv);
+                }
 			}
 		} catch (SQLException e) {
-			throw new LoadException("Can't load Goals");
+//            System.out.println("-> " + e.toString());
+			throw new LoadException("Can't load Services");
 		}
 		this.setServices(services);
 		
