@@ -2,20 +2,30 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import business.facade.ActivityFacade;
 import business.facade.CategoryFacade;
+import business.facade.DiaryFacade;
+import persistence.Activity;
+import persistence.ActivitySet;
 import persistence.Category;
 import persistence.CategorySet;
+import persistence.Diary;
+import persistence.User;
+
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -24,18 +34,21 @@ import javax.swing.border.LineBorder;
 
 public class DiaryView extends AbstractContentView implements ActionListener {
 
-	//private ActivityFacade facade;
-	//private ActivitySet activities;
-	//private Activity selectedActivity;
+	private DiaryFacade facade;
+	private Diary diary;
+	private ActivityPanel selectedPanel = null;
 
-	public DiaryView() {
+	public DiaryView(User user) {
+		
+		this.facade = new DiaryFacade();
+		this.diary = this.facade.getDiaryWithActivySet(user);
+		
 		this.setLayout(new BorderLayout());
-
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		
-		for(int i = 0; i < 100; i++) {
-			panel.add(new ActivityPanel());
+		for(Activity activity : this.diary.getActivitySet().getActivities()) {
+			panel.add(new ActivityPanel(this, activity));
 		}
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
@@ -58,7 +71,6 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		//this.selectedActivity = null;
 	}
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -67,7 +79,6 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
-		return "Diary";
+		return "Diary : " + this.diary.getName();
 	}
 }
