@@ -42,7 +42,7 @@ public class SelectRoleView extends AbstractView {
 			adminButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.ADMIN), AbstractContentView.getMainContentView(Right.ADMIN), user));
+					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.ADMIN), AbstractContentView.getMainContentView(Right.ADMIN, user), user));
 				}
 			});
 			panel.add(adminButton);
@@ -52,7 +52,7 @@ public class SelectRoleView extends AbstractView {
 			customerButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.CUSTOMER), AbstractContentView.getMainContentView(Right.CUSTOMER), user));
+					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.CUSTOMER), AbstractContentView.getMainContentView(Right.CUSTOMER, user), user));
 				}
 			});
 			panel.add(customerButton);
@@ -62,7 +62,7 @@ public class SelectRoleView extends AbstractView {
 			sellerButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.SELLER), AbstractContentView.getMainContentView(Right.SELLER), user));
+					getWindow().setView(new MainView(AbstractMenuView.getMenuView(Right.SELLER), AbstractContentView.getMainContentView(Right.SELLER, user), user));
 				}
 			});
 			panel.add(sellerButton);

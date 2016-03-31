@@ -71,7 +71,7 @@ public class ProductJDBC extends Product {
 				// If there is no result : Exception
 				throw new SaveException("An error");
 			}
-			this.resource.save();
+//			this.resource.save();
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}
@@ -113,6 +113,6 @@ public class ProductJDBC extends Product {
 	 */
 	public void setId(long id) {
 		this.id = id;
-		this.resource.setId(id);
+//		this.resource.setId(id);
 	}
 }

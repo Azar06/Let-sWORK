@@ -13,7 +13,7 @@ public abstract class ActivitySet {
 		this.activities = new ArrayList<Activity>();
 	}
 
-	public abstract void loadWithUser(User user) throws LoadException;
+	public abstract void loadWithDiary(Diary diary) throws LoadException;
 	
 	// GETTER AND SETTER
 	

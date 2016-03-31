@@ -133,7 +133,7 @@ public class LoginView extends AbstractView implements ActionListener {
 	public void showViewAfterLogin() {
 		if(this.getUser().getRoles().size() == 1){
 			Right userRight = this.getUser().getRoles().get(0).getRight();
-			this.getWindow().setView(new MainView(AbstractMenuView.getMenuView(userRight), AbstractContentView.getMainContentView(userRight), this.getUser()));
+			this.getWindow().setView(new MainView(AbstractMenuView.getMenuView(userRight), AbstractContentView.getMainContentView(userRight, this.getUser()), this.getUser()));
 		}
 		else {
 			this.getWindow().setView(new SelectRoleView(this.getUser()));

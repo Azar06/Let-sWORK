@@ -6,7 +6,6 @@ import java.util.List;
 import business.Factory;
 import business.utils.ActivityReturnState;
 import business.utils.GoalReturnState;
-import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
 import persistence.exception.*;
@@ -28,10 +27,10 @@ public class DiaryManager {
 		return user.getGoals();
 	}
 	
-	public ActivitySet getActivitySet(User user) {
+	public ActivitySet getActivitySet(Diary diary) {
 		ActivitySet activitySet = factorio.createActivitySet();
 		try {
-			activitySet.loadWithUser(user);
+			activitySet.loadWithDiary(diary);
 		}
 		catch (LoadException e) {
 			e.printStackTrace();
@@ -76,7 +75,7 @@ public class DiaryManager {
 	public Diary getDiaryWithActivySet(User user) {
 		Diary diary = this.getDiary(user);
 		if(diary != null) {
-			diary.setActivitySet(this.getActivitySet(user));
+			diary.setActivitySet(this.getActivitySet(diary));
 		}
 		return diary;
 	}
@@ -90,6 +89,7 @@ public class DiaryManager {
 				diary.load(customer);
 			}
 			catch (LoadException e) {
+				e.printStackTrace();
 				diary = null;
 			}
 		}

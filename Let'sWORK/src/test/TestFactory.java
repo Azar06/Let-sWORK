@@ -103,4 +103,10 @@ public class TestFactory implements Factory {
 		return null;
 	}
 
+	@Override
+	public ActivitySet createActivitySet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

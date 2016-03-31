@@ -69,7 +69,7 @@ public class ServiceJDBC extends Service {
 				// If there is no result : Exception
 				throw new SaveException("An error");
 			}
-			this.resource.save();
+//			this.resource.save();
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}
@@ -111,7 +111,7 @@ public class ServiceJDBC extends Service {
 	 */
 	public void setId(long id) {
 		this.id = id;
-		this.resource.setId(id);
+//		this.resource.setId(id);
 	}
 	
 }
