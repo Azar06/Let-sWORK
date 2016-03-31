@@ -14,6 +14,13 @@ public class UserManager {
 		this.factorio = new FactoryJDBC();
 	}
 
+	/**
+	 * Get a user 
+	 * if the username exist in the database and if the password corresponding is the same
+	 * @param username : a string corresponding to the pseudo of the user
+	 * @param pass : a string corresponding to the password of the user (associate to the username)
+	 * @return a user if the informations in parameters are exacts.
+	 */
 	public User login(String username, String pass) {
 		User result = null;
 
@@ -29,6 +36,11 @@ public class UserManager {
 		return result;
 	}
 	
+	/**
+	 * Get a user with the username if this username exists in the database
+	 * @param username : a string corresponding to the pseudo of the user
+	 * @return a user which can be null
+	 */
 	private User getUserWithUsername(String username) {
 		// We get the id of the user
 		User u = this.factorio.createUser();
@@ -41,6 +53,24 @@ public class UserManager {
 		return u;
 	}
 
+	/**
+	 * Insert a new user in the database 
+	 * if all the fields have been filled in and if it does not already exist in the database
+	 * @param firstName : the firstname of the user
+	 * @param lastName : the lastname of the user
+	 * @param street : the street of the user
+	 * @param city : the city of the user
+	 * @param postalCode : the postal code of the user
+	 * @param phone : the phone number of the user
+	 * @param email : the email address of the user
+	 * @param username : the username of the user
+	 * @param password : the password of the user
+	 * @param isCustomer : a boolean to know if he is customer
+	 * @param isSeller : a boolean to know if he is seller
+	 * @param siret : the siret of the user
+	 * @param url : the url of the user
+	 * @return state : true if the create has been done, false otherwise
+	 */
 	public SignupReturnState signup(String firstName, String lastName, String street, String city, String postalCode, String phone,
 			String email, String username, String password, boolean isCustomer, boolean isSeller, String siret,
 			String url) {

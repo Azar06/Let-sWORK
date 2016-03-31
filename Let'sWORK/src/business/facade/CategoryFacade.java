@@ -1,12 +1,9 @@
 package business.facade;
 
-import java.util.List;
-
 import business.manager.CategoryManager;
 import business.utils.CategoryReturnState;
 import persistence.Category;
 import persistence.CategorySet;
-import persistence.exception.LoadException;
 
 
 public class CategoryFacade {

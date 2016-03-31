@@ -1,11 +1,7 @@
 package business.manager;
 
-import java.sql.PreparedStatement;
-import java.util.List;
-
 import business.Factory;
 import business.utils.CategoryReturnState;
-import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
 import persistence.exception.DeleteException;
