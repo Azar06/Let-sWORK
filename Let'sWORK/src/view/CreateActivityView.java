@@ -11,6 +11,7 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import javax.swing.JSpinner;
 
 public class CreateActivityView extends AbstractContentView implements ActionListener {
 	private JTextField textField;
@@ -75,18 +76,36 @@ public class CreateActivityView extends AbstractContentView implements ActionLis
 		
 		JCheckBox chckbxVisible = new JCheckBox("Visible");
 		chckbxVisible.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxVisible.setBounds(55, 345, 113, 25);
+		chckbxVisible.setBounds(55, 345, 84, 25);
 		add(chckbxVisible);
 		
 		JCheckBox chckbxHidden = new JCheckBox("Hidden");
 		chckbxHidden.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxHidden.setBounds(55, 379, 113, 25);
+		chckbxHidden.setBounds(143, 345, 98, 25);
 		add(chckbxHidden);
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnCreate.setBounds(293, 489, 113, 33);
+		btnCreate.setBounds(293, 542, 113, 33);
 		add(btnCreate);
+		
+		JLabel lblCategory = new JLabel("Category");
+		lblCategory.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCategory.setBounds(55, 391, 92, 25);
+		add(lblCategory);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(65, 426, 437, 22);
+		add(spinner);
+		
+		JLabel lblObjective = new JLabel("Objective");
+		lblObjective.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblObjective.setBounds(56, 469, 103, 25);
+		add(lblObjective);
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setBounds(65, 500, 437, 22);
+		add(spinner_1);
 	}
 
 	@Override
