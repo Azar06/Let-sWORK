@@ -7,7 +7,8 @@ import java.util.List;
 import persistence.exception.LoadException;
 
 public abstract class ProductSet {
-private List<Product> products;
+	
+	private List<Product> products;
 	
 	public ProductSet() {
 		this.products = new ArrayList<Product>();
@@ -40,8 +41,8 @@ private List<Product> products;
 	}
 	
 	/**
-	 * Search a list of labels
-	 * @return a list whiwh contains all the labels
+	 * Search a list of products labels
+	 * @return a list which contains all the products labels
 	 */
 	public List<String> getLabels() {
 		List<String> labels = new ArrayList<String>();
@@ -52,7 +53,7 @@ private List<Product> products;
 	}
 	
 	/**
-	 * Search a product in a list of products
+	 * Search a product in a list of products by its label
 	 * @param label : the label of the product we search
 	 * @return the product as an object product
 	 */
