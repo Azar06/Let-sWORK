@@ -5,6 +5,7 @@ import business.utils.SignupReturnState;
 import jdbc.FactoryJDBC;
 import persistence.*;
 import persistence.exception.LoadException;
+import persistence.exception.SaveException;
 
 public class UserManager {
 	private Factory factorio;
@@ -134,6 +135,7 @@ public class UserManager {
 			user.setUsername(username);
 			user.setPassword(password);
 			PersonInfo person = this.factorio.createPerson();
+			person.setUser(user);
 			person.setFistName(firstName);
 			person.setLastName(lastName);
 			person.setEmail(email);
@@ -153,6 +155,12 @@ public class UserManager {
 				s.setSiret(siret);
 				s.setPersonInfo(person);
 				user.addRole(s);
+			}
+			
+			try {
+				user.save();
+			} catch (SaveException e) {
+				e.printStackTrace();
 			}
 		}
 		return signupReturnState;

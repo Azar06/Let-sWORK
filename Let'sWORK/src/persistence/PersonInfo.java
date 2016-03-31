@@ -1,5 +1,6 @@
 package persistence;
 
+import jdbc.persistence.UserJDBC;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
@@ -11,6 +12,7 @@ public abstract class PersonInfo {
 	private String city;
 	private String phone;
 	private String email;
+	private User user = null;
 	
 	public PersonInfo(String ln, String fn, String s, String pc, String c, String p, String e) {
 		this.lastName=ln;
@@ -22,12 +24,8 @@ public abstract class PersonInfo {
 		this.email=e;
 	}
 	
-	public PersonInfo(User owner) {
-		this(null, null, null, null, null, null, null);
-	}
-	
 	public PersonInfo() {
-		this(null);
+		this(null, null, null, null, null, null, null);
 	}
 	
 	// ABSTACT METHODS
@@ -88,5 +86,13 @@ public abstract class PersonInfo {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

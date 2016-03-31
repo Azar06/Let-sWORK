@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 import jdbc.DataBaseConnection;
+import persistence.Customer;
+import persistence.Diary;
+import persistence.Right;
 import persistence.User;
 import persistence.UserRole;
 import persistence.exception.LoadException;
@@ -115,8 +118,19 @@ public class UserJDBC extends User {
 					e.printStackTrace();
 				}
 			}
+			
+			Customer customer = (Customer) this.getRole(Right.CUSTOMER);
+			if(customer != null){
+				Diary diary = new DiaryJDBC();
+				diary.setName("My Diary");
+				diary.setOwner(customer);
+				diary.setPublic(true);
+				diary.save();
+			}
+			
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new SaveException("An error");
 		}
 	}

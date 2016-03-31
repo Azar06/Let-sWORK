@@ -12,12 +12,12 @@ import persistence.exception.SaveException;
 
 public class PersonInfoJDBC extends PersonInfo {
 
-	private UserJDBC user;
+	
 	private boolean alreadySaved = false;
 
 	public PersonInfoJDBC(UserJDBC user) {
 		super();
-		this.user = user;
+		this.setUser(user);
 	}
 
 	public PersonInfoJDBC() {
@@ -90,15 +90,7 @@ public class PersonInfoJDBC extends PersonInfo {
 		}
 	}
 
-	public UserJDBC getUser() {
-		return user;
-	}
-
-	public void setUser(UserJDBC user) {
-		this.user = user;
-	}
-	
 	public long getId() {
-		return this.getUser().getId();
+		return ((UserJDBC)this.getUser()).getId();
 	}
 }
