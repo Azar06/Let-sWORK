@@ -46,6 +46,7 @@ public class DiaryView extends AbstractContentView {
 		}
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel buttonPanel = new JPanel();
@@ -55,7 +56,7 @@ public class DiaryView extends AbstractContentView {
 		btnNewActivity.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				getMainView().setContentView(new CreateActivityView(user));
+				getMainView().setContentView(new CreateActivityView(user, diary));
 			}
 		});
 		buttonPanel.add(btnNewActivity);
