@@ -72,17 +72,16 @@ public class ActivityPanel extends JPanel implements MouseListener {
 		Color isVisibleFrgdCol;
 		if(this.activity.getIsPublic()) {
 			isVisibleText = "Visible";
-			isVisibleBckgdCol = Color.GREEN;
-			isVisibleFrgdCol = new Color(0, 128, 0);
+			isVisibleBckgdCol = new Color(0, 230, 0);
 		} else {
 			isVisibleText = "Hidden";
-			isVisibleBckgdCol = Color.RED;
-			isVisibleFrgdCol = new Color(128, 0, 0);
+			isVisibleBckgdCol = new Color(250, 0, 0);
 		}
 		JButton btnVisible = new JButton(isVisibleText);
+		btnVisible.setEnabled(false);
 		btnVisible.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnVisible.setBackground(isVisibleBckgdCol);
-		btnVisible.setForeground(isVisibleFrgdCol);
+		btnVisible.addMouseListener(this);
 		this.add(btnVisible, BorderLayout.EAST);
 	}
 

@@ -11,7 +11,9 @@ import jdbc.DataBaseConnection;
 import persistence.Customer;
 import persistence.Diary;
 import persistence.Goal;
+import persistence.Right;
 import persistence.User;
+import persistence.UserRole;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
@@ -53,10 +55,33 @@ public class DiaryJDBC extends Diary {
 	
 	public void save() throws SaveException {
 		if(id == -1) {
-			//TODO INSERT
+			try {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement(
+						"INSERT INTO public.diary (id, name, isPublic, customerId) VALUES(DEFAULT, ?, ?, ?) RETURNING id;");
+				// Indication about the value of the username in the WHERE
+				prepare.setString(1, this.getName());
+				prepare.setBoolean(2, this.isPublic());
+				prepare.setLong(3, ((UserJDBC)this.getOwner().getUser()).getId());
+				// Execution of the query
+				ResultSet result = prepare.executeQuery();
+				// we don't use a while here bcs we know username is unique
+				if (result.next()) {
+					// We get the username and the password and the database
+					this.setId(result.getLong("id"));
+				} else {
+					// If there is no result : Exception
+					throw new SaveException("An error");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new SaveException("An error");
+			}
 		}
 		else {
-			this.update();
+			//this.update();
 		}
 	}
 	
@@ -65,7 +90,7 @@ public class DiaryJDBC extends Diary {
 			if(this.getId() >= 0) {
 				Connection connection = DataBaseConnection.getConnection();
 				// Preparation for the query
-				PreparedStatement prepare = connection.prepareStatement("UPDATE public.goal SET name = ?, isPublic = ?, customerId = ?) WHERE id = ?;");
+				PreparedStatement prepare = connection.prepareStatement("UPDATE public.diary SET name = ?, isPublic = ?, customerId = ?) WHERE id = ?;");
 				prepare.setString(1, this.getName());
 				prepare.setBoolean(2, this.isPublic());
 				prepare.setLong(3, ((CustomerJDBC)this.getOwner()).getId());

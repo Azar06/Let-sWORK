@@ -53,6 +53,7 @@ public class DiaryView extends AbstractContentView {
 		
 		JButton btnNewActivity = new JButton("New activity");
 		btnNewActivity.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		
 		btnNewActivity.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

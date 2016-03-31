@@ -172,6 +172,17 @@ public class CreateActivityView extends AbstractContentView implements ActionLis
 		btnCreate.setBounds(293, 542-50, 113, 33);
 		btnCreate.addActionListener(this);
 		add(btnCreate);
+		
+		JButton backButton = new JButton("Back");
+		backButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		backButton.setBounds(93, 542-50, 113, 33);
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getMainView().setContentView(new DiaryView(user));
+			}
+		});
+		add(backButton);
 	}
 
 	private MaskFormatter createFormatter(String s) {
