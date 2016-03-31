@@ -18,13 +18,16 @@ public class DiaryManager {
 		this.factorio = new FactoryJDBC();
 	}
 	
-	public List<Goal> getGoals(User user) {
+	public GoalSet getGoalSet(User user) {
+		GoalSet goalSet = factorio.createGoalSet();
 		try {
-			user.loadGoals();
+			goalSet.loadWithUser(user);
 		}
 		catch (LoadException e) {
+			e.printStackTrace();
+			goalSet = null;
 		}
-		return user.getGoals();
+		return goalSet;
 	}
 	
 	public ActivitySet getActivitySet(Diary diary) {

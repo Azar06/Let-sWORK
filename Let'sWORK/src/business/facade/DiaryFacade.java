@@ -7,6 +7,7 @@ import business.manager.DiaryManager;
 import persistence.Activity;
 import persistence.Diary;
 import persistence.Goal;
+import persistence.GoalSet;
 import persistence.User;
 
 public class DiaryFacade {
@@ -17,8 +18,8 @@ public class DiaryFacade {
 		this.diaryManager = new DiaryManager();
 	}
 	
-	public List<Goal> getGoals(User user) {
-		return this.diaryManager.getGoals(user);
+	public GoalSet getGoalSet(User user) {
+		return this.diaryManager.getGoalSet(user);
 	}
 	
 	public void createGoal(User owner, String name, String description, Date deadline) {
