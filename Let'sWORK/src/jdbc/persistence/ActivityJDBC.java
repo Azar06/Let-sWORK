@@ -43,7 +43,12 @@ public class ActivityJDBC extends Activity {
 				prepare.setBoolean(4, this.getIsPublic());
 				prepare.setLong(5, ((DiaryJDBC)getDiary()).getId());
 				prepare.setLong(6, ((CategoryJDBC)getCategory()).getId());
-				prepare.setLong(7, ((GoalJDBC)getGoal()).getId());
+				if(getGoal() != null){
+					prepare.setLong(7, ((GoalJDBC)getGoal()).getId());
+				}
+				else {
+					prepare.setNull(7, java.sql.Types.NULL);
+				}
 				// Execution of the query
 				ResultSet res = prepare.executeQuery();
 				

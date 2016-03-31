@@ -2,10 +2,14 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import java.awt.Font;
@@ -21,8 +25,13 @@ import javax.swing.text.MaskFormatter;
 
 import business.facade.CategoryFacade;
 import business.facade.DiaryFacade;
+import business.utils.ActivityReturnState;
+import persistence.Category;
 import persistence.CategorySet;
+import persistence.Diary;
+import persistence.Goal;
 import persistence.GoalSet;
+import persistence.TimePosition;
 import persistence.User;
 
 import javax.swing.JCheckBox;
@@ -37,14 +46,18 @@ public class CreateActivityView extends AbstractContentView implements ActionLis
 	private GoalSet goalSet;
 	private DiaryFacade diaryFacade;
 	
+	private Diary diary;
+	private User user;
+	
 	private JFormattedTextField dateTextField;
 	private JSlider positionSlider;
 	private JRadioButton visibleButton;
 	private JSpinner categorySpinner;
 	private JSpinner goalSpinner;
 	
-	public CreateActivityView(User user) {
-		
+	public CreateActivityView(User user, Diary diary) {
+		this.user = user;
+		this.diary = diary;
 		this.diaryFacade = new DiaryFacade();
 		
 		this.setLayout(null);
@@ -173,7 +186,39 @@ public class CreateActivityView extends AbstractContentView implements ActionLis
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		this.diaryFacade.
+		// name
+		String name = this.textField.getText();
+		
+		// date
+		java.sql.Date date = null;
+		Date dateTemp = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			dateTemp = formatter.parse(this.dateTextField.getText());
+			date = new java.sql.Date(dateTemp.getTime());
+		} catch (ParseException e) {
+			date = null;
+		}
+		
+		// position
+		TimePosition position = TimePosition.getPosition(this.positionSlider.getValue());
+		
+		// public
+		boolean isPublic = this.visibleButton.isSelected();
+		
+		// category
+		Category category = this.categorySet.getCategoryWithName((String)this.categorySpinner.getValue());
+		
+		// goal
+		Goal goal = this.goalSet.getGoalWithName((String)this.goalSpinner.getValue());
+		
+		ActivityReturnState returnState = this.diaryFacade.createActivity(this.diary, name, date, position, isPublic, category, goal);
+		if(returnState.isRight()){
+			this.getMainView().setContentView(new DiaryView(this.user));
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Some fields are wrong", "Wrong fields", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@Override

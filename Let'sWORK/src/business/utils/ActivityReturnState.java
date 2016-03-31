@@ -17,7 +17,13 @@ public class ActivityReturnState {
 	// 
 	public boolean isRight(){
 		//No error message on name and description
-		return (nameState == null);
+		return (nameState == null 
+				&& dateState == null
+				&& positionState == null
+				&& isPublicState == null
+				&& diaryIdState == null
+				&& categoryIdState == null
+				&& goalIdState == null);
 	}
 
 	// GET & SET : NAME

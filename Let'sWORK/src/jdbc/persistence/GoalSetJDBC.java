@@ -21,7 +21,7 @@ public class GoalSetJDBC extends GoalSet {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT id, name, description, deadline FROM public.goal WHERE customer.id = ?;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT id, name, description, deadline FROM public.goal WHERE customerid = ?;");
 			prepare.setLong(1, ((UserJDBC)user).getId());
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();

@@ -55,7 +55,7 @@ public class DiaryView extends AbstractContentView {
 		btnNewActivity.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				getMainView().setContentView(new CreateActivityView(user));
+				getMainView().setContentView(new CreateActivityView(user, diary));
 			}
 		});
 		buttonPanel.add(btnNewActivity);
