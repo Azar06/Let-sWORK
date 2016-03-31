@@ -39,10 +39,16 @@ public class ServiceManager {
 		}
 		//If all is right
 		if (state.isRight()) {
-			Service service = this.factorio.createService();
-			service.setLabel(label);
-			service.setDescription(description);
-			service.setCategory(cat);
+			try {
+				Service service = this.factorio.createService();
+				service.setLabel(label);
+				service.setDescription(description);
+				service.setCategory(cat);
+				service.save();
+			}
+			catch (SaveException e) {
+				System.out.println("ServiceManager a fait la merde");
+			}
 		}
 		return state;
 	}
