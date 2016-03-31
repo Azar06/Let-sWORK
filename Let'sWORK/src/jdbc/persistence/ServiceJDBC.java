@@ -75,7 +75,7 @@ public class ServiceJDBC extends Service {
 					"INSERT INTO public.service (id) VALUES(?)");
 			prepare2.setLong(1, this.getId());
 			// Execution of the query
-			prepare2.executeQuery();
+			prepare2.executeUpdate();
 		} catch (SQLException e) {
 			throw new SaveException("An error");
 		}

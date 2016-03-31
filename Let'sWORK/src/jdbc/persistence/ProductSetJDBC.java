@@ -27,14 +27,22 @@ public class ProductSetJDBC extends ProductSet {
 				ProductJDBC prod = new ProductJDBC();
 
 				prod.setId(result.getLong("id"));
-				prod.setLabel(result.getString("label"));
-				prod.setDescription(result.getString("description"));
 				prod.setBrandName(result.getString("brandName"));
-				
-				products.add(prod);
+				// Preparation for the query
+				PreparedStatement prepare2 = connection.prepareStatement("SELECT * FROM public.ressource WHERE code = ?;");
+				prepare2.setLong(1, prod.getId());
+				// Execution of the query
+				ResultSet result2 = prepare2.executeQuery();
+
+				if (result2.next()) {
+					prod.setLabel(result2.getString("label"));
+					prod.setDescription(result2.getString("description"));
+
+					products.add(prod);
+				}
 			}
 		} catch (SQLException e) {
-			throw new LoadException("Can't load Goals");
+			throw new LoadException("Can't load Products");
 		}
 		this.setProducts(products);
 		

@@ -1,6 +1,7 @@
 package test;
 
 import business.Factory;
+import jdbc.persistence.ProductSetJDBC;
 import jdbc.persistence.ServiceSetJDBC;
 import persistence.*;
 import persistence.exception.LoadException;
@@ -102,7 +103,7 @@ public class TestFactory implements Factory {
 	@Override
 	public ProductSet createProductSet() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ProductSetJDBC();
 	}
 
 	@Override

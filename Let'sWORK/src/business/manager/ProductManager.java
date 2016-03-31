@@ -43,11 +43,17 @@ public class ProductManager {
 		}
 		//If all is right
 		if (state.isRight()) {
-			Product product = this.factorio.createProduct();
-			product.setLabel(label);
-			product.setDescription(description);
-			product.setBrandName(brandName);
-			product.setCategory(cat);
+			try {
+				Product product = this.factorio.createProduct();
+				product.setLabel(label);
+				product.setDescription(description);
+				product.setBrandName(brandName);
+				product.setCategory(cat);
+				product.save();
+			}
+			catch (SaveException e) {
+				System.out.println("ProductManager a fait la merde");
+			}
 		}
 		return state;
 	}
