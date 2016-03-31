@@ -1,7 +1,9 @@
 package test;
 
 import business.Factory;
+import jdbc.persistence.ServiceSetJDBC;
 import persistence.*;
+import persistence.exception.LoadException;
 import test.persistence.*;
 
 public class TestFactory implements Factory {
@@ -88,7 +90,7 @@ public class TestFactory implements Factory {
 	@Override
 	public ServiceSet createServiceSet() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ServiceSetJDBC();
 	}
 	
 	@Override
