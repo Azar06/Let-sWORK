@@ -18,6 +18,11 @@ public class DiaryManager {
 		this.factorio = new FactoryJDBC();
 	}
 	
+	/**
+	 * Get a collection of goals
+	 * @param user 
+	 * @return a list of goals of a user
+	 */
 	public GoalSet getGoalSet(User user) {
 		GoalSet goalSet = factorio.createGoalSet();
 		try {
@@ -30,6 +35,11 @@ public class DiaryManager {
 		return goalSet;
 	}
 	
+	/**
+	 * Get a collection of activities of a diary
+	 * @param diary
+	 * @return a list of activities in the diary
+	 */
 	public ActivitySet getActivitySet(Diary diary) {
 		ActivitySet activitySet = factorio.createActivitySet();
 		try {
@@ -42,6 +52,18 @@ public class DiaryManager {
 		return activitySet;
 	}
 	
+	/**
+	 * Insert a new activity in the diary in the database 
+	 * if all the fields have been filled in and if it does not already exist in the database
+	 * @param diary
+	 * @param name
+	 * @param date
+	 * @param position
+	 * @param isPublic
+	 * @param category
+	 * @param goal
+	 * @return state : true if the insertion has been done, false otherwise
+	 */
 	public ActivityReturnState createActivity(Diary diary, String name, Date date, TimePosition position, boolean isPublic, Category category, Goal goal) {
 		ActivityReturnState state = new ActivityReturnState();
 		if (name == null || name.length() == 0) {
@@ -75,6 +97,11 @@ public class DiaryManager {
 		return state;
 	}
 	
+	/**
+	 * Get a diary with the list of activities
+	 * @param user
+	 * @return the diary which contain the activities
+	 */
 	public Diary getDiaryWithActivySet(User user) {
 		Diary diary = this.getDiary(user);
 		if(diary != null) {
@@ -83,6 +110,11 @@ public class DiaryManager {
 		return diary;
 	}
 	
+	/**
+	 * Get the diary for a user
+	 * @param user
+	 * @return the object diary for a user
+	 */
 	public Diary getDiary(User user) {
 		Diary diary = null;
 		Customer customer = (Customer)user.getRole(Right.CUSTOMER);
@@ -99,6 +131,11 @@ public class DiaryManager {
 		return diary;
 	}
 	
+	/**
+	 * Delete an activity
+	 * @param activity
+	 * @return state : true if the suppression has been done, false otherwise
+	 */
 	public boolean deleteActivity(Activity activity) {
 		boolean returnState = false;
 		try {
@@ -110,6 +147,14 @@ public class DiaryManager {
 		return returnState;
 	}
 	
+	/**
+	 * Create a new goal if all the fields have been filled in
+	 * @param owner
+	 * @param name
+	 * @param description
+	 * @param deadline
+	 * @return state : true if the creation has been done, false otherwise
+	 */
 	public GoalReturnState createGoal(User owner, String name, String description, Date deadline) {
 		GoalReturnState goalReturnState = new GoalReturnState();
 		//
