@@ -97,10 +97,18 @@ public class ServiceJDBC extends Service {
 		}
 	}
 	
+	/**
+	 * Get the id of the service
+	 * @return the id of the service
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Change the id of the service
+	 * @param id : the new id of the service
+	 */
 	public void setId(long id) {
 		this.id = id;
 		this.resource.setId(id);

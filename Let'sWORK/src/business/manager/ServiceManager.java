@@ -1,11 +1,9 @@
 package business.manager;
 
 import business.Factory;
-import business.utils.CategoryReturnState;
 import business.utils.ServiceReturnState;
 import jdbc.FactoryJDBC;
 import persistence.Category;
-import persistence.CategorySet;
 import persistence.Service;
 import persistence.ServiceSet;
 import persistence.exception.DeleteException;
@@ -20,6 +18,14 @@ public class ServiceManager {
 		this.factorio = new FactoryJDBC();
 	}
 	
+	/**
+	 * Insert a new service in the database 
+	 * if all the fields have been filled in and if it does not already exist in the database
+	 * @param label : the label of the service we want to create
+	 * @param description : the description of the service we want to create
+	 * @param cat : the category associate to the service
+	 * @return state : true if the insertion has been done, false otherwise
+	 */
 	public ServiceReturnState create(String label, String description, Category cat) {
 		ServiceReturnState state = new ServiceReturnState();
 		if (label == null || label.length() == 0) {
@@ -41,6 +47,12 @@ public class ServiceManager {
 		return state;
 	}
 	
+	/**
+	 * Update a service in the database 
+	 * if all the fields have been filled in and if it already exists in the database
+	 * @param service : an object service
+	 * @return state : true if the modification has been done, false otherwise
+	 */
 	public ServiceReturnState save(Service service) {
 		ServiceReturnState state = new ServiceReturnState();
 		if (service.getLabel() == null || service.getLabel().length() == 0) {
@@ -71,6 +83,11 @@ public class ServiceManager {
 		return state;
 	}
 	
+	/**
+	 * Delete a service if it is present in the database
+	 * @param service : an object service
+	 * @return boolean : this boolean return true if the service has been deleted, and false otherwise
+	 */
 	public boolean delete(Service service) {
 		boolean resultState = false;
 		try {
@@ -83,6 +100,10 @@ public class ServiceManager {
 		return resultState;
 	}
 	
+	/**
+	 * Get a collection of services
+	 * @return the collection of services
+	 */
 	public ServiceSet getServiceSet() {
 		ServiceSet sSet = factorio.createServiceSet();
 		try {

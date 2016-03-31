@@ -31,7 +31,7 @@ public abstract class Product extends Resource {
 		public abstract void loadWithLabel(String label) throws LoadException;
 		
 		/**
-		 * Allow the user to create a new product
+		 * Create a new product
 		 * @throws SaveException
 		 */
 		public abstract void save() throws SaveException;

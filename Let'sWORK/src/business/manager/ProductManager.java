@@ -24,6 +24,7 @@ public class ProductManager {
 	 * @param label : the label of the product we want to create
 	 * @param description : the description of the product we want to create
 	 * @param brandName : the brand name of the product we want to create
+	 * @param cat : the category associate to the product
 	 * @return state : true if the insertion has been done, false otherwise
 	 */
 	public ProductReturnState create(String label, String description, String brandName, Category cat) {

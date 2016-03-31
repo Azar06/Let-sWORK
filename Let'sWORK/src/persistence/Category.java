@@ -30,7 +30,7 @@ public abstract class Category {
 	public abstract void loadWithName(String name) throws LoadException;
 	
 	/**
-	 * Allow the user to create a new category
+	 * Create a new category
 	 * @throws SaveException
 	 */
 	public abstract void save() throws SaveException;
@@ -50,7 +50,7 @@ public abstract class Category {
 	}
 	
 	/**
-	 * Change the name of the category
+	 * Change the name of a category
 	 * @param nom : the new name of the category
 	 */
 	public void setName(String nom) {
@@ -66,7 +66,7 @@ public abstract class Category {
 	}
 	
 	/**
-	 * Change the description of the category
+	 * Change the description of a category
 	 * @param desc : the new description of the category
 	 */
 	public void setDescription(String desc) {

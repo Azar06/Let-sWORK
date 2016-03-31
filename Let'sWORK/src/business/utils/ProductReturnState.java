@@ -23,8 +23,8 @@ public class ProductReturnState {
 	}
 
 	/**
-	 * Change the label state of a category
-	 * @param codeState : the new label state of a category
+	 * Change the label state of a product
+	 * @param codeState : the new label state of a product
 	 */
 	public void setLabelState(String codeState) {
 		this.labelState = codeState;
@@ -39,8 +39,8 @@ public class ProductReturnState {
 	}
 
 	/**
-	 * Change the description state of a category
-	 * @param descriptionState : the new description state of a category
+	 * Change the description state of a product
+	 * @param descriptionState : the new description state of a product
 	 */
 	public void setDescriptionState(String descriptionState) {
 		this.descriptionState = descriptionState;
@@ -55,8 +55,8 @@ public class ProductReturnState {
 	}
 
 	/**
-	 * Change the brand name state of a category
-	 * @param brandNameState : the new brand name state of a category
+	 * Change the brand name state of a product
+	 * @param brandNameState : the new brand name state of a product
 	 */
 	public void setBrandNameState(String brandNameState) {
 		this.brandNameState = brandNameState;
