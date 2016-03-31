@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.*;
 
 import jdbc.DataBaseConnection;
-import persistence.Goal;
 import persistence.User;
 import persistence.UserRole;
 import persistence.exception.LoadException;
@@ -131,10 +130,18 @@ public class UserJDBC extends User {
 		}
 	}
 
+	/**
+	 * Get the id of the user
+	 * @return the id of the user
+	 */
 	protected long getId() {
 		return this.id;
 	}
 
+	/**
+	 * Change the id of the user
+	 * @param id : the new id of the user
+	 */
 	protected void setId(long id) {
 		this.id = id;
 	}

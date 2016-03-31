@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import jdbc.DataBaseConnection;
 import persistence.Category;
 import persistence.exception.DeleteException;
-import persistence.PersonInfo;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
 
