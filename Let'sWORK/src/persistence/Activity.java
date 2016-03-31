@@ -8,14 +8,14 @@ import persistence.exception.SaveException;
 public abstract class Activity {
 	private String name;
 	private Date date;
-	private Integer position;
+	private TimePosition position;
 	private boolean isPublic;
 	private Diary diary;
 	private Category category;
 	private Goal goal;
 
 	
-	public Activity(String nom, Date dateDetail, Integer position, boolean estPublic, Diary journalId, Category cat, Goal butId){
+	public Activity(String nom, Date dateDetail, TimePosition position, boolean estPublic, Diary journalId, Category cat, Goal butId){
 		super();
 		this.name = nom;
 		this.date = dateDetail ;
@@ -56,11 +56,11 @@ public abstract class Activity {
 	}
 	
 	// Accesseurs & Mutateurs : POSITION
-	public int getPosition() {
+	public TimePosition getPosition() {
 		return this.position;
 	}
 		
-	public void setPosition(int position) {
+	public void setPosition(TimePosition position) {
 		this.position = position;
 	}
 		

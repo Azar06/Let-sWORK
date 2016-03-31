@@ -11,6 +11,7 @@ import persistence.Activity;
 import persistence.Category;
 import persistence.Diary;
 import persistence.Goal;
+import persistence.TimePosition;
 import persistence.exception.DeleteException;
 import persistence.exception.LoadException;
 import persistence.exception.SaveException;
@@ -19,7 +20,7 @@ public class ActivityJDBC extends Activity {
 
 	private long id = -1;
 	
-	public ActivityJDBC(String name, Date date, int position, boolean isPublic, Diary diary, Category category, Goal goal) {
+	public ActivityJDBC(String name, Date date, TimePosition position, boolean isPublic, Diary diary, Category category, Goal goal) {
 		super(name, date, position, isPublic, diary, category, goal);
 	}
 	
@@ -38,7 +39,7 @@ public class ActivityJDBC extends Activity {
 						"INSERT INTO public.activity (id, name, date, position, isPublic, diaryId, categoryId, goalId) VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING id;");
 				prepare.setString(1, this.getName());
 				prepare.setDate(2, this.getDate());
-				prepare.setInt(3, this.getPosition());
+				prepare.setInt(3, this.getPosition().getValue());
 				prepare.setBoolean(4, this.getIsPublic());
 				prepare.setLong(5, ((DiaryJDBC)getDiary()).getId());
 				prepare.setLong(6, ((CategoryJDBC)getCategory()).getId());
