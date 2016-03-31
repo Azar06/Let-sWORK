@@ -46,6 +46,7 @@ public class DiaryView extends AbstractContentView {
 		}
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel buttonPanel = new JPanel();
