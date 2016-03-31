@@ -2,41 +2,35 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import business.facade.ActivityFacade;
-import business.facade.CategoryFacade;
 import business.facade.DiaryFacade;
 import persistence.Activity;
-import persistence.ActivitySet;
-import persistence.Category;
-import persistence.CategorySet;
+
 import persistence.Diary;
 import persistence.User;
 
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import java.awt.SystemColor;
-import javax.swing.border.LineBorder;
+import javax.swing.JOptionPane;
 
 public class DiaryView extends AbstractContentView implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3621700323154728791L;
+	
 	private DiaryFacade facade;
 	private Diary diary;
 	private ActivityPanel selectedPanel = null;
+	private JButton updateButton;
+	private JButton deleteButton;
 
 	public DiaryView(User user) {
 		
@@ -60,15 +54,50 @@ public class DiaryView extends AbstractContentView implements ActionListener {
 		btnNewActivity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		buttonPanel.add(btnNewActivity);
 		
-		JButton btnUpdate = new JButton("Update");
-		buttonPanel.add(btnUpdate);
+		this.updateButton = new JButton("Update");
+		buttonPanel.add(this.updateButton);
 		
-		JButton btnDelete = new JButton("Delete");
-		buttonPanel.add(btnDelete);
+		this.deleteButton = new JButton("Delete");
+		this.deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean custumerIsSure = (JOptionPane.showConfirmDialog(
+						getMainView().getWindow(),
+						"Are you sure about deleting \"" + selectedPanel.getActivity().getName() + "\" ?",
+					    "Delete Activity",
+					    JOptionPane.YES_NO_OPTION) == 0);
+				if(custumerIsSure) {
+					boolean deleteSucced = facade.deleteActivity(selectedPanel.getActivity());
+					if(deleteSucced) {
+						panel.remove(selectedPanel);
+						panel.setVisible(false);
+						panel.setVisible(true);
+					}
+				}
+			}
+		});
+		buttonPanel.add(this.deleteButton);
 		
 		this.add(buttonPanel, BorderLayout.SOUTH);
-		//this.activities = this.facade.getActivitySet();
-		//this.selectedActivity = null;
+		this.setEnabledUpdateAndDelete(false);
+	}
+	
+	public void setSelected(ActivityPanel activityPanel) {
+		if(this.selectedPanel != null) {
+			this.selectedPanel.setUnselected();
+		}
+		this.selectedPanel = activityPanel;
+		if(this.selectedPanel == null){
+			this.setEnabledUpdateAndDelete(false);
+		}
+		else {
+			this.setEnabledUpdateAndDelete(true);
+		}
+	}
+	
+	public void setEnabledUpdateAndDelete(boolean bool) {
+		this.updateButton.setEnabled(bool);
+		this.deleteButton.setEnabled(bool);
 	}
 	
 	@Override

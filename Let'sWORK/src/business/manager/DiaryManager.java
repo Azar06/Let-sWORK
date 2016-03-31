@@ -96,6 +96,17 @@ public class DiaryManager {
 		return diary;
 	}
 	
+	public boolean deleteActivity(Activity activity) {
+		boolean returnState = false;
+		try {
+			activity.delete();
+			returnState = true;
+		} catch (DeleteException e) {
+			returnState = false;
+		}
+		return returnState;
+	}
+	
 	public GoalReturnState createGoal(User owner, String name, String description, Date deadline) {
 		GoalReturnState goalReturnState = new GoalReturnState();
 		//

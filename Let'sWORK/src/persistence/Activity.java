@@ -2,6 +2,7 @@ package persistence;
 
 import java.sql.Date;
 
+import persistence.exception.DeleteException;
 import persistence.exception.SaveException;
 
 public abstract class Activity {
@@ -32,6 +33,7 @@ public abstract class Activity {
 	// ABSTRACT METHODS
 	
 	public abstract void save() throws SaveException;
+	public abstract void delete() throws DeleteException;
 	
 	// GETTER AND SETTER
 	
