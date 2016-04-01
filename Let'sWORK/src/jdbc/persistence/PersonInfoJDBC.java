@@ -56,6 +56,7 @@ public class PersonInfoJDBC extends PersonInfo {
 				// TODO
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new SaveException("An error");
 		}
 	}

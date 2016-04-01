@@ -50,8 +50,8 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	private JTextArea newDescrArea;
 	private JTextField updateLabelField;
 	private JTextArea updateDescrArea;
-	private JSpinner updateServicelabelSpinner;
-	private JSpinner deleteServicelabelSpinner;
+	private JSpinner updateServiceSpinner;
+	private JSpinner deleteServiceSpinner;
 	private JSpinner categorySpinner;
 	private JSpinner updateServicecategorySpinner;
 	private CategorySet categories;
@@ -189,10 +189,10 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		updateServicecategorySpinner.setBounds(354, 233, 136, 22);
 		updateServicecategorySpinner.setEnabled(false);
 		
-		updateServicelabelSpinner = new JSpinner();
-		updateServicelabelSpinner.setBounds(117, 194, 267, 22);
-		deleteServicelabelSpinner = new JSpinner();
-		deleteServicelabelSpinner.setBounds(117, 423, 267, 22);
+		updateServiceSpinner = new JSpinner();
+		updateServiceSpinner.setBounds(117, 194, 267, 22);
+		deleteServiceSpinner = new JSpinner();
+		deleteServiceSpinner.setBounds(117, 423, 267, 22);
 		
 		
 		ArrayList<String> catList = new ArrayList<String>();
@@ -218,11 +218,11 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		ArrayList<String> sList = new ArrayList<String>();
 		sList.add("");
 		sList.addAll(this.services.getLabels());
-		updateServicelabelSpinner.setModel(new SpinnerListModel(sList));
-		deleteServicelabelSpinner.setModel(new SpinnerListModel(sList));
-		updateServicelabelSpinner.addChangeListener(new ChangeListener() {
+		updateServiceSpinner.setModel(new SpinnerListModel(sList));
+		deleteServiceSpinner.setModel(new SpinnerListModel(sList));
+		updateServiceSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				String labelWrite = (String) updateServicelabelSpinner.getValue();
+				String labelWrite = (String) updateServiceSpinner.getValue();
 				selectedService = services.getServiceWithLabel(labelWrite);
 				if(selectedService == null) {
 					updateLabelField.setText("");
@@ -249,9 +249,9 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 				}
 			}
 		});
-		deleteServicelabelSpinner.addChangeListener(new ChangeListener() {
+		deleteServiceSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				String labelWrite = (String) deleteServicelabelSpinner.getValue();
+				String labelWrite = (String) deleteServiceSpinner.getValue();
 				selectedServiceToDelete = services.getServiceWithLabel(labelWrite);
 				if(selectedServiceToDelete == null) {
 					btnDelete.setEnabled(false);
@@ -261,8 +261,8 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 				}
 			}
 		});
-		panel.add(updateServicelabelSpinner);
-		panel.add(deleteServicelabelSpinner);
+		panel.add(updateServiceSpinner);
+		panel.add(deleteServiceSpinner);
 		
 	}
 

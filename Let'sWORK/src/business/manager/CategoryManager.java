@@ -58,14 +58,15 @@ public class CategoryManager {
 	 * @param category : an object category
 	 * @return state : true if the modification has been done, false otherwise
 	 */
-	public CategoryReturnState save(Category category) {
+	public CategoryReturnState save(Category category, String name, String description) {
 		CategoryReturnState state = new CategoryReturnState();
-		if (category.getName() == null || category.getName().length() == 0) {
+		
+		if (name == null || name.length() == 0) {
 			state.setNameState("You need to fill this field.");
-		} else {
+		} else if(!category.getName().equals(name)){
 			Category cat = this.factorio.createCategory();
 			try {
-				cat.loadWithName(category.getName());
+				cat.loadWithName(name);
 				if(!cat.equals(category)){
 					state.setNameState("The name is already used.");
 				}
@@ -73,12 +74,14 @@ public class CategoryManager {
 			catch (LoadException ex){
 			}
 		}
-		if (category.getDescription() == null || category.getDescription().length() == 0) {
+		if (description == null || description.length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
 		}
 		//If all is right
 		if (state.isRight()) {
 			try {
+				category.setName(name);
+				category.setDescription(description);
 				category.save();
 			} catch (SaveException e) {
 			}

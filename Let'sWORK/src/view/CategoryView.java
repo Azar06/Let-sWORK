@@ -284,9 +284,7 @@ public class CategoryView extends AbstractContentView implements ActionListener 
 			else {
 				if(this.selectedCategory != null) {
 					String oldName = this.selectedCategory.getName();
-					this.selectedCategory.setName(updName);
-					this.selectedCategory.setDescription(updDescr);
-					CategoryReturnState returnState = this.facade.save(this.selectedCategory);
+					CategoryReturnState returnState = this.facade.save(this.selectedCategory, updName, updDescr);
 					if(returnState.isRight()) {
 						String message = "Category " + oldName + " updated to " + updName + ".";
 						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);

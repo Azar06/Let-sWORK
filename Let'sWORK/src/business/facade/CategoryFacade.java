@@ -19,8 +19,8 @@ public class CategoryFacade {
 		return this.manager.create(name, description);
 	}
 	
-	public CategoryReturnState save(Category category) {
-		return this.manager.save(category);
+	public CategoryReturnState save(Category category, String name, String description) {
+		return this.manager.save(category, name, description);
 	}
 	
 	public boolean delete(Category category) {

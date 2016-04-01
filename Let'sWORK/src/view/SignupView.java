@@ -357,6 +357,7 @@ public class SignupView extends AbstractView implements ActionListener {
 						if(returnState.isRight()) {
 							String message = "Successfully signed up";
 							JOptionPane.showMessageDialog(null, message, "Congrats, "+ username+". You have successfully registered into our application. You can now log in with the informations you filled.", JOptionPane.INFORMATION_MESSAGE);
+							this.getWindow().setView(new LoginView());
 						}
 						else {
 							String message = "Error at the creation of your account. Maybe an account with the same username is already existent.";

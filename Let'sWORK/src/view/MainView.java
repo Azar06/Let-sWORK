@@ -50,7 +50,7 @@ public class MainView extends AbstractView {
 		buttonPanel.add(logoutButton);
 		
 		if(user.getRoles().size() > 1){
-			JButton roleViewButton = new JButton("RoleView");
+			JButton roleViewButton = new JButton("Roles");
 			roleViewButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
