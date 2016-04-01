@@ -238,14 +238,23 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 				else {
 					lblUpdateLabel.setEnabled(true);
 					updateLabelField.setEnabled(true);
+					updateLabelField.setText(selectedService.getLabel());
+					
 					lblUpdateDescription.setEnabled(true);
 					updateDescrArea.setEnabled(true);
-					btnUpdate.setEnabled(true);
+					updateDescrArea.setText(selectedService.getDescription());
+
 					lblUpdateCategory.setEnabled(true);
 					updateServicecategorySpinner.setEnabled(true);
-					updateLabelField.setText(selectedService.getLabel());
-					updateDescrArea.setText(selectedService.getDescription());
-					updateServicecategorySpinner.setValue(selectedService.getCategory());
+					if(selectedService.getCategory() != null) {
+						updateServicecategorySpinner.setValue(selectedService.getCategory());
+					}
+					else {
+						updateServicecategorySpinner.setValue("");
+					}
+					
+
+					btnUpdate.setEnabled(true);
 				}
 			}
 		});
@@ -352,7 +361,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 			String updLabel = getUpdateLabelText();
 			String updDescr = getUpdateDescrText();
 			Category updCat = getUpdateCategory();
-			if(updLabel.equals("") || updDescr.equals("") ||updCat.equals(null)) { // si tous les champs ne sont pas renseignes
+			if(updLabel.equals("") || updDescr.equals("") || updCat == null) { // si tous les champs ne sont pas renseignes
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
