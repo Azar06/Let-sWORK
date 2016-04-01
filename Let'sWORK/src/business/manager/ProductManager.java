@@ -52,6 +52,7 @@ public class ProductManager {
 				product.save();
 			}
 			catch (SaveException e) {
+				e.printStackTrace();
 			}
 		}
 		return state;
