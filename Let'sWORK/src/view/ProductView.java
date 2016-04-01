@@ -244,6 +244,7 @@ public class ProductView extends AbstractContentView implements ActionListener {
 				if(selectedProduct == null) {
 					updateLabelField.setText("");
 					updateDescrArea.setText("");
+					updateBrandField.setText("");
 					lblUpdateLabel.setEnabled(false);
 					updateLabelField.setEnabled(false);
 					lblUpdateDescription.setEnabled(false);
@@ -262,10 +263,11 @@ public class ProductView extends AbstractContentView implements ActionListener {
 					btnUpdate.setEnabled(true);
 					lblUpdateCategory.setEnabled(true);
 					updateServicecategorySpinner.setEnabled(true);
-					lblUpdateBrand.setEnabled(false);
-					updateBrandField.setEnabled(false);
+					lblUpdateBrand.setEnabled(true);
+					updateBrandField.setEnabled(true);
 					updateLabelField.setText(selectedProduct.getLabel());
 					updateDescrArea.setText(selectedProduct.getDescription());
+					updateBrandField.setText(selectedProduct.getBrandName());
 					if(selectedProduct.getCategory() != null){
 						updateServicecategorySpinner.setValue(selectedProduct.getCategory().getName());
 					}
