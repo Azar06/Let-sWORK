@@ -266,7 +266,13 @@ public class ProductView extends AbstractContentView implements ActionListener {
 					updateBrandField.setEnabled(false);
 					updateLabelField.setText(selectedProduct.getLabel());
 					updateDescrArea.setText(selectedProduct.getDescription());
-					updateServicecategorySpinner.setValue(selectedProduct.getCategory());
+					if(selectedProduct.getCategory() != null){
+						updateServicecategorySpinner.setValue(selectedProduct.getCategory().getName());
+					}
+					else {
+						updateServicecategorySpinner.setValue("");
+					}
+					
 					updateBrandField.setText(selectedProduct.getBrandName());
 				}
 			}
