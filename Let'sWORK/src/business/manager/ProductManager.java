@@ -52,7 +52,6 @@ public class ProductManager {
 				product.save();
 			}
 			catch (SaveException e) {
-				System.out.println("ProductManager a fait la merde");
 			}
 		}
 		return state;
