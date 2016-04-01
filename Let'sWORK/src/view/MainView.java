@@ -62,7 +62,7 @@ public class MainView extends AbstractView {
 		
 		this.header.add(buttonPanel,  BorderLayout.EAST);
 				
-		// Layout de la vue entière
+		// Layout de la vue entiere
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		

@@ -13,16 +13,16 @@ public class ProductTest {
 		Factory factorio = new TestFactory();
         Product p = factorio.createProduct();
         p.setLabel("Marteau");
-        p.setDescription("Marteau très solide, idéal pour planter des clous");
+        p.setDescription("Marteau tres solide, idï¿½al pour planter des clous");
         p.setBrandName("Marque");
 
         assertEquals(p.getLabel(), "Marteau");
-        assertEquals(p.getDescription(), "Marteau très solide, idéal pour planter des clous");
+        assertEquals(p.getDescription(), "Marteau tres solide, idï¿½al pour planter des clous");
         assertEquals(p.getBrandName(), "Marque");
         
         p.setLabel("Clous");
-        p.setDescription("Très fins");
+        p.setDescription("Tres fins");
         assertEquals(p.getLabel(), "Clous");
-        assertEquals(p.getDescription(), "Très fins");
+        assertEquals(p.getDescription(), "Tres fins");
 	}
 }

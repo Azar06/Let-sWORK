@@ -19,7 +19,7 @@ public class LetsWorkWindow extends JFrame implements WindowIF {
 		this.setTitle("Let's WORK!");
 		//Definit sa taille : 800 pixels de large et 600 pixels de haut
 		this.setSize(width, height);
-		//Nous demandons maintenant à notre objet de se positionner au centre
+		//Nous demandons maintenant a notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//Termine le processus lorsqu on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
