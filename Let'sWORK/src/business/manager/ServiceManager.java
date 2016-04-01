@@ -30,6 +30,14 @@ public class ServiceManager {
 		ServiceReturnState state = new ServiceReturnState();
 		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
+		} else {
+			Service s = this.factorio.createService();
+			try {
+				s.loadWithLabel(label);
+				state.setLabelState("The label is already used.");
+			}
+			catch (LoadException ex){
+			}
 		}
 		if (description == null || description.length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
@@ -47,7 +55,7 @@ public class ServiceManager {
 				service.save();
 			}
 			catch (SaveException e) {
-				System.out.println("ServiceManager a fait la merde");
+				e.printStackTrace();
 			}
 		}
 		return state;
@@ -59,31 +67,34 @@ public class ServiceManager {
 	 * @param service : an object service
 	 * @return state : true if the modification has been done, false otherwise
 	 */
-	public ServiceReturnState save(Service service) {
+	public ServiceReturnState save(Service service, String label, String description, Category category) {
 		ServiceReturnState state = new ServiceReturnState();
-		if (service.getLabel() == null || service.getLabel().length() == 0) {
+		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
-		} else if (service.getDescription() == null || service.getDescription().length() == 0) {
-			state.setLabelState("You need to fill this field.");
-		} else {
+		} else if(!service.getLabel().equals(label)) {
 			Service s = this.factorio.createService();
 			try {
-				s.loadWithLabel(service.getLabel());
-				if(!s.equals(service)){
-					state.setLabelState("The label is already used.");
-				}
+				s.loadWithLabel(label);
+				state.setLabelState("The label is already used.");
 			}
 			catch (LoadException ex){
 			}
 		}
-		if (service.getDescription() == null || service.getDescription().length() == 0) {
-			state.setDescriptionState("You need to fill this field.");
+		if (description == null || description.length() == 0) {
+			state.setLabelState("You need to fill this field.");
+		}
+		if (category == null) {
+			state.setCategoryState("You need to fill this field.");
 		}
 		//If all is right
 		if (state.isRight()) {
+			service.setLabel(label);
+			service.setDescription(description);
+			service.setCategory(category);
 			try {
 				service.save();
 			} catch (SaveException e) {
+				e.printStackTrace();
 			}
 		}
 		return state;

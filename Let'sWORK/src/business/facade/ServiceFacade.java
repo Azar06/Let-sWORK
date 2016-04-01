@@ -19,8 +19,8 @@ public class ServiceFacade {
 		return this.manager.create(label, description, cat);
 	}
 	
-	public ServiceReturnState save(Service service) {
-		return this.manager.save(service);
+	public ServiceReturnState save(Service service, String label, String description, Category category) {
+		return this.manager.save(service, label, description, category);
 	}
 	
 	public boolean delete(Service service) {

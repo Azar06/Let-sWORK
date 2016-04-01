@@ -57,16 +57,16 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 	private CategorySet categories;
 	private Category selectedCategoryForCreation = null;
 	private Category selectedCategory = null;
-	private ServiceSet services;
+	private ServiceSet serviceSet;
 	private Service selectedService;
 	private Service selectedServiceToDelete = null;
 
 	public ServiceView() {
 		this.catFacade = new CategoryFacade();
 		this.servFacade = new ServiceFacade();
-		setLayout(null);
+		this.setLayout(null);
 		this.categories = this.catFacade.getCategorySet();
-		this.services = this.servFacade.getServiceSet();
+		this.serviceSet = this.servFacade.getServiceSet();
 		this.selectedService = null;
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -217,13 +217,13 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 
 		ArrayList<String> sList = new ArrayList<String>();
 		sList.add("");
-		sList.addAll(this.services.getLabels());
+		sList.addAll(this.serviceSet.getLabels());
 		updateServiceSpinner.setModel(new SpinnerListModel(sList));
 		deleteServiceSpinner.setModel(new SpinnerListModel(sList));
 		updateServiceSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				String labelWrite = (String) updateServiceSpinner.getValue();
-				selectedService = services.getServiceWithLabel(labelWrite);
+				selectedService = serviceSet.getServiceWithLabel(labelWrite);
 				if(selectedService == null) {
 					updateLabelField.setText("");
 					updateDescrArea.setText("");
@@ -234,6 +234,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 					btnUpdate.setEnabled(false);
 					lblUpdateCategory.setEnabled(false);
 					updateServicecategorySpinner.setEnabled(false);
+					updateServicecategorySpinner.setValue("");
 				}
 				else {
 					lblUpdateLabel.setEnabled(true);
@@ -247,13 +248,11 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 					lblUpdateCategory.setEnabled(true);
 					updateServicecategorySpinner.setEnabled(true);
 					if(selectedService.getCategory() != null) {
-						updateServicecategorySpinner.setValue(selectedService.getCategory());
+						updateServicecategorySpinner.setValue(selectedService.getCategory().getName());
 					}
 					else {
 						updateServicecategorySpinner.setValue("");
 					}
-					
-
 					btnUpdate.setEnabled(true);
 				}
 			}
@@ -261,7 +260,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 		deleteServiceSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				String labelWrite = (String) deleteServiceSpinner.getValue();
-				selectedServiceToDelete = services.getServiceWithLabel(labelWrite);
+				selectedServiceToDelete = serviceSet.getServiceWithLabel(labelWrite);
 				if(selectedServiceToDelete == null) {
 					btnDelete.setEnabled(false);
 				}
@@ -340,7 +339,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 			String newLabel = getNewLabelText();
 			String newDescr = getNewDescrText();
 			Category newCat = getNewCategory();
-			if(newLabel.equals("") || newDescr.equals("") || newCat.equals(null)) { // si tous les champs ne sont pas renseignes
+			if(newLabel.equals("") || newDescr.equals("") || newCat == null) { // si tous les champs ne sont pas renseignes
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
@@ -368,10 +367,7 @@ public class ServiceView extends AbstractContentView implements ActionListener {
 			else {
 				if(this.selectedService != null) {
 					String oldLabel = this.selectedService.getLabel();
-					this.selectedService.setLabel(updLabel);
-					this.selectedService.setDescription(updDescr);
-					this.selectedService.setCategory(updCat);
-					ServiceReturnState returnState = this.servFacade.save(this.selectedService);
+					ServiceReturnState returnState = this.servFacade.save(this.selectedService, updLabel, updDescr, updCat);
 					if(returnState.isRight()) {
 						String message = "Service " + oldLabel + " updated to " + updLabel + ".";
 						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);

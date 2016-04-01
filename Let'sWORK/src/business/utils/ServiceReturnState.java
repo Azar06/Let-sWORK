@@ -4,6 +4,7 @@ public class ServiceReturnState {
 	
 	private String labelState = null;
 	private String descriptionState = null;
+	private String categoryState = null;
 	
 	/**
 	 * Function which display if it is good or not
@@ -11,7 +12,7 @@ public class ServiceReturnState {
 	 */
 	public boolean isRight(){
 		//No error message on name and description
-		return (labelState == null && descriptionState == null);
+		return (labelState == null && descriptionState == null && categoryState == null);
 	}
 
 	/**
@@ -44,5 +45,13 @@ public class ServiceReturnState {
 	 */
 	public void setDescriptionState(String descriptionState) {
 		this.descriptionState = descriptionState;
+	}
+
+	public String getCategoryState() {
+		return categoryState;
+	}
+
+	public void setCategoryState(String categoryState) {
+		this.categoryState = categoryState;
 	}
 }

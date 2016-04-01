@@ -26,66 +26,101 @@ public class ServiceJDBC extends Service {
 
 	@Override
 	public void loadWithLabel(String label) throws LoadException {
-		// TODO Auto-generated method stub
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT id, label, description FROM public.service WHERE label=?;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT r.code, r.label, r.description, c.id, c.name, c.description AS catdescription FROM public.service s, public.ressource r, public.category c, public.categoryressource cr WHERE r.label = ? AND r.code = s.id AND r.code = cr.ressourcecode AND cr.categoryId = c.id;");
+			
 			prepare.setString(1, label);
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			// we use a while here bcs we know it is a list
 			if (result.next()) {
 				// We get the id, the name and the description
-				this.setId(result.getLong("id"));
+				this.setId(result.getLong("code"));
 				this.setLabel(result.getString("label"));
 				this.setDescription(result.getString("description"));
+				
+				CategoryJDBC category = new CategoryJDBC();
+				category.setId(result.getLong("id"));
+				category.setName(result.getString("name"));
+				category.setDescription(result.getString("catdescription"));
+				this.setCategory(category);
+				
 			} else {
 				throw new LoadException("Can't load the service");
 			}
 		}
 		catch (SQLException ex){
+			ex.printStackTrace();
 			throw new LoadException("Can't load the service");
 		}
 	}
 
 	@Override
 	public void save() throws SaveException {
-		// TODO Auto-generated method stub
-		try {
-			Connection connection = DataBaseConnection.getConnection();
-			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement(
-					"INSERT INTO public.ressource (code, label, description) VALUES(DEFAULT, ?, ?) RETURNING code;");
-			prepare.setString(1, this.getLabel());
-			prepare.setString(2, this.getDescription());
-			// Execution of the query
-			ResultSet result = prepare.executeQuery();
-			// we don't use a while here bcs we know label is unique
-			if (result.next()) {
-				// We get the label and the description and the database
-				this.setId(result.getLong("code"));
-//				System.out.println("id : " + this.getId());
-			} else {
-				// If there is no result : Exception
+		if(this.id < 0){
+			// Insert
+			try {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement(
+						"INSERT INTO public.ressource (code, label, description) VALUES(DEFAULT, ?, ?) RETURNING code;");
+				prepare.setString(1, this.getLabel());
+				prepare.setString(2, this.getDescription());
+				// Execution of the query
+				ResultSet result = prepare.executeQuery();
+				// we don't use a while here bcs we know label is unique
+				if (result.next()) {
+					this.setId(result.getLong("code"));
+				} else {
+					// If there is no result : Exception
+					throw new SaveException("An error");
+				}
+				
+				
+				PreparedStatement prepare2 = connection.prepareStatement(
+						"INSERT INTO public.service (id) VALUES(?)");
+				prepare2.setLong(1, this.getId());
+				// Execution of the query
+				prepare2.execute();
+				
+				PreparedStatement prepare3 = connection.prepareStatement(
+						"INSERT INTO public.categoryressource (categoryid, ressourcecode) VALUES(?, ?)");
+				prepare3.setLong(1, ((CategoryJDBC)this.getCategory()).getId());
+				prepare3.setLong(2, this.getId());
+				prepare3.execute();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new SaveException("An error");
 			}
-
-			PreparedStatement prepare2 = connection.prepareStatement(
-					"INSERT INTO public.service (id) VALUES(?)");
-			prepare2.setLong(1, this.getId());
-			// Execution of the query
-			prepare2.executeUpdate();
-		} catch (SQLException e) {
-			throw new SaveException("An error");
 		}
-
-
+		else {
+			try {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement(
+						"UPDATE public.ressource SET label = ?, description = ? WHERE code = ?;");
+				prepare.setString(1, this.getLabel());
+				prepare.setString(2, this.getDescription());
+				prepare.setLong(3, this.getId());
+				prepare.execute();
+				
+				PreparedStatement prepare2 = connection.prepareStatement(
+						"UPDATE public.categoryressource SET categoryid = ? WHERE ressourcecode = ?;");
+				prepare2.setLong(1, ((CategoryJDBC)this.getCategory()).getId());
+				prepare2.setLong(2, this.getId());
+				prepare2.execute();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new SaveException("An error");
+			}
+		}
 	}
 
 	@Override
 	public void delete() throws DeleteException {
-		// TODO Auto-generated method stub
 		if(this.id >= 0){
 			try {
 				Connection connection = DataBaseConnection.getConnection();
