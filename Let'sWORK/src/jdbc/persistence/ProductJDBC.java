@@ -26,21 +26,19 @@ public class ProductJDBC extends Product {
 	
 	@Override
 	public void loadWithLabel(String label) throws LoadException {
-		// TODO Auto-generated method stub
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT id, label, description, brandName FROM public.product WHERE label=?;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT code FROM public.ressource WHERE label = ?;");
+
 			prepare.setString(1, label);
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			// we use a while here bcs we know it is a list
 			if (result.next()) {
 				// We get the id, the name and the description
-				this.setId(result.getLong("id"));
-				this.setLabel(result.getString("label"));
-				this.setDescription(result.getString("description"));
-				this.setBrandName(result.getString("brandName"));
+				this.setId(result.getLong("code"));
+
 			} else {
 				throw new LoadException("Can't load the service");
 			}
@@ -52,30 +50,60 @@ public class ProductJDBC extends Product {
 	
 	@Override
 	public void save() throws SaveException {
-		// TODO Auto-generated method stub
 		try {
-			Connection connection = DataBaseConnection.getConnection();
-			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement(
-					"INSERT INTO public.ressource (code, label, description) VALUES(DEFAULT, ?, ?) RETURNING code;");
-			prepare.setString(1, this.getLabel());
-			prepare.setString(2, this.getDescription());
-			// Execution of the query
-			ResultSet result = prepare.executeQuery();
-			// we don't use a while here bcs we know label is unique
-			if (result.next()) {
-				// We get the label and the description and the database
-				this.setId(result.getLong("code"));
-			} else {
-				// If there is no result : Exception
-				throw new SaveException("An error");
+			if(this.id < 0) {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement(
+						"INSERT INTO public.ressource (code, label, description) VALUES(DEFAULT, ?, ?) RETURNING code;");
+				prepare.setString(1, this.getLabel());
+				prepare.setString(2, this.getDescription());
+				// Execution of the query
+				ResultSet result = prepare.executeQuery();
+				// we don't use a while here bcs we know label is unique
+				if (result.next()) {
+					// We get the label and the description and the database
+					this.setId(result.getLong("code"));
+				} else {
+					// If there is no result : Exception
+					throw new SaveException("An error");
+				}
+	
+				PreparedStatement prepare2 = connection.prepareStatement("INSERT INTO public.product (id, brandname) VALUES(?, ?);");
+				prepare2.setLong(1, this.getId());
+				prepare2.setString(2, this.getBrandName());
+				// Execution of the query
+				prepare2.execute();
+				
+				PreparedStatement prepare3 = connection.prepareStatement(
+						"INSERT INTO public.categoryressource (categoryid, ressourcecode) VALUES(?, ?)");
+				prepare3.setLong(1, ((CategoryJDBC)this.getCategory()).getId());
+				prepare3.setLong(2, this.getId());
+				prepare3.execute();
 			}
-
-			PreparedStatement prepare2 = connection.prepareStatement("INSERT INTO public.product (id, brandname) VALUES(?, ?);");
-			prepare2.setLong(1, this.getId());
-			prepare2.setString(2, this.getBrandName());
-			// Execution of the query
-			prepare2.executeUpdate();
+			else {
+				Connection connection = DataBaseConnection.getConnection();
+				// Preparation for the query
+				PreparedStatement prepare = connection.prepareStatement(
+						"UPDATE public.ressource SET label = ?, description = ? WHERE code = ?;");
+				prepare.setString(1, this.getLabel());
+				prepare.setString(2, this.getDescription());
+				prepare.setLong(3, this.getId());
+				prepare.execute();
+				
+				PreparedStatement prepare2 = connection.prepareStatement("UPDATE public.product SET brandname = ? WHERE id = ?;");
+				prepare2.setString(1, this.getBrandName());
+				prepare2.setLong(2, this.getId());
+				
+				// Execution of the query
+				prepare2.execute();
+				
+				PreparedStatement prepare3 = connection.prepareStatement(
+						"UPDATE public.categoryressource SET categoryid = ? WHERE ressourcecode = ?;");
+				prepare3.setLong(1, ((CategoryJDBC)this.getCategory()).getId());
+				prepare3.setLong(2, this.getId());
+				prepare3.execute();
+			}
 		} catch (SQLException e) {
 			System.out.println(e.toString());
 			throw new SaveException("An error");
@@ -84,7 +112,6 @@ public class ProductJDBC extends Product {
 	
 	@Override
 	public void delete() throws DeleteException {
-		// TODO Auto-generated method stub
 		if(this.id >= 0){
 			try {
 				Connection connection = DataBaseConnection.getConnection();

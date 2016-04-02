@@ -17,9 +17,9 @@ public class ProductManager {
 		// FactoryJDBC creation
 		this.factorio = new FactoryJDBC();
 	}
-	
+
 	/**
-	 * Insert a new product in the database 
+	 * Insert a new product in the database
 	 * if all the fields have been filled in and if it does not already exist in the database
 	 * @param label : the label of the product we want to create
 	 * @param description : the description of the product we want to create
@@ -31,6 +31,15 @@ public class ProductManager {
 		ProductReturnState state = new ProductReturnState();
 		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
+		} else {
+			Product p = this.factorio.createProduct();
+			try {
+				p.loadWithLabel(label);
+				System.out.println("COUCOU");
+				state.setLabelState("The label is already used.");
+			}
+			catch (LoadException ex){
+			}
 		}
 		if (description == null || description.length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
@@ -57,48 +66,51 @@ public class ProductManager {
 		}
 		return state;
 	}
-	
+
 	/**
-	 * Update a product in the database 
+	 * Update a product in the database
 	 * if all the fields have been filled in and if it already exists in the database
 	 * @param product : an object product
 	 * @return state : true if the modification has been done, false otherwise
 	 */
-	public ProductReturnState save(Product product) {
+	public ProductReturnState save(Product product, String label, String description, String brandName, Category category) {
 		ProductReturnState state = new ProductReturnState();
-		if (product.getLabel() == null || product.getLabel().length() == 0) {
+		if (label == null || label.length() == 0) {
 			state.setLabelState("You need to fill this field.");
-		} else if (product.getDescription() == null || product.getDescription().length() == 0) {
-			state.setLabelState("You need to fill this field.");
-		} else if (product.getBrandName() == null || product.getBrandName().length() == 0){
-			state.setBrandNameState("You need to fill this fiels.");
-		} else {
+		}
+		else if(!label.equals(product.getLabel())) {
 			Product p = this.factorio.createProduct();
 			try {
-				p.loadWithLabel(product.getLabel());
-				if(!p.equals(product)){
-					state.setLabelState("The label is already used.");
-				}
+				p.loadWithLabel(label);
+				state.setLabelState("The label is already used.");
 			}
 			catch (LoadException ex){
 			}
 		}
-		if (product.getDescription() == null || product.getDescription().length() == 0) {
+		if (description == null || description.length() == 0) {
 			state.setDescriptionState("You need to fill this field.");
 		}
-		if (product.getBrandName() == null || product.getBrandName().length() == 0) {
+		if (brandName == null || brandName.length() == 0){
+			state.setBrandNameState("You need to fill this fiels.");
+		}
+		if (category == null) {
 			state.setBrandNameState("You need to fill this field.");
 		}
 		//If all is right
 		if (state.isRight()) {
 			try {
+				product.setLabel(label);
+				product.setDescription(description);
+				product.setBrandName(brandName);
+				product.setCategory(category);
 				product.save();
 			} catch (SaveException e) {
+				state.setLabelState("SQL error");
 			}
 		}
 		return state;
 	}
-	
+
 	/**
 	 * Delete a product if it is present in the database
 	 * @param product : an object product
@@ -115,7 +127,7 @@ public class ProductManager {
 		}
 		return resultState;
 	}
-	
+
 	/**
 	 * Get a collection of products
 	 * @return the collection of products
@@ -125,6 +137,7 @@ public class ProductManager {
 		try {
 			pSet.loadAll();
 		} catch (LoadException e) {
+			e.printStackTrace();
 		}
 		return pSet;
 	}

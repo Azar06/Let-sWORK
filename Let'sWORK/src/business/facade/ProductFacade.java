@@ -19,8 +19,8 @@ public class ProductFacade {
 		return this.manager.create(label, description, brandName, cat);
 	}
 	
-	public ProductReturnState save(Product product) {
-		return this.manager.save(product);
+	public ProductReturnState save(Product product, String label, String description, String brandName, Category category) {
+		return this.manager.save(product, label, description, brandName, category);
 	}
 	
 	public boolean delete(Product product) {

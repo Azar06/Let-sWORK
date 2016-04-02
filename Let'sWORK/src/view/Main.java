@@ -1,7 +1,7 @@
 package view;
 
 public class Main {
-	//LOL
+	// Welcome
 	public static void main(String[] args) {
 		System.out.println("Hi on Let'sWORK application !");
 		// We can use the database here !!

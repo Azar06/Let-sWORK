@@ -19,32 +19,31 @@ public class ProductSetJDBC extends ProductSet {
 		try {
 			Connection connection = DataBaseConnection.getConnection();
 			// Preparation for the query
-			PreparedStatement prepare = connection.prepareStatement("SELECT * FROM public.product;");
+			PreparedStatement prepare = connection.prepareStatement("SELECT r.code, r.label, r.description, p.brandName, c.id, c.name, c.description AS catdescription FROM public.product p, public.ressource r, public.category c, public.categoryressource cr WHERE r.code = p.id AND r.code = cr.ressourcecode AND cr.categoryId = c.id;");
+
 			// Execution of the query
 			ResultSet result = prepare.executeQuery();
 			
 			while (result.next()) {
 				ProductJDBC prod = new ProductJDBC();
 
-				prod.setId(result.getLong("id"));
+				prod.setId(result.getLong("code"));
 				prod.setBrandName(result.getString("brandName"));
-				// Preparation for the query
-				PreparedStatement prepare2 = connection.prepareStatement("SELECT * FROM public.ressource WHERE code = ?;");
-				prepare2.setLong(1, prod.getId());
-				// Execution of the query
-				ResultSet result2 = prepare2.executeQuery();
+				prod.setLabel(result.getString("label"));
+				prod.setDescription(result.getString("description"));
+				
+				CategoryJDBC category = new CategoryJDBC();
+				category.setId(result.getLong("id"));
+				category.setName(result.getString("name"));
+				category.setDescription(result.getString("catdescription"));
+				prod.setCategory(category);
 
-				if (result2.next()) {
-					prod.setLabel(result2.getString("label"));
-					prod.setDescription(result2.getString("description"));
-
-					products.add(prod);
-				}
+				products.add(prod);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new LoadException("Can't load Products");
 		}
 		this.setProducts(products);
-		
 	}
 }

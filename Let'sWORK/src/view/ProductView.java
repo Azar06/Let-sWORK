@@ -61,7 +61,7 @@ public class ProductView extends AbstractContentView implements ActionListener {
 	private CategorySet categories;
 	private Category selectedCategoryForCreation = null;
 	private Category selectedCategory = null;
-	private ProductSet products;
+	private ProductSet productSet;
 	private Product selectedProduct;
 	private Product selectedProductToDelete = null;
 	private JTextField newBrandField;
@@ -72,7 +72,7 @@ public class ProductView extends AbstractContentView implements ActionListener {
 		this.prFacade = new ProductFacade();
 		setLayout(null);
 		this.categories = this.catFacade.getCategorySet();
-		this.products = this.prFacade.getProductSet();
+		this.productSet = this.prFacade.getProductSet();
 		this.selectedProduct = null;
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -234,13 +234,13 @@ public class ProductView extends AbstractContentView implements ActionListener {
 
 		ArrayList<String> sList = new ArrayList<String>();
 		sList.add("");
-		sList.addAll(this.products.getLabels());
+		sList.addAll(this.productSet.getLabels());
 		updateProductlabelSpinner.setModel(new SpinnerListModel(sList));
 		deleteProductlabelSpinner.setModel(new SpinnerListModel(sList));
 		updateProductlabelSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				String labelWrite = (String) updateProductlabelSpinner.getValue();
-				selectedProduct = products.getProductWithLabel(labelWrite);
+				selectedProduct = productSet.getProductWithLabel(labelWrite);
 				if(selectedProduct == null) {
 					updateLabelField.setText("");
 					updateDescrArea.setText("");
@@ -282,7 +282,7 @@ public class ProductView extends AbstractContentView implements ActionListener {
 		deleteProductlabelSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				String labelWrite = (String) deleteProductlabelSpinner.getValue();
-				selectedProductToDelete = products.getProductWithLabel(labelWrite);
+				selectedProductToDelete = productSet.getProductWithLabel(labelWrite);
 				if(selectedProductToDelete == null) {
 					btnDelete.setEnabled(false);
 				}
@@ -412,20 +412,16 @@ public class ProductView extends AbstractContentView implements ActionListener {
 		else if(cmd.equals("update")) {
 			String updLabel = getUpdateLabelText();
 			String updDescr = getUpdateDescrText();
-			String updBrand = getNewBrandText();
+			String updBrand = getUpdateBrandText();
 			Category updCat = getUpdateCategory();
-			if(updLabel.equals("") || updDescr.equals("") ||updCat.equals(null)) { // si tous les champs ne sont pas renseignes
+			if(updLabel.equals("") || updDescr.equals("") || updCat == null) { // si tous les champs ne sont pas renseignes
 				String message = "All fields must be filled in.";
 				JOptionPane.showMessageDialog(null, message, "Missing fields", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				if(this.selectedProduct != null) {
 					String oldLabel = this.selectedProduct.getLabel();
-					this.selectedProduct.setLabel(updLabel);
-					this.selectedProduct.setDescription(updDescr);
-					this.selectedProduct.setBrandName(updBrand);
-					this.selectedProduct.setCategory(updCat);
-					ProductReturnState returnState = this.prFacade.save(this.selectedProduct);
+					ProductReturnState returnState = this.prFacade.save(this.selectedProduct, updLabel, updDescr, updBrand, updCat);
 					if(returnState.isRight()) {
 						String message = "Service " + oldLabel + " updated to " + updLabel + ".";
 						JOptionPane.showMessageDialog(null, message, "Update completed", JOptionPane.INFORMATION_MESSAGE);
